@@ -4,6 +4,7 @@ Public entry point: run_medical_evidence_agent(state, model=None).
 No model, API key, or network connection is needed merely to import this file.
 """
 import argparse
+from copy import deepcopy
 from datetime import datetime, timezone
 import json
 import os
