@@ -1,0 +1,1582 @@
+[
+  {
+    "Patient_ID": "PatientID_0003",
+    "Sex at Birth": "Female",
+    "Age at diagnosis": "57",
+    "Primary Diagnosis": "GBM",
+    "Grade of Primary Brain Tumor": "4",
+    "Progression": "1",
+    "Time to First Progression (Days)": "286",
+    "Overall Survival (Death)": "0"
+  },
+  {
+    "Patient_ID": "PatientID_0004",
+    "Sex at Birth": "Female",
+    "Age at diagnosis": "67",
+    "Primary Diagnosis": "GBM",
+    "Grade of Primary Brain Tumor": "4",
+    "Progression": "0",
+    "Time to First Progression (Days)": null,
+    "Overall Survival (Death)": "0"
+  },
+  {
+    "Patient_ID": "PatientID_0005",
+    "Sex at Birth": "Male",
+    "Age at diagnosis": "49",
+    "Primary Diagnosis": "GBM",
+    "Grade of Primary Brain Tumor": "4",
+    "Progression": "1",
+    "Time to First Progression (Days)": "344",
+    "Overall Survival (Death)": "1"
+  },
+  {
+    "Patient_ID": "PatientID_0006",
+    "Sex at Birth": "Male",
+    "Age at diagnosis": "60",
+    "Primary Diagnosis": "GBM",
+    "Grade of Primary Brain Tumor": "4",
+    "Progression": "1",
+    "Time to First Progression (Days)": "175",
+    "Overall Survival (Death)": "1"
+  },
+  {
+    "Patient_ID": "PatientID_0007",
+    "Sex at Birth": "Male",
+    "Age at diagnosis": "79",
+    "Primary Diagnosis": "GBM",
+    "Grade of Primary Brain Tumor": "4",
+    "Progression": "0",
+    "Time to First Progression (Days)": null,
+    "Overall Survival (Death)": "1"
+  },
+  {
+    "Patient_ID": "PatientID_0008",
+    "Sex at Birth": "Male",
+    "Age at diagnosis": "50",
+    "Primary Diagnosis": "GBM",
+    "Grade of Primary Brain Tumor": "4",
+    "Progression": "1",
+    "Time to First Progression (Days)": "97",
+    "Overall Survival (Death)": "1"
+  },
+  {
+    "Patient_ID": "PatientID_0009",
+    "Sex at Birth": "Male",
+    "Age at diagnosis": "27",
+    "Primary Diagnosis": "GBM",
+    "Grade of Primary Brain Tumor": "4",
+    "Progression": "1",
+    "Time to First Progression (Days)": "97",
+    "Overall Survival (Death)": "0"
+  },
+  {
+    "Patient_ID": "PatientID_0010",
+    "Sex at Birth": "Male",
+    "Age at diagnosis": "61",
+    "Primary Diagnosis": "GBM",
+    "Grade of Primary Brain Tumor": "4",
+    "Progression": "1",
+    "Time to First Progression (Days)": "175",
+    "Overall Survival (Death)": "1"
+  },
+  {
+    "Patient_ID": "PatientID_0011",
+    "Sex at Birth": "Male",
+    "Age at diagnosis": "67",
+    "Primary Diagnosis": "GBM",
+    "Grade of Primary Brain Tumor": "4",
+    "Progression": "0",
+    "Time to First Progression (Days)": null,
+    "Overall Survival (Death)": "1"
+  },
+  {
+    "Patient_ID": "PatientID_0012",
+    "Sex at Birth": "Male",
+    "Age at diagnosis": "53",
+    "Primary Diagnosis": "GBM",
+    "Grade of Primary Brain Tumor": "4",
+    "Progression": "1",
+    "Time to First Progression (Days)": "176",
+    "Overall Survival (Death)": "1"
+  },
+  {
+    "Patient_ID": "PatientID_0013",
+    "Sex at Birth": "Female",
+    "Age at diagnosis": "46",
+    "Primary Diagnosis": "GBM",
+    "Grade of Primary Brain Tumor": "4",
+    "Progression": "0",
+    "Time to First Progression (Days)": null,
+    "Overall Survival (Death)": "1"
+  },
+  {
+    "Patient_ID": "PatientID_0014",
+    "Sex at Birth": "Female",
+    "Age at diagnosis": "53",
+    "Primary Diagnosis": "GBM",
+    "Grade of Primary Brain Tumor": "4",
+    "Progression": "1",
+    "Time to First Progression (Days)": "552",
+    "Overall Survival (Death)": "1"
+  },
+  {
+    "Patient_ID": "PatientID_0015",
+    "Sex at Birth": "Female",
+    "Age at diagnosis": "38",
+    "Primary Diagnosis": "GBM",
+    "Grade of Primary Brain Tumor": "4",
+    "Progression": "0",
+    "Time to First Progression (Days)": null,
+    "Overall Survival (Death)": "0"
+  },
+  {
+    "Patient_ID": "PatientID_0018",
+    "Sex at Birth": "Male",
+    "Age at diagnosis": "53",
+    "Primary Diagnosis": "GBM",
+    "Grade of Primary Brain Tumor": "4",
+    "Progression": "1",
+    "Time to First Progression (Days)": "255",
+    "Overall Survival (Death)": "1"
+  },
+  {
+    "Patient_ID": "PatientID_0019",
+    "Sex at Birth": "Female",
+    "Age at diagnosis": "54",
+    "Primary Diagnosis": "GBM",
+    "Grade of Primary Brain Tumor": "4",
+    "Progression": "1",
+    "Time to First Progression (Days)": "477",
+    "Overall Survival (Death)": "0"
+  },
+  {
+    "Patient_ID": "PatientID_0020",
+    "Sex at Birth": "Male",
+    "Age at diagnosis": "56",
+    "Primary Diagnosis": "GBM",
+    "Grade of Primary Brain Tumor": "4",
+    "Progression": "0",
+    "Time to First Progression (Days)": null,
+    "Overall Survival (Death)": "0"
+  },
+  {
+    "Patient_ID": "PatientID_0021",
+    "Sex at Birth": "Male",
+    "Age at diagnosis": "58",
+    "Primary Diagnosis": "GBM",
+    "Grade of Primary Brain Tumor": "4",
+    "Progression": "1",
+    "Time to First Progression (Days)": "330",
+    "Overall Survival (Death)": "0"
+  },
+  {
+    "Patient_ID": "PatientID_0022",
+    "Sex at Birth": "Male",
+    "Age at diagnosis": "53",
+    "Primary Diagnosis": "GBM",
+    "Grade of Primary Brain Tumor": "4",
+    "Progression": "1",
+    "Time to First Progression (Days)": "147",
+    "Overall Survival (Death)": "0"
+  },
+  {
+    "Patient_ID": "PatientID_0023",
+    "Sex at Birth": "Male",
+    "Age at diagnosis": "66",
+    "Primary Diagnosis": "GBM",
+    "Grade of Primary Brain Tumor": "4",
+    "Progression": "0",
+    "Time to First Progression (Days)": null,
+    "Overall Survival (Death)": "1"
+  },
+  {
+    "Patient_ID": "PatientID_0024",
+    "Sex at Birth": "Female",
+    "Age at diagnosis": "78",
+    "Primary Diagnosis": "GBM",
+    "Grade of Primary Brain Tumor": "4",
+    "Progression": "1",
+    "Time to First Progression (Days)": "92",
+    "Overall Survival (Death)": "0"
+  },
+  {
+    "Patient_ID": "PatientID_0025",
+    "Sex at Birth": "Female",
+    "Age at diagnosis": "58",
+    "Primary Diagnosis": "GBM",
+    "Grade of Primary Brain Tumor": "4",
+    "Progression": "1",
+    "Time to First Progression (Days)": "213",
+    "Overall Survival (Death)": "1"
+  },
+  {
+    "Patient_ID": "PatientID_0026",
+    "Sex at Birth": "Male",
+    "Age at diagnosis": "57",
+    "Primary Diagnosis": "GBM",
+    "Grade of Primary Brain Tumor": "4",
+    "Progression": "1",
+    "Time to First Progression (Days)": "71",
+    "Overall Survival (Death)": "1"
+  },
+  {
+    "Patient_ID": "PatientID_0027",
+    "Sex at Birth": "Female",
+    "Age at diagnosis": "82",
+    "Primary Diagnosis": "GBM",
+    "Grade of Primary Brain Tumor": "4",
+    "Progression": "0",
+    "Time to First Progression (Days)": null,
+    "Overall Survival (Death)": "1"
+  },
+  {
+    "Patient_ID": "PatientID_0029",
+    "Sex at Birth": "Male",
+    "Age at diagnosis": "69",
+    "Primary Diagnosis": "GBM",
+    "Grade of Primary Brain Tumor": "4",
+    "Progression": "1",
+    "Time to First Progression (Days)": "369",
+    "Overall Survival (Death)": "1"
+  },
+  {
+    "Patient_ID": "PatientID_0030",
+    "Sex at Birth": "Female",
+    "Age at diagnosis": "69",
+    "Primary Diagnosis": "GBM",
+    "Grade of Primary Brain Tumor": "4",
+    "Progression": "1",
+    "Time to First Progression (Days)": "510",
+    "Overall Survival (Death)": "1"
+  },
+  {
+    "Patient_ID": "PatientID_0031",
+    "Sex at Birth": "Male",
+    "Age at diagnosis": "53",
+    "Primary Diagnosis": "GBM",
+    "Grade of Primary Brain Tumor": "4",
+    "Progression": "1",
+    "Time to First Progression (Days)": "396",
+    "Overall Survival (Death)": "1"
+  },
+  {
+    "Patient_ID": "PatientID_0032",
+    "Sex at Birth": "Female",
+    "Age at diagnosis": "60",
+    "Primary Diagnosis": "GBM",
+    "Grade of Primary Brain Tumor": "4",
+    "Progression": "1",
+    "Time to First Progression (Days)": "154",
+    "Overall Survival (Death)": "1"
+  },
+  {
+    "Patient_ID": "PatientID_0033",
+    "Sex at Birth": "Male",
+    "Age at diagnosis": "53",
+    "Primary Diagnosis": "GBM",
+    "Grade of Primary Brain Tumor": "4",
+    "Progression": "1",
+    "Time to First Progression (Days)": "113",
+    "Overall Survival (Death)": "1"
+  },
+  {
+    "Patient_ID": "PatientID_0034",
+    "Sex at Birth": "Male",
+    "Age at diagnosis": "53",
+    "Primary Diagnosis": "GBM",
+    "Grade of Primary Brain Tumor": "4",
+    "Progression": "1",
+    "Time to First Progression (Days)": "113",
+    "Overall Survival (Death)": "1"
+  },
+  {
+    "Patient_ID": "PatientID_0035",
+    "Sex at Birth": "Male",
+    "Age at diagnosis": "54",
+    "Primary Diagnosis": "GBM",
+    "Grade of Primary Brain Tumor": "4",
+    "Progression": "1",
+    "Time to First Progression (Days)": "64",
+    "Overall Survival (Death)": "1"
+  },
+  {
+    "Patient_ID": "PatientID_0036",
+    "Sex at Birth": "Female",
+    "Age at diagnosis": "55",
+    "Primary Diagnosis": "GBM",
+    "Grade of Primary Brain Tumor": "4",
+    "Progression": "1",
+    "Time to First Progression (Days)": "156",
+    "Overall Survival (Death)": "1"
+  },
+  {
+    "Patient_ID": "PatientID_0037",
+    "Sex at Birth": "Male",
+    "Age at diagnosis": "87",
+    "Primary Diagnosis": "GBM",
+    "Grade of Primary Brain Tumor": "4",
+    "Progression": "1",
+    "Time to First Progression (Days)": "371",
+    "Overall Survival (Death)": "0"
+  },
+  {
+    "Patient_ID": "PatientID_0038",
+    "Sex at Birth": "Male",
+    "Age at diagnosis": "53",
+    "Primary Diagnosis": "GBM",
+    "Grade of Primary Brain Tumor": "4",
+    "Progression": "1",
+    "Time to First Progression (Days)": "255",
+    "Overall Survival (Death)": "1"
+  },
+  {
+    "Patient_ID": "PatientID_0039",
+    "Sex at Birth": "Female",
+    "Age at diagnosis": "66",
+    "Primary Diagnosis": "GBM",
+    "Grade of Primary Brain Tumor": "4",
+    "Progression": "1",
+    "Time to First Progression (Days)": "197",
+    "Overall Survival (Death)": "1"
+  },
+  {
+    "Patient_ID": "PatientID_0040",
+    "Sex at Birth": "Female",
+    "Age at diagnosis": "46",
+    "Primary Diagnosis": "GBM",
+    "Grade of Primary Brain Tumor": "4",
+    "Progression": "0",
+    "Time to First Progression (Days)": null,
+    "Overall Survival (Death)": "0"
+  },
+  {
+    "Patient_ID": "PatientID_0041",
+    "Sex at Birth": "Female",
+    "Age at diagnosis": "74",
+    "Primary Diagnosis": "GBM",
+    "Grade of Primary Brain Tumor": "4",
+    "Progression": "1",
+    "Time to First Progression (Days)": "259",
+    "Overall Survival (Death)": "0"
+  },
+  {
+    "Patient_ID": "PatientID_0042",
+    "Sex at Birth": "Female",
+    "Age at diagnosis": "69",
+    "Primary Diagnosis": "GBM",
+    "Grade of Primary Brain Tumor": "4",
+    "Progression": "1",
+    "Time to First Progression (Days)": "388",
+    "Overall Survival (Death)": "1"
+  },
+  {
+    "Patient_ID": "PatientID_0043",
+    "Sex at Birth": "Male",
+    "Age at diagnosis": "85",
+    "Primary Diagnosis": "GBM",
+    "Grade of Primary Brain Tumor": "4",
+    "Progression": "1",
+    "Time to First Progression (Days)": "55",
+    "Overall Survival (Death)": "1"
+  },
+  {
+    "Patient_ID": "PatientID_0044",
+    "Sex at Birth": "Female",
+    "Age at diagnosis": "50",
+    "Primary Diagnosis": "GBM",
+    "Grade of Primary Brain Tumor": "4",
+    "Progression": "0",
+    "Time to First Progression (Days)": null,
+    "Overall Survival (Death)": "1"
+  },
+  {
+    "Patient_ID": "PatientID_0045",
+    "Sex at Birth": "Male",
+    "Age at diagnosis": "64",
+    "Primary Diagnosis": "GBM",
+    "Grade of Primary Brain Tumor": "4",
+    "Progression": "1",
+    "Time to First Progression (Days)": "98",
+    "Overall Survival (Death)": "0"
+  },
+  {
+    "Patient_ID": "PatientID_0046",
+    "Sex at Birth": "Male",
+    "Age at diagnosis": "44",
+    "Primary Diagnosis": "GBM",
+    "Grade of Primary Brain Tumor": "4",
+    "Progression": "0",
+    "Time to First Progression (Days)": null,
+    "Overall Survival (Death)": "0"
+  },
+  {
+    "Patient_ID": "PatientID_0047",
+    "Sex at Birth": "Male",
+    "Age at diagnosis": "71",
+    "Primary Diagnosis": "GBM",
+    "Grade of Primary Brain Tumor": "4",
+    "Progression": "1",
+    "Time to First Progression (Days)": "63",
+    "Overall Survival (Death)": "1"
+  },
+  {
+    "Patient_ID": "PatientID_0049",
+    "Sex at Birth": "Female",
+    "Age at diagnosis": "73",
+    "Primary Diagnosis": "GBM",
+    "Grade of Primary Brain Tumor": "4",
+    "Progression": "1",
+    "Time to First Progression (Days)": "216",
+    "Overall Survival (Death)": "0"
+  },
+  {
+    "Patient_ID": "PatientID_0051",
+    "Sex at Birth": "Female",
+    "Age at diagnosis": "58",
+    "Primary Diagnosis": "GBM",
+    "Grade of Primary Brain Tumor": "4",
+    "Progression": "1",
+    "Time to First Progression (Days)": "237",
+    "Overall Survival (Death)": "1"
+  },
+  {
+    "Patient_ID": "PatientID_0052",
+    "Sex at Birth": "Female",
+    "Age at diagnosis": "58",
+    "Primary Diagnosis": "GBM",
+    "Grade of Primary Brain Tumor": "4",
+    "Progression": "1",
+    "Time to First Progression (Days)": "108",
+    "Overall Survival (Death)": "1"
+  },
+  {
+    "Patient_ID": "PatientID_0053",
+    "Sex at Birth": "Female",
+    "Age at diagnosis": "37",
+    "Primary Diagnosis": "GBM",
+    "Grade of Primary Brain Tumor": "4",
+    "Progression": "1",
+    "Time to First Progression (Days)": "714",
+    "Overall Survival (Death)": "0"
+  },
+  {
+    "Patient_ID": "PatientID_0054",
+    "Sex at Birth": "Female",
+    "Age at diagnosis": "65",
+    "Primary Diagnosis": "GBM",
+    "Grade of Primary Brain Tumor": "4",
+    "Progression": "1",
+    "Time to First Progression (Days)": "99",
+    "Overall Survival (Death)": "1"
+  },
+  {
+    "Patient_ID": "PatientID_0055",
+    "Sex at Birth": "Male",
+    "Age at diagnosis": "63",
+    "Primary Diagnosis": "GBM",
+    "Grade of Primary Brain Tumor": "4",
+    "Progression": "1",
+    "Time to First Progression (Days)": "381",
+    "Overall Survival (Death)": "1"
+  },
+  {
+    "Patient_ID": "PatientID_0056",
+    "Sex at Birth": "Male",
+    "Age at diagnosis": "66",
+    "Primary Diagnosis": "GBM",
+    "Grade of Primary Brain Tumor": "4",
+    "Progression": "1",
+    "Time to First Progression (Days)": "273",
+    "Overall Survival (Death)": "1"
+  },
+  {
+    "Patient_ID": "PatientID_0057",
+    "Sex at Birth": "Male",
+    "Age at diagnosis": "85",
+    "Primary Diagnosis": "GBM",
+    "Grade of Primary Brain Tumor": "4",
+    "Progression": "1",
+    "Time to First Progression (Days)": "9",
+    "Overall Survival (Death)": "0"
+  },
+  {
+    "Patient_ID": "PatientID_0058",
+    "Sex at Birth": "Male",
+    "Age at diagnosis": "55",
+    "Primary Diagnosis": "GBM",
+    "Grade of Primary Brain Tumor": "4",
+    "Progression": "1",
+    "Time to First Progression (Days)": "41",
+    "Overall Survival (Death)": "1"
+  },
+  {
+    "Patient_ID": "PatientID_0059",
+    "Sex at Birth": "Female",
+    "Age at diagnosis": "52",
+    "Primary Diagnosis": "GBM",
+    "Grade of Primary Brain Tumor": "4",
+    "Progression": "1",
+    "Time to First Progression (Days)": "2067",
+    "Overall Survival (Death)": "0"
+  },
+  {
+    "Patient_ID": "PatientID_0060",
+    "Sex at Birth": "Male",
+    "Age at diagnosis": "65",
+    "Primary Diagnosis": "GBM",
+    "Grade of Primary Brain Tumor": "4",
+    "Progression": "1",
+    "Time to First Progression (Days)": "7",
+    "Overall Survival (Death)": "1"
+  },
+  {
+    "Patient_ID": "PatientID_0061",
+    "Sex at Birth": "Female",
+    "Age at diagnosis": "73",
+    "Primary Diagnosis": "GBM",
+    "Grade of Primary Brain Tumor": "4",
+    "Progression": "1",
+    "Time to First Progression (Days)": "2112",
+    "Overall Survival (Death)": "0"
+  },
+  {
+    "Patient_ID": "PatientID_0062",
+    "Sex at Birth": "Male",
+    "Age at diagnosis": "65",
+    "Primary Diagnosis": "GBM",
+    "Grade of Primary Brain Tumor": "4",
+    "Progression": "1",
+    "Time to First Progression (Days)": "7",
+    "Overall Survival (Death)": "1"
+  },
+  {
+    "Patient_ID": "PatientID_0063",
+    "Sex at Birth": "Male",
+    "Age at diagnosis": "60",
+    "Primary Diagnosis": "GBM",
+    "Grade of Primary Brain Tumor": "4",
+    "Progression": "1",
+    "Time to First Progression (Days)": "53",
+    "Overall Survival (Death)": "1"
+  },
+  {
+    "Patient_ID": "PatientID_0064",
+    "Sex at Birth": "Male",
+    "Age at diagnosis": "64",
+    "Primary Diagnosis": "GBM",
+    "Grade of Primary Brain Tumor": "4",
+    "Progression": "1",
+    "Time to First Progression (Days)": "96",
+    "Overall Survival (Death)": "1"
+  },
+  {
+    "Patient_ID": "PatientID_0065",
+    "Sex at Birth": "Female",
+    "Age at diagnosis": "63",
+    "Primary Diagnosis": "GBM",
+    "Grade of Primary Brain Tumor": "4",
+    "Progression": "1",
+    "Time to First Progression (Days)": "77",
+    "Overall Survival (Death)": "1"
+  },
+  {
+    "Patient_ID": "PatientID_0066",
+    "Sex at Birth": "Female",
+    "Age at diagnosis": "53",
+    "Primary Diagnosis": "GBM",
+    "Grade of Primary Brain Tumor": "4",
+    "Progression": "0",
+    "Time to First Progression (Days)": null,
+    "Overall Survival (Death)": "0"
+  },
+  {
+    "Patient_ID": "PatientID_0067",
+    "Sex at Birth": "Male",
+    "Age at diagnosis": "42",
+    "Primary Diagnosis": "GBM",
+    "Grade of Primary Brain Tumor": "4",
+    "Progression": "1",
+    "Time to First Progression (Days)": "203",
+    "Overall Survival (Death)": "0"
+  },
+  {
+    "Patient_ID": "PatientID_0068",
+    "Sex at Birth": "Female",
+    "Age at diagnosis": "78",
+    "Primary Diagnosis": "GBM",
+    "Grade of Primary Brain Tumor": "4",
+    "Progression": "1",
+    "Time to First Progression (Days)": "159",
+    "Overall Survival (Death)": "1"
+  },
+  {
+    "Patient_ID": "PatientID_0069",
+    "Sex at Birth": "Male",
+    "Age at diagnosis": "72",
+    "Primary Diagnosis": "GBM",
+    "Grade of Primary Brain Tumor": "4",
+    "Progression": "1",
+    "Time to First Progression (Days)": "470",
+    "Overall Survival (Death)": "0"
+  },
+  {
+    "Patient_ID": "PatientID_0070",
+    "Sex at Birth": "Male",
+    "Age at diagnosis": "40",
+    "Primary Diagnosis": "GBM",
+    "Grade of Primary Brain Tumor": "4",
+    "Progression": "1",
+    "Time to First Progression (Days)": "169",
+    "Overall Survival (Death)": "0"
+  },
+  {
+    "Patient_ID": "PatientID_0071",
+    "Sex at Birth": "Male",
+    "Age at diagnosis": "70",
+    "Primary Diagnosis": "GBM",
+    "Grade of Primary Brain Tumor": "4",
+    "Progression": "0",
+    "Time to First Progression (Days)": null,
+    "Overall Survival (Death)": "0"
+  },
+  {
+    "Patient_ID": "PatientID_0072",
+    "Sex at Birth": "Male",
+    "Age at diagnosis": "54",
+    "Primary Diagnosis": "GBM",
+    "Grade of Primary Brain Tumor": "4",
+    "Progression": "1",
+    "Time to First Progression (Days)": "147",
+    "Overall Survival (Death)": "1"
+  },
+  {
+    "Patient_ID": "PatientID_0073",
+    "Sex at Birth": "Male",
+    "Age at diagnosis": "63",
+    "Primary Diagnosis": "GBM",
+    "Grade of Primary Brain Tumor": "4",
+    "Progression": "1",
+    "Time to First Progression (Days)": "92",
+    "Overall Survival (Death)": "1"
+  },
+  {
+    "Patient_ID": "PatientID_0074",
+    "Sex at Birth": "Male",
+    "Age at diagnosis": "44",
+    "Primary Diagnosis": "GBM",
+    "Grade of Primary Brain Tumor": "4",
+    "Progression": "1",
+    "Time to First Progression (Days)": "27",
+    "Overall Survival (Death)": "1"
+  },
+  {
+    "Patient_ID": "PatientID_0076",
+    "Sex at Birth": "Male",
+    "Age at diagnosis": "73",
+    "Primary Diagnosis": "GBM",
+    "Grade of Primary Brain Tumor": "4",
+    "Progression": "1",
+    "Time to First Progression (Days)": "36",
+    "Overall Survival (Death)": "1"
+  },
+  {
+    "Patient_ID": "PatientID_0077",
+    "Sex at Birth": "Male",
+    "Age at diagnosis": "86",
+    "Primary Diagnosis": "GBM",
+    "Grade of Primary Brain Tumor": "4",
+    "Progression": "0",
+    "Time to First Progression (Days)": null,
+    "Overall Survival (Death)": "0"
+  },
+  {
+    "Patient_ID": "PatientID_0078",
+    "Sex at Birth": "Female",
+    "Age at diagnosis": "65",
+    "Primary Diagnosis": "GBM",
+    "Grade of Primary Brain Tumor": "4",
+    "Progression": "1",
+    "Time to First Progression (Days)": "167",
+    "Overall Survival (Death)": "1"
+  },
+  {
+    "Patient_ID": "PatientID_0079",
+    "Sex at Birth": "Male",
+    "Age at diagnosis": "69",
+    "Primary Diagnosis": "GBM",
+    "Grade of Primary Brain Tumor": "4",
+    "Progression": "1",
+    "Time to First Progression (Days)": "67",
+    "Overall Survival (Death)": "1"
+  },
+  {
+    "Patient_ID": "PatientID_0080",
+    "Sex at Birth": "Male",
+    "Age at diagnosis": "78",
+    "Primary Diagnosis": "GBM",
+    "Grade of Primary Brain Tumor": "4",
+    "Progression": "1",
+    "Time to First Progression (Days)": "71",
+    "Overall Survival (Death)": "1"
+  },
+  {
+    "Patient_ID": "PatientID_0081",
+    "Sex at Birth": "Male",
+    "Age at diagnosis": "50",
+    "Primary Diagnosis": "GBM",
+    "Grade of Primary Brain Tumor": "4",
+    "Progression": "1",
+    "Time to First Progression (Days)": "24",
+    "Overall Survival (Death)": "0"
+  },
+  {
+    "Patient_ID": "PatientID_0082",
+    "Sex at Birth": "Male",
+    "Age at diagnosis": "57",
+    "Primary Diagnosis": "GBM",
+    "Grade of Primary Brain Tumor": "4",
+    "Progression": "1",
+    "Time to First Progression (Days)": "79",
+    "Overall Survival (Death)": "0"
+  },
+  {
+    "Patient_ID": "PatientID_0083",
+    "Sex at Birth": "Male",
+    "Age at diagnosis": "71",
+    "Primary Diagnosis": "GBM",
+    "Grade of Primary Brain Tumor": "4",
+    "Progression": "1",
+    "Time to First Progression (Days)": "207",
+    "Overall Survival (Death)": "1"
+  },
+  {
+    "Patient_ID": "PatientID_0084",
+    "Sex at Birth": "Male",
+    "Age at diagnosis": "69",
+    "Primary Diagnosis": "GBM",
+    "Grade of Primary Brain Tumor": "4",
+    "Progression": "1",
+    "Time to First Progression (Days)": "97",
+    "Overall Survival (Death)": "1"
+  },
+  {
+    "Patient_ID": "PatientID_0085",
+    "Sex at Birth": "Male",
+    "Age at diagnosis": "37",
+    "Primary Diagnosis": "GBM",
+    "Grade of Primary Brain Tumor": "4",
+    "Progression": "1",
+    "Time to First Progression (Days)": "202",
+    "Overall Survival (Death)": "0"
+  },
+  {
+    "Patient_ID": "PatientID_0086",
+    "Sex at Birth": "Male",
+    "Age at diagnosis": "81",
+    "Primary Diagnosis": "GBM",
+    "Grade of Primary Brain Tumor": "4",
+    "Progression": "0",
+    "Time to First Progression (Days)": null,
+    "Overall Survival (Death)": "0"
+  },
+  {
+    "Patient_ID": "PatientID_0087",
+    "Sex at Birth": "Female",
+    "Age at diagnosis": "61",
+    "Primary Diagnosis": "GBM",
+    "Grade of Primary Brain Tumor": "4",
+    "Progression": "1",
+    "Time to First Progression (Days)": "133",
+    "Overall Survival (Death)": "1"
+  },
+  {
+    "Patient_ID": "PatientID_0088",
+    "Sex at Birth": "Female",
+    "Age at diagnosis": "78",
+    "Primary Diagnosis": "GBM",
+    "Grade of Primary Brain Tumor": "4",
+    "Progression": "0",
+    "Time to First Progression (Days)": null,
+    "Overall Survival (Death)": "1"
+  },
+  {
+    "Patient_ID": "PatientID_0089",
+    "Sex at Birth": "Male",
+    "Age at diagnosis": "48",
+    "Primary Diagnosis": "GBM",
+    "Grade of Primary Brain Tumor": "4",
+    "Progression": "1",
+    "Time to First Progression (Days)": "568",
+    "Overall Survival (Death)": "1"
+  },
+  {
+    "Patient_ID": "PatientID_0090",
+    "Sex at Birth": "Male",
+    "Age at diagnosis": "69",
+    "Primary Diagnosis": "GBM",
+    "Grade of Primary Brain Tumor": "4",
+    "Progression": "1",
+    "Time to First Progression (Days)": "161",
+    "Overall Survival (Death)": "1"
+  },
+  {
+    "Patient_ID": "PatientID_0091",
+    "Sex at Birth": "Male",
+    "Age at diagnosis": "76",
+    "Primary Diagnosis": "GBM",
+    "Grade of Primary Brain Tumor": "4",
+    "Progression": "1",
+    "Time to First Progression (Days)": "24",
+    "Overall Survival (Death)": "1"
+  },
+  {
+    "Patient_ID": "PatientID_0092",
+    "Sex at Birth": "Male",
+    "Age at diagnosis": "54",
+    "Primary Diagnosis": "GBM",
+    "Grade of Primary Brain Tumor": "4",
+    "Progression": "1",
+    "Time to First Progression (Days)": "222",
+    "Overall Survival (Death)": "0"
+  },
+  {
+    "Patient_ID": "PatientID_0093",
+    "Sex at Birth": "Female",
+    "Age at diagnosis": "61",
+    "Primary Diagnosis": "GBM",
+    "Grade of Primary Brain Tumor": "4",
+    "Progression": "1",
+    "Time to First Progression (Days)": "173",
+    "Overall Survival (Death)": "0"
+  },
+  {
+    "Patient_ID": "PatientID_0094",
+    "Sex at Birth": "Female",
+    "Age at diagnosis": "52",
+    "Primary Diagnosis": "GBM",
+    "Grade of Primary Brain Tumor": "4",
+    "Progression": "1",
+    "Time to First Progression (Days)": "270",
+    "Overall Survival (Death)": "1"
+  },
+  {
+    "Patient_ID": "PatientID_0095",
+    "Sex at Birth": "Male",
+    "Age at diagnosis": "59",
+    "Primary Diagnosis": "GBM",
+    "Grade of Primary Brain Tumor": "4",
+    "Progression": "1",
+    "Time to First Progression (Days)": "150",
+    "Overall Survival (Death)": "1"
+  },
+  {
+    "Patient_ID": "PatientID_0097",
+    "Sex at Birth": "Male",
+    "Age at diagnosis": "67",
+    "Primary Diagnosis": "GBM",
+    "Grade of Primary Brain Tumor": "4",
+    "Progression": "1",
+    "Time to First Progression (Days)": "196",
+    "Overall Survival (Death)": "1"
+  },
+  {
+    "Patient_ID": "PatientID_0099",
+    "Sex at Birth": "Male",
+    "Age at diagnosis": "63",
+    "Primary Diagnosis": "GBM",
+    "Grade of Primary Brain Tumor": "4",
+    "Progression": "0",
+    "Time to First Progression (Days)": null,
+    "Overall Survival (Death)": "1"
+  },
+  {
+    "Patient_ID": "PatientID_0101",
+    "Sex at Birth": "Male",
+    "Age at diagnosis": "76",
+    "Primary Diagnosis": "GBM",
+    "Grade of Primary Brain Tumor": "4",
+    "Progression": "0",
+    "Time to First Progression (Days)": null,
+    "Overall Survival (Death)": "0"
+  },
+  {
+    "Patient_ID": "PatientID_0103",
+    "Sex at Birth": "Female",
+    "Age at diagnosis": "46",
+    "Primary Diagnosis": "GBM",
+    "Grade of Primary Brain Tumor": "4",
+    "Progression": "1",
+    "Time to First Progression (Days)": "183",
+    "Overall Survival (Death)": "1"
+  },
+  {
+    "Patient_ID": "PatientID_0105",
+    "Sex at Birth": "Male",
+    "Age at diagnosis": "63",
+    "Primary Diagnosis": "GBM",
+    "Grade of Primary Brain Tumor": "4",
+    "Progression": "1",
+    "Time to First Progression (Days)": "274",
+    "Overall Survival (Death)": "0"
+  },
+  {
+    "Patient_ID": "PatientID_0106",
+    "Sex at Birth": "Female",
+    "Age at diagnosis": "52",
+    "Primary Diagnosis": "GBM",
+    "Grade of Primary Brain Tumor": "4",
+    "Progression": "0",
+    "Time to First Progression (Days)": null,
+    "Overall Survival (Death)": "1"
+  },
+  {
+    "Patient_ID": "PatientID_0108",
+    "Sex at Birth": "Male",
+    "Age at diagnosis": "66",
+    "Primary Diagnosis": "GBM",
+    "Grade of Primary Brain Tumor": "4",
+    "Progression": "0",
+    "Time to First Progression (Days)": null,
+    "Overall Survival (Death)": "1"
+  },
+  {
+    "Patient_ID": "PatientID_0109",
+    "Sex at Birth": "Female",
+    "Age at diagnosis": "59",
+    "Primary Diagnosis": "GBM",
+    "Grade of Primary Brain Tumor": "4",
+    "Progression": "1",
+    "Time to First Progression (Days)": "176",
+    "Overall Survival (Death)": "1"
+  },
+  {
+    "Patient_ID": "PatientID_0110",
+    "Sex at Birth": "Male",
+    "Age at diagnosis": "60",
+    "Primary Diagnosis": "GBM",
+    "Grade of Primary Brain Tumor": "4",
+    "Progression": "1",
+    "Time to First Progression (Days)": "150",
+    "Overall Survival (Death)": "1"
+  },
+  {
+    "Patient_ID": "PatientID_0111",
+    "Sex at Birth": "Male",
+    "Age at diagnosis": "79",
+    "Primary Diagnosis": "GBM",
+    "Grade of Primary Brain Tumor": "4",
+    "Progression": "0",
+    "Time to First Progression (Days)": null,
+    "Overall Survival (Death)": "1"
+  },
+  {
+    "Patient_ID": "PatientID_0112",
+    "Sex at Birth": "Male",
+    "Age at diagnosis": "65",
+    "Primary Diagnosis": "GBM",
+    "Grade of Primary Brain Tumor": "4",
+    "Progression": "0",
+    "Time to First Progression (Days)": null,
+    "Overall Survival (Death)": "1"
+  },
+  {
+    "Patient_ID": "PatientID_0113",
+    "Sex at Birth": "Male",
+    "Age at diagnosis": "70",
+    "Primary Diagnosis": "GBM",
+    "Grade of Primary Brain Tumor": "4",
+    "Progression": "1",
+    "Time to First Progression (Days)": "95",
+    "Overall Survival (Death)": "1"
+  },
+  {
+    "Patient_ID": "PatientID_0114",
+    "Sex at Birth": "Male",
+    "Age at diagnosis": "77",
+    "Primary Diagnosis": "GBM",
+    "Grade of Primary Brain Tumor": "4",
+    "Progression": "1",
+    "Time to First Progression (Days)": "62",
+    "Overall Survival (Death)": "1"
+  },
+  {
+    "Patient_ID": "PatientID_0115",
+    "Sex at Birth": "Female",
+    "Age at diagnosis": "23",
+    "Primary Diagnosis": "GBM",
+    "Grade of Primary Brain Tumor": "4",
+    "Progression": "1",
+    "Time to First Progression (Days)": "294",
+    "Overall Survival (Death)": "0"
+  },
+  {
+    "Patient_ID": "PatientID_0116",
+    "Sex at Birth": "Male",
+    "Age at diagnosis": "81",
+    "Primary Diagnosis": "GBM",
+    "Grade of Primary Brain Tumor": "4",
+    "Progression": "1",
+    "Time to First Progression (Days)": "109",
+    "Overall Survival (Death)": "1"
+  },
+  {
+    "Patient_ID": "PatientID_0117",
+    "Sex at Birth": "Male",
+    "Age at diagnosis": "68",
+    "Primary Diagnosis": "GBM",
+    "Grade of Primary Brain Tumor": "4",
+    "Progression": "1",
+    "Time to First Progression (Days)": "196",
+    "Overall Survival (Death)": "1"
+  },
+  {
+    "Patient_ID": "PatientID_0118",
+    "Sex at Birth": "Male",
+    "Age at diagnosis": "66",
+    "Primary Diagnosis": "GBM",
+    "Grade of Primary Brain Tumor": "4",
+    "Progression": "1",
+    "Time to First Progression (Days)": "181",
+    "Overall Survival (Death)": "0"
+  },
+  {
+    "Patient_ID": "PatientID_0120",
+    "Sex at Birth": "Male",
+    "Age at diagnosis": "70",
+    "Primary Diagnosis": "GBM",
+    "Grade of Primary Brain Tumor": "4",
+    "Progression": "0",
+    "Time to First Progression (Days)": null,
+    "Overall Survival (Death)": "0"
+  },
+  {
+    "Patient_ID": "PatientID_0121",
+    "Sex at Birth": "Female",
+    "Age at diagnosis": "52",
+    "Primary Diagnosis": "GBM",
+    "Grade of Primary Brain Tumor": "4",
+    "Progression": "1",
+    "Time to First Progression (Days)": "270",
+    "Overall Survival (Death)": "1"
+  },
+  {
+    "Patient_ID": "PatientID_0123",
+    "Sex at Birth": "Male",
+    "Age at diagnosis": "69",
+    "Primary Diagnosis": "GBM",
+    "Grade of Primary Brain Tumor": "4",
+    "Progression": "1",
+    "Time to First Progression (Days)": "91",
+    "Overall Survival (Death)": "1"
+  },
+  {
+    "Patient_ID": "PatientID_0124",
+    "Sex at Birth": "Male",
+    "Age at diagnosis": "84",
+    "Primary Diagnosis": "GBM",
+    "Grade of Primary Brain Tumor": "4",
+    "Progression": "1",
+    "Time to First Progression (Days)": "100",
+    "Overall Survival (Death)": "1"
+  },
+  {
+    "Patient_ID": "PatientID_0125",
+    "Sex at Birth": "Male",
+    "Age at diagnosis": "76",
+    "Primary Diagnosis": "GBM",
+    "Grade of Primary Brain Tumor": "4",
+    "Progression": "1",
+    "Time to First Progression (Days)": "84",
+    "Overall Survival (Death)": "1"
+  },
+  {
+    "Patient_ID": "PatientID_0126",
+    "Sex at Birth": "Female",
+    "Age at diagnosis": "69",
+    "Primary Diagnosis": "GBM",
+    "Grade of Primary Brain Tumor": "4",
+    "Progression": "0",
+    "Time to First Progression (Days)": null,
+    "Overall Survival (Death)": "0"
+  },
+  {
+    "Patient_ID": "PatientID_0130",
+    "Sex at Birth": "Male",
+    "Age at diagnosis": "58",
+    "Primary Diagnosis": "GBM",
+    "Grade of Primary Brain Tumor": "4",
+    "Progression": "1",
+    "Time to First Progression (Days)": "4",
+    "Overall Survival (Death)": "0"
+  },
+  {
+    "Patient_ID": "PatientID_0132",
+    "Sex at Birth": "Male",
+    "Age at diagnosis": "70",
+    "Primary Diagnosis": "GBM",
+    "Grade of Primary Brain Tumor": "4",
+    "Progression": "1",
+    "Time to First Progression (Days)": "95",
+    "Overall Survival (Death)": "1"
+  },
+  {
+    "Patient_ID": "PatientID_0133",
+    "Sex at Birth": "Male",
+    "Age at diagnosis": "64",
+    "Primary Diagnosis": "GBM",
+    "Grade of Primary Brain Tumor": "4",
+    "Progression": "1",
+    "Time to First Progression (Days)": "21",
+    "Overall Survival (Death)": "0"
+  },
+  {
+    "Patient_ID": "PatientID_0135",
+    "Sex at Birth": "Male",
+    "Age at diagnosis": "64",
+    "Primary Diagnosis": "GBM",
+    "Grade of Primary Brain Tumor": "4",
+    "Progression": "1",
+    "Time to First Progression (Days)": "182",
+    "Overall Survival (Death)": "1"
+  },
+  {
+    "Patient_ID": "PatientID_0136",
+    "Sex at Birth": "Female",
+    "Age at diagnosis": "51",
+    "Primary Diagnosis": "GBM",
+    "Grade of Primary Brain Tumor": "4",
+    "Progression": "1",
+    "Time to First Progression (Days)": "167",
+    "Overall Survival (Death)": "0"
+  },
+  {
+    "Patient_ID": "PatientID_0138",
+    "Sex at Birth": "Male",
+    "Age at diagnosis": "65",
+    "Primary Diagnosis": "GBM",
+    "Grade of Primary Brain Tumor": "4",
+    "Progression": "1",
+    "Time to First Progression (Days)": "208",
+    "Overall Survival (Death)": "1"
+  },
+  {
+    "Patient_ID": "PatientID_0139",
+    "Sex at Birth": "Male",
+    "Age at diagnosis": "68",
+    "Primary Diagnosis": "GBM",
+    "Grade of Primary Brain Tumor": "4",
+    "Progression": "1",
+    "Time to First Progression (Days)": "15",
+    "Overall Survival (Death)": "1"
+  },
+  {
+    "Patient_ID": "PatientID_0140",
+    "Sex at Birth": "Male",
+    "Age at diagnosis": "74",
+    "Primary Diagnosis": "GBM",
+    "Grade of Primary Brain Tumor": "4",
+    "Progression": "1",
+    "Time to First Progression (Days)": "99",
+    "Overall Survival (Death)": "0"
+  },
+  {
+    "Patient_ID": "PatientID_0141",
+    "Sex at Birth": "Male",
+    "Age at diagnosis": "80",
+    "Primary Diagnosis": "GBM",
+    "Grade of Primary Brain Tumor": "4",
+    "Progression": "0",
+    "Time to First Progression (Days)": null,
+    "Overall Survival (Death)": "1"
+  },
+  {
+    "Patient_ID": "PatientID_0142",
+    "Sex at Birth": "Male",
+    "Age at diagnosis": "72",
+    "Primary Diagnosis": "GBM",
+    "Grade of Primary Brain Tumor": "4",
+    "Progression": "1",
+    "Time to First Progression (Days)": "128",
+    "Overall Survival (Death)": "0"
+  },
+  {
+    "Patient_ID": "PatientID_0143",
+    "Sex at Birth": "Female",
+    "Age at diagnosis": "81",
+    "Primary Diagnosis": "GBM",
+    "Grade of Primary Brain Tumor": "4",
+    "Progression": "0",
+    "Time to First Progression (Days)": null,
+    "Overall Survival (Death)": "1"
+  },
+  {
+    "Patient_ID": "PatientID_0144",
+    "Sex at Birth": "Female",
+    "Age at diagnosis": "58",
+    "Primary Diagnosis": "GBM",
+    "Grade of Primary Brain Tumor": "4",
+    "Progression": "0",
+    "Time to First Progression (Days)": null,
+    "Overall Survival (Death)": "0"
+  },
+  {
+    "Patient_ID": "PatientID_0145",
+    "Sex at Birth": "Male",
+    "Age at diagnosis": "70",
+    "Primary Diagnosis": "GBM",
+    "Grade of Primary Brain Tumor": "4",
+    "Progression": "1",
+    "Time to First Progression (Days)": "66",
+    "Overall Survival (Death)": "1"
+  },
+  {
+    "Patient_ID": "PatientID_0147",
+    "Sex at Birth": "Female",
+    "Age at diagnosis": "71",
+    "Primary Diagnosis": "GBM",
+    "Grade of Primary Brain Tumor": "4",
+    "Progression": "1",
+    "Time to First Progression (Days)": "189",
+    "Overall Survival (Death)": "0"
+  },
+  {
+    "Patient_ID": "PatientID_0148",
+    "Sex at Birth": "Female",
+    "Age at diagnosis": "61",
+    "Primary Diagnosis": "GBM",
+    "Grade of Primary Brain Tumor": "4",
+    "Progression": "1",
+    "Time to First Progression (Days)": "21",
+    "Overall Survival (Death)": "0"
+  },
+  {
+    "Patient_ID": "PatientID_0149",
+    "Sex at Birth": "Female",
+    "Age at diagnosis": "47",
+    "Primary Diagnosis": "GBM",
+    "Grade of Primary Brain Tumor": "4",
+    "Progression": "1",
+    "Time to First Progression (Days)": "64",
+    "Overall Survival (Death)": "1"
+  },
+  {
+    "Patient_ID": "PatientID_0150",
+    "Sex at Birth": "Female",
+    "Age at diagnosis": "59",
+    "Primary Diagnosis": "GBM",
+    "Grade of Primary Brain Tumor": "4",
+    "Progression": "1",
+    "Time to First Progression (Days)": "235",
+    "Overall Survival (Death)": "0"
+  },
+  {
+    "Patient_ID": "PatientID_0151",
+    "Sex at Birth": "Male",
+    "Age at diagnosis": "70",
+    "Primary Diagnosis": "GBM",
+    "Grade of Primary Brain Tumor": "4",
+    "Progression": "1",
+    "Time to First Progression (Days)": "57",
+    "Overall Survival (Death)": "0"
+  },
+  {
+    "Patient_ID": "PatientID_0152",
+    "Sex at Birth": "Female",
+    "Age at diagnosis": "59",
+    "Primary Diagnosis": "GBM",
+    "Grade of Primary Brain Tumor": "4",
+    "Progression": "1",
+    "Time to First Progression (Days)": "403",
+    "Overall Survival (Death)": "0"
+  },
+  {
+    "Patient_ID": "PatientID_0155",
+    "Sex at Birth": "Female",
+    "Age at diagnosis": "58",
+    "Primary Diagnosis": "GBM",
+    "Grade of Primary Brain Tumor": "4",
+    "Progression": "0",
+    "Time to First Progression (Days)": null,
+    "Overall Survival (Death)": "0"
+  },
+  {
+    "Patient_ID": "PatientID_0156",
+    "Sex at Birth": "Female",
+    "Age at diagnosis": "66",
+    "Primary Diagnosis": "GBM",
+    "Grade of Primary Brain Tumor": "4",
+    "Progression": "1",
+    "Time to First Progression (Days)": "355",
+    "Overall Survival (Death)": "0"
+  },
+  {
+    "Patient_ID": "PatientID_0157",
+    "Sex at Birth": "Female",
+    "Age at diagnosis": "62",
+    "Primary Diagnosis": "GBM",
+    "Grade of Primary Brain Tumor": "4",
+    "Progression": "1",
+    "Time to First Progression (Days)": "152",
+    "Overall Survival (Death)": "0"
+  },
+  {
+    "Patient_ID": "PatientID_0158",
+    "Sex at Birth": "Male",
+    "Age at diagnosis": "64",
+    "Primary Diagnosis": "GBM",
+    "Grade of Primary Brain Tumor": "4",
+    "Progression": "1",
+    "Time to First Progression (Days)": "101",
+    "Overall Survival (Death)": "1"
+  },
+  {
+    "Patient_ID": "PatientID_0159",
+    "Sex at Birth": "Male",
+    "Age at diagnosis": "85",
+    "Primary Diagnosis": "GBM",
+    "Grade of Primary Brain Tumor": "4",
+    "Progression": "1",
+    "Time to First Progression (Days)": "291",
+    "Overall Survival (Death)": "0"
+  },
+  {
+    "Patient_ID": "PatientID_0160",
+    "Sex at Birth": "Male",
+    "Age at diagnosis": "69",
+    "Primary Diagnosis": "GBM",
+    "Grade of Primary Brain Tumor": "4",
+    "Progression": "1",
+    "Time to First Progression (Days)": "104",
+    "Overall Survival (Death)": "1"
+  },
+  {
+    "Patient_ID": "PatientID_0161",
+    "Sex at Birth": "Female",
+    "Age at diagnosis": "78",
+    "Primary Diagnosis": "GBM",
+    "Grade of Primary Brain Tumor": "4",
+    "Progression": "1",
+    "Time to First Progression (Days)": "206",
+    "Overall Survival (Death)": "1"
+  },
+  {
+    "Patient_ID": "PatientID_0162",
+    "Sex at Birth": "Male",
+    "Age at diagnosis": "66",
+    "Primary Diagnosis": "GBM",
+    "Grade of Primary Brain Tumor": "4",
+    "Progression": "1",
+    "Time to First Progression (Days)": "264",
+    "Overall Survival (Death)": "0"
+  },
+  {
+    "Patient_ID": "PatientID_0164",
+    "Sex at Birth": "Male",
+    "Age at diagnosis": "78",
+    "Primary Diagnosis": "GBM",
+    "Grade of Primary Brain Tumor": "4",
+    "Progression": "1",
+    "Time to First Progression (Days)": "147",
+    "Overall Survival (Death)": "1"
+  },
+  {
+    "Patient_ID": "PatientID_0165",
+    "Sex at Birth": "Male",
+    "Age at diagnosis": "62",
+    "Primary Diagnosis": "GBM",
+    "Grade of Primary Brain Tumor": "4",
+    "Progression": "0",
+    "Time to First Progression (Days)": null,
+    "Overall Survival (Death)": "0"
+  },
+  {
+    "Patient_ID": "PatientID_0168",
+    "Sex at Birth": "Male",
+    "Age at diagnosis": "82",
+    "Primary Diagnosis": "GBM",
+    "Grade of Primary Brain Tumor": "4",
+    "Progression": "0",
+    "Time to First Progression (Days)": null,
+    "Overall Survival (Death)": "0"
+  },
+  {
+    "Patient_ID": "PatientID_0169",
+    "Sex at Birth": "Male",
+    "Age at diagnosis": "77",
+    "Primary Diagnosis": "GBM",
+    "Grade of Primary Brain Tumor": "4",
+    "Progression": "1",
+    "Time to First Progression (Days)": "78",
+    "Overall Survival (Death)": "0"
+  },
+  {
+    "Patient_ID": "PatientID_0170",
+    "Sex at Birth": "Male",
+    "Age at diagnosis": "61",
+    "Primary Diagnosis": "GBM",
+    "Grade of Primary Brain Tumor": "4",
+    "Progression": "1",
+    "Time to First Progression (Days)": "183",
+    "Overall Survival (Death)": "0"
+  },
+  {
+    "Patient_ID": "PatientID_0171",
+    "Sex at Birth": "Female",
+    "Age at diagnosis": "68",
+    "Primary Diagnosis": "GBM",
+    "Grade of Primary Brain Tumor": "4",
+    "Progression": "1",
+    "Time to First Progression (Days)": "90",
+    "Overall Survival (Death)": "0"
+  },
+  {
+    "Patient_ID": "PatientID_0173",
+    "Sex at Birth": "Female",
+    "Age at diagnosis": "38",
+    "Primary Diagnosis": "GBM",
+    "Grade of Primary Brain Tumor": "4",
+    "Progression": "0",
+    "Time to First Progression (Days)": null,
+    "Overall Survival (Death)": "0"
+  },
+  {
+    "Patient_ID": "PatientID_0174",
+    "Sex at Birth": "Female",
+    "Age at diagnosis": "82",
+    "Primary Diagnosis": "GBM",
+    "Grade of Primary Brain Tumor": "4",
+    "Progression": "0",
+    "Time to First Progression (Days)": null,
+    "Overall Survival (Death)": "1"
+  },
+  {
+    "Patient_ID": "PatientID_0238",
+    "Sex at Birth": "Female",
+    "Age at diagnosis": "54",
+    "Primary Diagnosis": "GBM",
+    "Grade of Primary Brain Tumor": "4",
+    "Progression": "1",
+    "Time to First Progression (Days)": "477",
+    "Overall Survival (Death)": "0"
+  },
+  {
+    "Patient_ID": "PatientID_0239",
+    "Sex at Birth": "Female",
+    "Age at diagnosis": "78",
+    "Primary Diagnosis": "GBM",
+    "Grade of Primary Brain Tumor": "4",
+    "Progression": "1",
+    "Time to First Progression (Days)": "533",
+    "Overall Survival (Death)": "1"
+  },
+  {
+    "Patient_ID": "PatientID_0250",
+    "Sex at Birth": "Female",
+    "Age at diagnosis": "59",
+    "Primary Diagnosis": "GBM",
+    "Grade of Primary Brain Tumor": "4",
+    "Progression": "1",
+    "Time to First Progression (Days)": "108",
+    "Overall Survival (Death)": "1"
+  },
+  {
+    "Patient_ID": "PatientID_0251",
+    "Sex at Birth": "Female",
+    "Age at diagnosis": "78",
+    "Primary Diagnosis": "GBM",
+    "Grade of Primary Brain Tumor": "4",
+    "Progression": "1",
+    "Time to First Progression (Days)": "159",
+    "Overall Survival (Death)": "1"
+  },
+  {
+    "Patient_ID": "PatientID_0252",
+    "Sex at Birth": "Male",
+    "Age at diagnosis": "63",
+    "Primary Diagnosis": "GBM",
+    "Grade of Primary Brain Tumor": "4",
+    "Progression": "1",
+    "Time to First Progression (Days)": "92",
+    "Overall Survival (Death)": "1"
+  },
+  {
+    "Patient_ID": "PatientID_0254",
+    "Sex at Birth": "Female",
+    "Age at diagnosis": "46",
+    "Primary Diagnosis": "GBM",
+    "Grade of Primary Brain Tumor": "4",
+    "Progression": "1",
+    "Time to First Progression (Days)": "183",
+    "Overall Survival (Death)": "1"
+  },
+  {
+    "Patient_ID": "PatientID_0255",
+    "Sex at Birth": "Female",
+    "Age at diagnosis": "62",
+    "Primary Diagnosis": "Glioma w/ GBM features",
+    "Grade of Primary Brain Tumor": "4",
+    "Progression": "0",
+    "Time to First Progression (Days)": null,
+    "Overall Survival (Death)": "1"
+  },
+  {
+    "Patient_ID": "PatientID_0260",
+    "Sex at Birth": "Female",
+    "Age at diagnosis": "69",
+    "Primary Diagnosis": "GBM",
+    "Grade of Primary Brain Tumor": "4",
+    "Progression": "1",
+    "Time to First Progression (Days)": "176",
+    "Overall Survival (Death)": "0"
+  },
+  {
+    "Patient_ID": "PatientID_0267",
+    "Sex at Birth": "Male",
+    "Age at diagnosis": "66",
+    "Primary Diagnosis": "GBM",
+    "Grade of Primary Brain Tumor": "4",
+    "Progression": "1",
+    "Time to First Progression (Days)": "264",
+    "Overall Survival (Death)": "0"
+  },
+  {
+    "Patient_ID": "PatientID_0268",
+    "Sex at Birth": "Male",
+    "Age at diagnosis": "62",
+    "Primary Diagnosis": "GBM",
+    "Grade of Primary Brain Tumor": "4",
+    "Progression": "0",
+    "Time to First Progression (Days)": null,
+    "Overall Survival (Death)": "0"
+  },
+  {
+    "Patient_ID": "PatientID_0272",
+    "Sex at Birth": "Female",
+    "Age at diagnosis": "56",
+    "Primary Diagnosis": "GBM",
+    "Grade of Primary Brain Tumor": "4",
+    "Progression": "0",
+    "Time to First Progression (Days)": null,
+    "Overall Survival (Death)": "0"
+  },
+  {
+    "Patient_ID": "PatientID_0273",
+    "Sex at Birth": "Male",
+    "Age at diagnosis": "29",
+    "Primary Diagnosis": "GBM",
+    "Grade of Primary Brain Tumor": "4",
+    "Progression": "1",
+    "Time to First Progression (Days)": "199",
+    "Overall Survival (Death)": "0"
+  },
+  {
+    "Patient_ID": "PatientID_0274",
+    "Sex at Birth": "Male",
+    "Age at diagnosis": "61",
+    "Primary Diagnosis": "GBM",
+    "Grade of Primary Brain Tumor": "4",
+    "Progression": "1",
+    "Time to First Progression (Days)": "183",
+    "Overall Survival (Death)": "0"
+  }
+]
