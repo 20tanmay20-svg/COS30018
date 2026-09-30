@@ -1,0 +1,113 @@
+{
+  "user_request": "Consider management options for suspected glioblastoma.",
+  "patient_information": {
+    "patient_data": [
+      {
+        "Primary Diagnosis": "Glioblastoma",
+        "Age at diagnosis": 54,
+        "Sex at Birth": "Male",
+        "Grade of Primary Brain Tumor": "Grade 4"
+      }
+    ],
+    "status": "success"
+  },
+  "medical_evidence": {
+    "retrieved_evidence": [
+      {
+        "pmid": "12345678",
+        "title": "Test evidence",
+        "url": "https://pubmed.ncbi.nlm.nih.gov/12345678/"
+      }
+    ],
+    "evidence_relevance": [
+      {
+        "pmid": "12345678",
+        "relevance": "high",
+        "supporting_quote": "Test supporting quote.",
+        "limitations": "Synthetic test evidence."
+      }
+    ],
+    "status": "success"
+  },
+  "current_agent": "clinical_decision_support_agent",
+  "clinical_decision_support": {
+    "clinical_considerations": [
+      {
+        "consideration": "The patient is a 54-year-old male with a suspected Grade 4 glioblastoma.",
+        "reasoning": "The patient's diagnosis is based on the provided patient profile, which states the primary diagnosis is glioblastoma and the grade is Grade 4.",
+        "context": "The patient is a 54-year-old male, which may impact treatment options given the age-related considerations.",
+        "supporting_evidence": [
+          "12345678"
+        ],
+        "limitations": "MRI findings are unknown and provisional, and previous report summaries provide historical context only.",
+        "requires_clinician_review": true
+      },
+      {
+        "consideration": "Given the patient's age and suspected Grade 4 glioblastoma, the prognosis is poor, and there is a high risk of rapid progression.",
+        "reasoning": "Age 54 can influence the treatment decisions and patient’s tolerance to therapy, as older patients may have different treatment outcomes and side-effect profiles compared to younger patients.",
+        "context": "The patient's profile indicates a suspected Grade 4 glioblastoma, which is the most aggressive type of primary brain tumor, and the patient's age may affect treatment choices and outcomes.",
+        "supporting_evidence": [
+          "12345678"
+        ],
+        "limitations": "MRI findings are unknown and provisional, and previous report summaries provide historical context only, making it difficult to assess the exact clinical status.",
+        "requires_clinician_review": true
+      },
+      {
+        "consideration": "The patient may require close monitoring and multidisciplinary input due to the high complexity of the case.",
+        "reasoning": "Given the complexity of suspected glioblastoma, a multidisciplinary approach is essential to ensure comprehensive care and management.",
+        "context": "The patient's diagnosis and grade indicate a need for a coordinated care team, including neurosurgeons, oncologists, and radiologists.",
+        "supporting_evidence": [
+          "12345678"
+        ],
+        "limitations": "MRI findings are unknown and provisional, and the patient's current clinical status is not fully understood.",
+        "requires_clinician_review": true
+      }
+    ],
+    "treatment_pathways": [
+      {
+        "option": "Gross total resection (GTR) followed by adjuvant therapy with temozolomide",
+        "when_considered": "In cases of confirmed glioblastoma where the tumor can be safely resected and the patient is eligible for adjuvant therapy.",
+        "supporting_evidence": [
+          "12345678"
+        ],
+        "unknown_patient_factors": "The exact extent of tumor resection and the patient's overall health status, which are unknown at this stage.",
+        "risks_and_limitations": "Potential risks include complications from surgery, such as infection or hemorrhage, and the treatment may cause side effects like fatigue, nausea, and immune suppression. The effectiveness of adjuvant therapy is limited given the aggressive nature of glioblastoma.",
+        "requires_clinician_review": true
+      }
+    ],
+    "supporting_evidence": [
+      {
+        "pmid": "12345678",
+        "title": "Test evidence",
+        "url": "https://pubmed.ncbi.nlm.nih.gov/12345678/"
+      }
+    ],
+    "uncertainties": [
+      "No MRI classification result was supplied; tumour type/grade is unknown."
+    ],
+    "doctor_review_items": [
+      {
+        "item": "Confirm MRI-based tumour classification with radiologist/pathology review.",
+        "reason": "MRI classifier output is provisional and must not be treated as a confirmed diagnosis."
+      },
+      {
+        "item": "Clinical consideration requires review: The patient is a 54-year-old male with a suspected Grade 4 glioblastoma.",
+        "reason": "MRI findings are unknown and provisional, and previous report summaries provide historical context only."
+      },
+      {
+        "item": "Clinical consideration requires review: Given the patient's age and suspected Grade 4 glioblastoma, the prognosis is poor, and there is a high risk of rapid progression.",
+        "reason": "MRI findings are unknown and provisional, and previous report summaries provide historical context only, making it difficult to assess the exact clinical status."
+      },
+      {
+        "item": "Treatment pathway requires clinician decision: Gross total resection (GTR) followed by adjuvant therapy with temozolomide",
+        "reason": "Potential risks include complications from surgery, such as infection or hemorrhage, and the treatment may cause side effects like fatigue, nausea, and immune suppression. The effectiveness of adjuvant therapy is limited given the aggressive nature of glioblastoma."
+      },
+      {
+        "item": "Clinical consideration requires review: The patient may require close monitoring and multidisciplinary input due to the high complexity of the case.",
+        "reason": "MRI findings are unknown and provisional, and the patient's current clinical status is not fully understood."
+      }
+    ],
+    "status": "success",
+    "error": null
+  }
+}
