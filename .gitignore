@@ -51,4 +51,3 @@ yarn-error.log*
 # OS generated
 .DS_Store
 Thumbs.db
-agent_system/single_agent.ipynb
