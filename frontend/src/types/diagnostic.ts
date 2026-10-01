@@ -1,4 +1,5 @@
 export interface PatientInfo {
+  patientId?: string;
   fullName: string;
   dateOfBirth: string;
   biologicalSex: string;
@@ -7,6 +8,17 @@ export interface PatientInfo {
   contrastAdministered: boolean;
   presentingSymptoms: string;
   clinicalNotes: string;
+}
+
+export interface PatientSummary {
+  patient_id: string;
+  sex?: string;
+  age?: string | number;
+  diagnosis?: string;
+  grade?: string;
+  progression?: string;
+  progression_days?: string;
+  death?: string;
 }
 
 export interface ImagingFinding {
@@ -29,6 +41,12 @@ export interface PrimaryDiagnosis {
   dateOfBirth: string;
   scanType: string;
   processedTime: string;
+  patientId?: string;
+  ageAtDiagnosis?: number;
+  sexAtBirth?: string;
+  tumorGrade?: string;
+  progressionStatus?: string;
+  survivalStatus?: string;
 }
 
 export interface TreatmentProtocolSection {
