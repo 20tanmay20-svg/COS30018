@@ -88,6 +88,12 @@ class PrimaryDiagnosisData(BaseModel):
     dateOfBirth: str
     scanType: str
     processedTime: str
+    patientId: str | None = None
+    ageAtDiagnosis: int | None = None
+    sexAtBirth: str | None = None
+    tumorGrade: str | None = None
+    progressionStatus: str | None = None
+    survivalStatus: str | None = None
 
 
 class TreatmentProtocolSectionData(BaseModel):
@@ -101,4 +107,16 @@ class DiagnosticAnalysisResponse(BaseModel):
     differentialDiagnoses: list[DifferentialItem]
     clinicalNotes: str
     treatmentProtocol: list[TreatmentProtocolSectionData]
+
+
+class PatientProfileSummary(BaseModel):
+    patient_id: str
+    sex: str | None = None
+    age: str | int | None = None
+    diagnosis: str | None = None
+    grade: str | None = None
+    progression: str | None = None
+    progression_days: str | None = None
+    death: str | None = None
+
 
