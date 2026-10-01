@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400" width="100%" height="100%">
+  <rect width="400" height="400" fill="#03070d"/>
+  <!-- Skull Outline -->
+  <ellipse cx="200" cy="200" rx="145" ry="175" fill="#0d141e" stroke="#253549" stroke-width="3"/>
+  <!-- Brain Parenchyma -->
+  <ellipse cx="200" cy="195" rx="136" ry="163" fill="#141c28"/>
+  <!-- Hemispheric Fissure -->
+  <line x1="200" y1="40" x2="200" y2="350" stroke="#080c13" stroke-width="2.5" stroke-dasharray="8 3"/>
+  <!-- Lateral Ventricles -->
+  <path d="M185 150 C175 180, 175 210, 188 230 C192 210, 192 180, 185 150 Z" fill="#070a0f"/>
+  <path d="M215 150 C225 180, 225 210, 212 230 C208 210, 208 180, 215 150 Z" fill="#070a0f"/>
+  <!-- Sulci and Gyri contours -->
+  <path d="M100 130 Q120 150 110 180 T130 220" stroke="#1c283a" stroke-width="2" fill="none"/>
+  <path d="M300 130 Q280 150 290 180 T270 220" stroke="#1c283a" stroke-width="2" fill="none"/>
+  <path d="M130 100 Q160 120 150 140" stroke="#1c283a" stroke-width="2" fill="none"/>
+  <path d="M270 100 Q240 120 250 140" stroke="#1c283a" stroke-width="2" fill="none"/>
+  <!-- Vasogenic Edema (FLAIR Hyperintensity) in Right Temporal/Parietal -->
+  <ellipse cx="245" cy="195" rx="42" ry="38" fill="rgba(255, 255, 255, 0.16)" filter="blur(6px)"/>
+  <!-- Heterogeneous Enhancing Tumor (GBM) -->
+  <circle cx="248" cy="196" r="26" fill="#2a3b52" stroke="#4da6ff" stroke-width="3" opacity="0.9"/>
+  <!-- Central Necrotic Core -->
+  <ellipse cx="248" cy="196" rx="14" ry="12" fill="#0a0f18" stroke="#1a2536" stroke-width="1.5"/>
+  <!-- Labels Overlay -->
+  <text x="18" y="30" fill="#64748b" font-family="monospace" font-size="11">AXIAL T2-FLAIR</text>
+  <text x="18" y="46" fill="#00e5ff" font-family="monospace" font-size="10">BRAIN_MRI_001</text>
+  <text x="345" y="30" fill="#64748b" font-family="monospace" font-size="11">R: TEMP</text>
+  <text x="18" y="380" fill="#64748b" font-family="monospace" font-size="10">SL: 24/48</text>
+  <text x="315" y="380" fill="#64748b" font-family="monospace" font-size="10">FOV: 240</text>
+</svg>

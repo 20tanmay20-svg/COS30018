@@ -65,3 +65,40 @@ class AgentChatResponse(BaseModel):
     session_id: str
     response: str
     tools_used: list[str] = []
+
+
+# --- Diagnostic Processing Workstation Schemas ---
+class ImagingFindingItem(BaseModel):
+    id: str
+    text: str
+
+
+class DifferentialItem(BaseModel):
+    name: str
+    probability: int
+    isPrimary: bool = False
+
+
+class PrimaryDiagnosisData(BaseModel):
+    title: str
+    icdCode: str
+    severity: str
+    confidence: int
+    patientName: str
+    dateOfBirth: str
+    scanType: str
+    processedTime: str
+
+
+class TreatmentProtocolSectionData(BaseModel):
+    title: str
+    details: list[str]
+
+
+class DiagnosticAnalysisResponse(BaseModel):
+    primaryDiagnosis: PrimaryDiagnosisData
+    imagingFindings: list[ImagingFindingItem]
+    differentialDiagnoses: list[DifferentialItem]
+    clinicalNotes: str
+    treatmentProtocol: list[TreatmentProtocolSectionData]
+
