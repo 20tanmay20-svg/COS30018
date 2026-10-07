@@ -8,28 +8,9 @@ logger = logging.getLogger(__name__)
 def build_clinical_agent():
     """Initializes a smolagents ToolCallingAgent equipped with clinical tools."""
     try:
-        from smolagents import ToolCallingAgent, tool, LiteLLMModel
-
-        @tool
-        def query_tumor_metrics(scan_id: int) -> str:
-            """
-            Retrieves MONAI SegResNet volumetric segmentation results for a given scan ID.
-            Args:
-                scan_id: Integer ID of the patient scan.
-            """
-            return f"Scan #{scan_id}: Whole Tumor (WT)=38.45 cm³, Tumor Core (TC)=19.82 cm³, Enhancing Tumor (ET)=7.64 cm³."
-
-        @tool
-        def calculate_rano_response(baseline_cm3: float, follow_up_cm3: float) -> str:
-            """
-            Calculates percentage volumetric change according to RANO neuro-oncology guidelines.
-            Args:
-                baseline_cm3: Baseline lesion volume in cm³.
-                follow_up_cm3: Follow-up lesion volume in cm³.
-            """
-            pct_change = ((follow_up_cm3 - baseline_cm3) / baseline_cm3) * 100.0
-            status = "Progression" if pct_change >= 25 else "Regression / Response" if pct_change <= -50 else "Stable"
-            return f"Volumetric change: {pct_change:+.1f}%. RANO assessment status: {status}."
+        from smolagents import ToolCallingAgent, LiteLLMModel
+        from app.tools.query_tumor_metrics import query_tumor_metrics
+        from app.tools.calculate_rano_response import calculate_rano_response
 
         model = LiteLLMModel(
             model_id=f"gemini/{settings.GEMINI_API_KEY and 'gemini-2.5-flash' or 'gemini-1.5-flash'}",
