@@ -246,7 +246,15 @@ Finish with a brief completion message using final_answer.
 
 def create_medical_evidence_agent(session, model=None):
     """Create a fresh ToolCallingAgent and bind tools to one isolated session."""
-    from smolagents import LiteLLMModel, ToolCallingAgent, tool
+    from smolagents import LiteLLMModel, ToolCallingAgent
+    if __package__:
+        from ..tools.search_medical_evidence import create_search_medical_evidence_tool
+        from ..tools.assess_evidence import create_assess_evidence_tool
+    else:
+        import sys
+        sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
+        from tools.search_medical_evidence import create_search_medical_evidence_tool
+        from tools.assess_evidence import create_assess_evidence_tool
     if model is None:
         from dotenv import load_dotenv
         root = Path(__file__).resolve().parents[2]
@@ -259,28 +267,8 @@ def create_medical_evidence_agent(session, model=None):
             raise ValueError("Set GEMINI_API_KEY and GEMINI_MODEL, or pass an existing model.")
         model = LiteLLMModel(model_id=model_id, api_key=key)
 
-    @tool
-    def search_medical_evidence(query: str) -> dict:
-        """Search PubMed for GBM literature and retrieve source abstracts.
-
-        Args:
-            query: Short PubMed medical concept query without patient identifiers.
-        """
-        return session.search(query)
-
-    @tool
-    def assess_evidence(pmid: str, relevance: str, rationale: str,
-                        supporting_quote: str, limitations: str) -> dict:
-        """Record a relevance assessment of a retrieved PubMed abstract.
-
-        Args:
-            pmid: Identifier returned by the search tool in this run.
-            relevance: high, medium, low, or not_relevant.
-            rationale: Why this study does or does not address the evidence question.
-            supporting_quote: Exact abstract excerpt, or empty for irrelevant material.
-            limitations: Study and patient-context limitations requiring verification.
-        """
-        return session.assess(pmid, relevance, rationale, supporting_quote, limitations)
+    search_medical_evidence = create_search_medical_evidence_tool(session)
+    assess_evidence = create_assess_evidence_tool(session)
 
     return ToolCallingAgent(
         tools=[search_medical_evidence, assess_evidence], model=model,
