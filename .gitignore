@@ -42,7 +42,6 @@ yarn-error.log*
 *.swo
 
 # Datasets, Weights & Large Artifacts
-data/
 *.nii
 *.nii.gz
 *.pt

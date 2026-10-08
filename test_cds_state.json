@@ -1,0 +1,32 @@
+{
+  "user_request": "Consider management options for suspected glioblastoma.",
+  "patient_information": {
+    "patient_data": [
+      {
+        "Primary Diagnosis": "Glioblastoma",
+        "Age at diagnosis": 54,
+        "Sex at Birth": "Male",
+        "Grade of Primary Brain Tumor": "Grade 4"
+      }
+    ],
+    "status": "success"
+  },
+  "medical_evidence": {
+    "retrieved_evidence": [
+      {
+        "pmid": "12345678",
+        "title": "Test evidence",
+        "url": "https://pubmed.ncbi.nlm.nih.gov/12345678/"
+      }
+    ],
+    "evidence_relevance": [
+      {
+        "pmid": "12345678",
+        "relevance": "high",
+        "supporting_quote": "Test supporting quote.",
+        "limitations": "Synthetic test evidence."
+      }
+    ],
+    "status": "success"
+  }
+}
