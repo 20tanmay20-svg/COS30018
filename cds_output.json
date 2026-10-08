@@ -1,0 +1,86 @@
+{
+  "user_request": "Consider management options for suspected glioblastoma.",
+  "patient_information": {
+    "patient_data": [
+      {
+        "Primary Diagnosis": "Glioblastoma",
+        "Age at diagnosis": 54,
+        "Sex at Birth": "Male",
+        "Grade of Primary Brain Tumor": "Grade 4"
+      }
+    ],
+    "status": "success"
+  },
+  "medical_evidence": {
+    "retrieved_evidence": [
+      {
+        "pmid": "12345678",
+        "title": "Test evidence",
+        "url": "https://pubmed.ncbi.nlm.nih.gov/12345678/"
+      }
+    ],
+    "evidence_relevance": [
+      {
+        "pmid": "12345678",
+        "relevance": "high",
+        "supporting_quote": "Test supporting quote.",
+        "limitations": "Synthetic test evidence."
+      }
+    ],
+    "status": "success"
+  },
+  "current_agent": "clinical_decision_support_agent",
+  "clinical_decision_support": {
+    "clinical_considerations": [
+      {
+        "consideration": "Glioblastoma is a highly aggressive brain tumor requiring urgent attention.",
+        "reasoning": "The patient has been diagnosed with a Grade 4 glioblastoma, which is the most aggressive form of brain tumor.",
+        "context": "The patient is 54 years old and male, which may influence treatment options and prognosis.",
+        "supporting_evidence": [
+          "12345678"
+        ],
+        "limitations": "The MRI findings are provisional and may not fully reflect the current state of the tumor.",
+        "requires_clinician_review": true
+      }
+    ],
+    "treatment_pathways": [
+      {
+        "option": "Glioblastoma Multiforme Resection Surgery",
+        "when_considered": "In cases of a newly diagnosed glioblastoma, surgical resection is often considered to remove as much of the tumor as safely possible.",
+        "supporting_evidence": [
+          "12345678"
+        ],
+        "unknown_patient_factors": "The extent of tumor invasion and the presence of any contraindications for surgery are unknown.",
+        "risks_and_limitations": "Surgery carries risks such as complications, infection, and potential neurological deficits. The effectiveness of surgery in improving overall survival is limited given the aggressive nature of glioblastoma.",
+        "requires_clinician_review": true
+      }
+    ],
+    "supporting_evidence": [
+      {
+        "pmid": "12345678",
+        "title": "Test evidence",
+        "url": "https://pubmed.ncbi.nlm.nih.gov/12345678/"
+      }
+    ],
+    "uncertainties": [
+      "No MRI classification result was supplied; tumour type/grade is unknown.",
+      "The MRI findings are provisional and may not fully reflect the current state of the tumor, as MRI is subject to interpretation and can sometimes miss or misdiagnose subtle changes."
+    ],
+    "doctor_review_items": [
+      {
+        "item": "Confirm MRI-based tumour classification with radiologist/pathology review.",
+        "reason": "MRI classifier output is provisional and must not be treated as a confirmed diagnosis."
+      },
+      {
+        "item": "Clinical consideration requires review: Glioblastoma is a highly aggressive brain tumor requiring urgent attention.",
+        "reason": "The MRI findings are provisional and may not fully reflect the current state of the tumor."
+      },
+      {
+        "item": "Treatment pathway requires clinician decision: Glioblastoma Multiforme Resection Surgery",
+        "reason": "Surgery carries risks such as complications, infection, and potential neurological deficits. The effectiveness of surgery in improving overall survival is limited given the aggressive nature of glioblastoma."
+      }
+    ],
+    "status": "success",
+    "error": null
+  }
+}
