@@ -25,7 +25,12 @@ selected_fields = [
     "Grade of Primary Brain Tumor",
     "Progression",
     "Time to First Progression (Days)",
-    "Overall Survival (Death)"
+    "Overall Survival (Death)",
+    "Initial Chemo Therapy",
+    "Name of Initial Chemo Therapy",
+    "Radiation Therapy",
+    "Dose",
+    "Number of Fractions"
 ]
 
 """ fields for historical data

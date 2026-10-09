@@ -39,6 +39,9 @@ def create_initial_state(user_request: str) -> dict[str, Any]:
         "clinical_decision_support": {
             "clinical_considerations": [],
             "treatment_pathways": [],
+            "supporting_evidence": [],
+            "uncertainties": [],
+            "doctor_review_items": [],
             "status": "pending",
             "error": None
         },
