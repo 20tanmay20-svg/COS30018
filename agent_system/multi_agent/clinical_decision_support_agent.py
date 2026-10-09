@@ -14,9 +14,13 @@ successful run always carries at least one doctor_review_items entry.
 import argparse
 from copy import deepcopy
 import json
+import logging
 import os
 from pathlib import Path
 import threading
+import time
+
+logger = logging.getLogger(__name__)
 
 
 # ---------------------------------------------------------
@@ -59,7 +63,8 @@ def _sanitize_previous_reports(previous_reports):
     return cleaned or "unknown"
 
 
-def _context(state, mri_findings=None, clinical_notes=None, previous_reports=None):
+def _context(state, mri_findings=None, clinical_notes=None, previous_reports=None,
+             verification_feedback=None):
     """Build the de-identified JSON prompt context and the evidence the LLM may cite.
 
     Raises ValueError (a safe, user-facing message) for any missing or malformed
@@ -128,6 +133,11 @@ def _context(state, mri_findings=None, clinical_notes=None, previous_reports=Non
         "patient_profiles": profiles,
         "clinical_notes": clinical_notes if isinstance(clinical_notes, str) and clinical_notes.strip() else "unknown",
         "previous_reports_summary": _sanitize_previous_reports(previous_reports),
+        "verification_feedback": (
+            verification_feedback.strip()
+            if isinstance(verification_feedback, str) and verification_feedback.strip()
+            else "none"
+        ),
         "mri_findings": mri_findings if isinstance(mri_findings, dict) else "unknown",
         "available_evidence": evidence_summaries,
         "missing_data_rule": (
@@ -191,8 +201,10 @@ class CDSSession:
     # -------------------------------------------------------------
     def add_consideration(self, consideration, reasoning, context_info, supporting_evidence, limitations, requires_review=True):
         with self.lock:
-            if not all(isinstance(x, str) and x.strip() for x in (consideration, reasoning, context_info, limitations)):
-                return {"success": False, "error": "consideration, reasoning, context_info and limitations must be nonempty strings."}
+            if not all(isinstance(x, str) and x.strip() for x in (consideration, reasoning, limitations)):
+                return {"success": False, "error": "consideration, reasoning and limitations must be nonempty strings."}
+            if not isinstance(context_info, str) or not context_info.strip():
+                context_info = "Not specified."
             if not isinstance(supporting_evidence, list) or not all(isinstance(x, str) for x in supporting_evidence):
                 return {"success": False, "error": "supporting_evidence must be a list of PMID strings."}
             unknown = [pmid for pmid in supporting_evidence if pmid not in self.evidence_by_pmid]
@@ -313,53 +325,113 @@ Verification Agent. Everything you record is DATA for a human clinician to check
 7. Do not fabricate patient information, evidence, or citations. Do not treat
    retrospective outcomes as the patient's current status. Do not recommend a
    treatment without explaining its limitations and unknowns.
+8. If "verification_feedback" is not "none", a previous draft failed verification.
+   Address each listed problem: remove or correct unsupported claims, and cite only
+   PMIDs from "available_evidence". Do not repeat a claim the feedback says is
+   unsupported.
+9. Pass every tool argument as its own top-level field using the exact parameter name
+   (for example consideration, reasoning, supporting_evidence, limitations). Never
+   nest them inside an "arguments" object. context_info is optional.
 Finish with a brief completion message using final_answer once every relevant
 consideration, pathway, and uncertainty has been recorded.
 """
 
 
-def create_clinical_decision_support_agent(session, model=None):
-    """Create a fresh ToolCallingAgent whose tools are bound to one isolated session."""
-    from smolagents import LiteLLMModel, ToolCallingAgent, tool
-    if model is None:
-        from dotenv import load_dotenv
-        root = Path(__file__).resolve().parents[2]
-        # Support the .env position shown in the user's screenshot.
-        load_dotenv(root / ".env")
-        load_dotenv(root / "backend" / ".env")
+_TRANSIENT_TYPES = ("serviceunavailable", "ratelimit", "timeout", "apiconnection", "internalserver")
+_TRANSIENT_TEXT = ("503", "429", "unavailable", "high demand", "overloaded", "rate limit", "timed out")
 
-        provider = os.getenv("MODEL_PROVIDER", "gemini")
 
-        if provider == "ollama":
-            model = LiteLLMModel(
-            model_id=os.getenv("LOCAL_MODEL", "ollama/qwen2.5:7b"),
+def _is_transient_model_error(exc):
+    """True for temporary model/network failures (e.g. Gemini 503 'high demand')."""
+    seen = set()
+    while exc is not None and id(exc) not in seen:
+        seen.add(id(exc))
+        name = type(exc).__name__.lower()
+        if any(t in name for t in _TRANSIENT_TYPES) or any(m in f"{name} {exc}".lower() for m in _TRANSIENT_TEXT):
+            return True
+        exc = exc.__cause__ or exc.__context__
+    return False
+
+
+def _build_model():
+    """Cloud model first; the local model is used only after 5 failed cloud attempts.
+
+    .env: LLM_MODEL / LLM_API_KEY (or GEMINI_MODEL / GEMINI_API_KEY) for the cloud model,
+    LOCAL_MODEL / LOCAL_API_BASE for the local fallback (e.g. ollama_chat/qwen2.5:7b).
+    MODEL_PROVIDER=ollama forces local-only. Only temporary errors (503, 429, timeouts,
+    "high demand") are retried; anything else is raised straight away.
+    """
+    from dotenv import load_dotenv
+    from smolagents import LiteLLMModel
+
+    root = Path(__file__).resolve().parents[2]
+    load_dotenv(root / ".env")
+    load_dotenv(root / "backend" / ".env")
+
+    local_model = None
+    if os.getenv("LOCAL_MODEL"):
+        local_model = LiteLLMModel(
+            model_id=os.getenv("LOCAL_MODEL"),
             api_base=os.getenv("LOCAL_API_BASE", "http://localhost:11434"),
         )
-        else:
-            key = os.getenv("GEMINI_API_KEY")
-            model_id = os.getenv("GEMINI_MODEL")
+    if os.getenv("MODEL_PROVIDER", "").lower() == "ollama":
+        if local_model is None:
+            raise ValueError("MODEL_PROVIDER=ollama needs LOCAL_MODEL, e.g. ollama_chat/qwen2.5:7b")
+        return local_model
 
-            if not key or not model_id:
-                raise ValueError("Set GEMINI_API_KEY and GEMINI_MODEL.")
+    key = os.getenv("LLM_API_KEY") or os.getenv("GEMINI_API_KEY")
+    model_id = os.getenv("LLM_MODEL") or os.getenv("GEMINI_MODEL")
+    if not key or not model_id:
+        raise ValueError("Set LLM_MODEL and LLM_API_KEY (or GEMINI_MODEL and GEMINI_API_KEY) in .env.")
+    max_attempts = int(os.getenv("CLOUD_MAX_ATTEMPTS", "5"))
+    retry_delay = float(os.getenv("CLOUD_RETRY_DELAY", "2"))
 
-            model = LiteLLMModel(
-                model_id=model_id,
-                api_key=key,
-            )
+    class FallbackModel(LiteLLMModel):
+        """Retries each cloud call, then switches to the local model for the rest of the run."""
+        using_fallback = False
+
+        def generate(self, *args, **kwargs):
+            if not self.using_fallback:
+                last_error = None
+                for attempt in range(1, max_attempts + 1):
+                    try:
+                        return super().generate(*args, **kwargs)
+                    except Exception as exc:
+                        if not _is_transient_model_error(exc):
+                            raise
+                        last_error = exc
+                        logger.warning("Cloud model unavailable (attempt %d/%d).", attempt, max_attempts)
+                        if attempt < max_attempts:
+                            time.sleep(retry_delay * 2 ** (attempt - 1))
+                if local_model is None:
+                    raise last_error
+                logger.warning("Cloud model failed %d times; using the local model for the rest of this run.",
+                               max_attempts)
+                self.using_fallback = True
+            return local_model.generate(*args, **kwargs)
+
+    return FallbackModel(model_id=model_id, api_key=key)
+
+
+def create_clinical_decision_support_agent(session, model=None):
+    """Create a fresh ToolCallingAgent whose tools are bound to one isolated session."""
+    from smolagents import ToolCallingAgent, tool
+    if model is None:
+        model = _build_model()
 
     @tool
     def record_clinical_consideration(
-        consideration: str, reasoning: str, context_info: str,
-        supporting_evidence: list[str], limitations: str, requires_review: bool = True
+        consideration: str, reasoning: str, supporting_evidence: list[str], limitations: str,
+        context_info: str = "", requires_review: bool = True
     ) -> dict:
         """Record one clinical consideration for clinician review.
 
         Args:
             consideration: The clinical consideration being raised.
             reasoning: Why this consideration follows from the supplied information.
-            context_info: The relevant patient/context information behind it.
             supporting_evidence: PMIDs from available_evidence that support it; empty if none.
             limitations: Limitations, caveats, or unknowns affecting this consideration.
+            context_info: The relevant patient/context information behind it (optional).
             requires_review: Whether this consideration specifically needs clinician review.
         """
         return session.add_consideration(consideration, reasoning, context_info, supporting_evidence, limitations, requires_review)
@@ -407,7 +479,7 @@ def update_clinical_decision_support_state(state, cds_result):
 
 def run_clinical_decision_support_agent(
     state, *, model=None, mri_findings=None, clinical_notes=None,
-    previous_reports=None, low_confidence_threshold=0.7
+    previous_reports=None, low_confidence_threshold=0.7, verification_feedback=None
 ):
     """Mutate and return state, retaining any partially recorded output if a stage fails.
 
@@ -419,12 +491,16 @@ def run_clinical_decision_support_agent(
         fields are stripped before use).
     low_confidence_threshold: MRI confidence below this triggers an explicit uncertainty
         and doctor-review item.
+    verification_feedback: optional plain-text list of problems the Verification Agent
+        found in a previous draft; the model is asked to address them on this run.
     """
     state["current_agent"] = "clinical_decision_support_agent"
     state["clinical_decision_support"] = empty_cds()  # Clear stale success on every run.
     session = None
     try:
-        prompt, useful_evidence = _context(state, mri_findings, clinical_notes, previous_reports)
+        prompt, useful_evidence = _context(
+            state, mri_findings, clinical_notes, previous_reports, verification_feedback
+        )
         session = CDSSession(
             evidence_records=useful_evidence, mri_findings=mri_findings,
             low_confidence_threshold=low_confidence_threshold,

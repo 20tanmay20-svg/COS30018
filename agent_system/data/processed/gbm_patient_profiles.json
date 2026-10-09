@@ -7,7 +7,12 @@
     "Grade of Primary Brain Tumor": "4",
     "Progression": "1",
     "Time to First Progression (Days)": "286",
-    "Overall Survival (Death)": "0"
+    "Overall Survival (Death)": "0",
+    "Initial Chemo Therapy": "Yes",
+    "Name of Initial Chemo Therapy": "Temozolomide",
+    "Radiation Therapy": "Yes",
+    "Dose": "60 Gy",
+    "Number of Fractions": "30"
   },
   {
     "Patient_ID": "PatientID_0004",
@@ -17,7 +22,12 @@
     "Grade of Primary Brain Tumor": "4",
     "Progression": "0",
     "Time to First Progression (Days)": null,
-    "Overall Survival (Death)": "0"
+    "Overall Survival (Death)": "0",
+    "Initial Chemo Therapy": "NA",
+    "Name of Initial Chemo Therapy": "NA",
+    "Radiation Therapy": "NA",
+    "Dose": "NA",
+    "Number of Fractions": "NA"
   },
   {
     "Patient_ID": "PatientID_0005",
@@ -27,7 +37,12 @@
     "Grade of Primary Brain Tumor": "4",
     "Progression": "1",
     "Time to First Progression (Days)": "344",
-    "Overall Survival (Death)": "1"
+    "Overall Survival (Death)": "1",
+    "Initial Chemo Therapy": "Yes",
+    "Name of Initial Chemo Therapy": "Temozolomide",
+    "Radiation Therapy": "Yes",
+    "Dose": "60 Gy",
+    "Number of Fractions": "30"
   },
   {
     "Patient_ID": "PatientID_0006",
@@ -37,7 +52,12 @@
     "Grade of Primary Brain Tumor": "4",
     "Progression": "1",
     "Time to First Progression (Days)": "175",
-    "Overall Survival (Death)": "1"
+    "Overall Survival (Death)": "1",
+    "Initial Chemo Therapy": "Yes",
+    "Name of Initial Chemo Therapy": "Temozolomide",
+    "Radiation Therapy": "Yes",
+    "Dose": "60 Gy",
+    "Number of Fractions": "30"
   },
   {
     "Patient_ID": "PatientID_0007",
@@ -47,7 +67,12 @@
     "Grade of Primary Brain Tumor": "4",
     "Progression": "0",
     "Time to First Progression (Days)": null,
-    "Overall Survival (Death)": "1"
+    "Overall Survival (Death)": "1",
+    "Initial Chemo Therapy": "NA",
+    "Name of Initial Chemo Therapy": "NA",
+    "Radiation Therapy": "NA",
+    "Dose": "NA",
+    "Number of Fractions": "NA"
   },
   {
     "Patient_ID": "PatientID_0008",
@@ -57,7 +82,12 @@
     "Grade of Primary Brain Tumor": "4",
     "Progression": "1",
     "Time to First Progression (Days)": "97",
-    "Overall Survival (Death)": "1"
+    "Overall Survival (Death)": "1",
+    "Initial Chemo Therapy": "Yes",
+    "Name of Initial Chemo Therapy": "Temozolomide",
+    "Radiation Therapy": "Yes",
+    "Dose": "60 Gy",
+    "Number of Fractions": "30"
   },
   {
     "Patient_ID": "PatientID_0009",
@@ -67,7 +97,12 @@
     "Grade of Primary Brain Tumor": "4",
     "Progression": "1",
     "Time to First Progression (Days)": "97",
-    "Overall Survival (Death)": "0"
+    "Overall Survival (Death)": "0",
+    "Initial Chemo Therapy": "Yes",
+    "Name of Initial Chemo Therapy": "Temozolomide",
+    "Radiation Therapy": "Yes",
+    "Dose": "60 Gy",
+    "Number of Fractions": "30"
   },
   {
     "Patient_ID": "PatientID_0010",
@@ -77,7 +112,12 @@
     "Grade of Primary Brain Tumor": "4",
     "Progression": "1",
     "Time to First Progression (Days)": "175",
-    "Overall Survival (Death)": "1"
+    "Overall Survival (Death)": "1",
+    "Initial Chemo Therapy": "Yes",
+    "Name of Initial Chemo Therapy": "Temozolomide",
+    "Radiation Therapy": "Yes",
+    "Dose": "60 Gy",
+    "Number of Fractions": "30"
   },
   {
     "Patient_ID": "PatientID_0011",
@@ -87,7 +127,12 @@
     "Grade of Primary Brain Tumor": "4",
     "Progression": "0",
     "Time to First Progression (Days)": null,
-    "Overall Survival (Death)": "1"
+    "Overall Survival (Death)": "1",
+    "Initial Chemo Therapy": "NA",
+    "Name of Initial Chemo Therapy": "NA",
+    "Radiation Therapy": "NA",
+    "Dose": "NA",
+    "Number of Fractions": "NA"
   },
   {
     "Patient_ID": "PatientID_0012",
@@ -97,7 +142,12 @@
     "Grade of Primary Brain Tumor": "4",
     "Progression": "1",
     "Time to First Progression (Days)": "176",
-    "Overall Survival (Death)": "1"
+    "Overall Survival (Death)": "1",
+    "Initial Chemo Therapy": "Yes",
+    "Name of Initial Chemo Therapy": "Temozolomide",
+    "Radiation Therapy": "Yes",
+    "Dose": "NA",
+    "Number of Fractions": "NA"
   },
   {
     "Patient_ID": "PatientID_0013",
@@ -107,7 +157,12 @@
     "Grade of Primary Brain Tumor": "4",
     "Progression": "0",
     "Time to First Progression (Days)": null,
-    "Overall Survival (Death)": "1"
+    "Overall Survival (Death)": "1",
+    "Initial Chemo Therapy": "Yes",
+    "Name of Initial Chemo Therapy": "Temozolomide",
+    "Radiation Therapy": "Yes",
+    "Dose": "60 Gy",
+    "Number of Fractions": "30"
   },
   {
     "Patient_ID": "PatientID_0014",
@@ -117,7 +172,12 @@
     "Grade of Primary Brain Tumor": "4",
     "Progression": "1",
     "Time to First Progression (Days)": "552",
-    "Overall Survival (Death)": "1"
+    "Overall Survival (Death)": "1",
+    "Initial Chemo Therapy": "Yes",
+    "Name of Initial Chemo Therapy": "Temozolomide",
+    "Radiation Therapy": "Yes",
+    "Dose": "60 Gy",
+    "Number of Fractions": "30"
   },
   {
     "Patient_ID": "PatientID_0015",
@@ -127,7 +187,12 @@
     "Grade of Primary Brain Tumor": "4",
     "Progression": "0",
     "Time to First Progression (Days)": null,
-    "Overall Survival (Death)": "0"
+    "Overall Survival (Death)": "0",
+    "Initial Chemo Therapy": "NA",
+    "Name of Initial Chemo Therapy": "NA",
+    "Radiation Therapy": "NA",
+    "Dose": "NA",
+    "Number of Fractions": "NA"
   },
   {
     "Patient_ID": "PatientID_0018",
@@ -137,7 +202,12 @@
     "Grade of Primary Brain Tumor": "4",
     "Progression": "1",
     "Time to First Progression (Days)": "255",
-    "Overall Survival (Death)": "1"
+    "Overall Survival (Death)": "1",
+    "Initial Chemo Therapy": "Yes",
+    "Name of Initial Chemo Therapy": "Temozolomide",
+    "Radiation Therapy": "Yes",
+    "Dose": "60 Gy",
+    "Number of Fractions": "30"
   },
   {
     "Patient_ID": "PatientID_0019",
@@ -147,7 +217,12 @@
     "Grade of Primary Brain Tumor": "4",
     "Progression": "1",
     "Time to First Progression (Days)": "477",
-    "Overall Survival (Death)": "0"
+    "Overall Survival (Death)": "0",
+    "Initial Chemo Therapy": "Yes",
+    "Name of Initial Chemo Therapy": "Temozolomide",
+    "Radiation Therapy": "Yes",
+    "Dose": "60 Gy",
+    "Number of Fractions": "30"
   },
   {
     "Patient_ID": "PatientID_0020",
@@ -157,7 +232,12 @@
     "Grade of Primary Brain Tumor": "4",
     "Progression": "0",
     "Time to First Progression (Days)": null,
-    "Overall Survival (Death)": "0"
+    "Overall Survival (Death)": "0",
+    "Initial Chemo Therapy": "NA",
+    "Name of Initial Chemo Therapy": "NA",
+    "Radiation Therapy": "NA",
+    "Dose": "NA",
+    "Number of Fractions": "NA"
   },
   {
     "Patient_ID": "PatientID_0021",
@@ -167,7 +247,12 @@
     "Grade of Primary Brain Tumor": "4",
     "Progression": "1",
     "Time to First Progression (Days)": "330",
-    "Overall Survival (Death)": "0"
+    "Overall Survival (Death)": "0",
+    "Initial Chemo Therapy": "Yes",
+    "Name of Initial Chemo Therapy": "Temozolomide",
+    "Radiation Therapy": "Yes",
+    "Dose": "60 Gy",
+    "Number of Fractions": "30"
   },
   {
     "Patient_ID": "PatientID_0022",
@@ -177,7 +262,12 @@
     "Grade of Primary Brain Tumor": "4",
     "Progression": "1",
     "Time to First Progression (Days)": "147",
-    "Overall Survival (Death)": "0"
+    "Overall Survival (Death)": "0",
+    "Initial Chemo Therapy": "Yes",
+    "Name of Initial Chemo Therapy": "Temozolomide",
+    "Radiation Therapy": "Yes",
+    "Dose": "60 Gy",
+    "Number of Fractions": "30"
   },
   {
     "Patient_ID": "PatientID_0023",
@@ -187,7 +277,12 @@
     "Grade of Primary Brain Tumor": "4",
     "Progression": "0",
     "Time to First Progression (Days)": null,
-    "Overall Survival (Death)": "1"
+    "Overall Survival (Death)": "1",
+    "Initial Chemo Therapy": "NA",
+    "Name of Initial Chemo Therapy": "NA",
+    "Radiation Therapy": "NA",
+    "Dose": "NA",
+    "Number of Fractions": "NA"
   },
   {
     "Patient_ID": "PatientID_0024",
@@ -197,7 +292,12 @@
     "Grade of Primary Brain Tumor": "4",
     "Progression": "1",
     "Time to First Progression (Days)": "92",
-    "Overall Survival (Death)": "0"
+    "Overall Survival (Death)": "0",
+    "Initial Chemo Therapy": "Yes",
+    "Name of Initial Chemo Therapy": "Temozolomide",
+    "Radiation Therapy": "Yes",
+    "Dose": "59.4 Gy",
+    "Number of Fractions": "33"
   },
   {
     "Patient_ID": "PatientID_0025",
@@ -207,7 +307,12 @@
     "Grade of Primary Brain Tumor": "4",
     "Progression": "1",
     "Time to First Progression (Days)": "213",
-    "Overall Survival (Death)": "1"
+    "Overall Survival (Death)": "1",
+    "Initial Chemo Therapy": "Yes",
+    "Name of Initial Chemo Therapy": "Temozolomide",
+    "Radiation Therapy": "Yes",
+    "Dose": "59.4 Gy",
+    "Number of Fractions": "33"
   },
   {
     "Patient_ID": "PatientID_0026",
@@ -217,7 +322,12 @@
     "Grade of Primary Brain Tumor": "4",
     "Progression": "1",
     "Time to First Progression (Days)": "71",
-    "Overall Survival (Death)": "1"
+    "Overall Survival (Death)": "1",
+    "Initial Chemo Therapy": "Yes",
+    "Name of Initial Chemo Therapy": "Temozolomide",
+    "Radiation Therapy": "Yes",
+    "Dose": "60 Gy",
+    "Number of Fractions": "30"
   },
   {
     "Patient_ID": "PatientID_0027",
@@ -227,7 +337,12 @@
     "Grade of Primary Brain Tumor": "4",
     "Progression": "0",
     "Time to First Progression (Days)": null,
-    "Overall Survival (Death)": "1"
+    "Overall Survival (Death)": "1",
+    "Initial Chemo Therapy": "NA",
+    "Name of Initial Chemo Therapy": "NA",
+    "Radiation Therapy": "NA",
+    "Dose": "NA",
+    "Number of Fractions": "NA"
   },
   {
     "Patient_ID": "PatientID_0029",
@@ -237,7 +352,12 @@
     "Grade of Primary Brain Tumor": "4",
     "Progression": "1",
     "Time to First Progression (Days)": "369",
-    "Overall Survival (Death)": "1"
+    "Overall Survival (Death)": "1",
+    "Initial Chemo Therapy": "Yes",
+    "Name of Initial Chemo Therapy": "Temozolomide",
+    "Radiation Therapy": "Yes",
+    "Dose": "NA",
+    "Number of Fractions": "NA"
   },
   {
     "Patient_ID": "PatientID_0030",
@@ -247,7 +367,12 @@
     "Grade of Primary Brain Tumor": "4",
     "Progression": "1",
     "Time to First Progression (Days)": "510",
-    "Overall Survival (Death)": "1"
+    "Overall Survival (Death)": "1",
+    "Initial Chemo Therapy": "Yes",
+    "Name of Initial Chemo Therapy": "Temozolomide",
+    "Radiation Therapy": "Yes",
+    "Dose": "60 Gy",
+    "Number of Fractions": "30"
   },
   {
     "Patient_ID": "PatientID_0031",
@@ -257,7 +382,12 @@
     "Grade of Primary Brain Tumor": "4",
     "Progression": "1",
     "Time to First Progression (Days)": "396",
-    "Overall Survival (Death)": "1"
+    "Overall Survival (Death)": "1",
+    "Initial Chemo Therapy": "Yes",
+    "Name of Initial Chemo Therapy": "Temozolomide",
+    "Radiation Therapy": "Yes",
+    "Dose": "NA",
+    "Number of Fractions": "NA"
   },
   {
     "Patient_ID": "PatientID_0032",
@@ -267,7 +397,12 @@
     "Grade of Primary Brain Tumor": "4",
     "Progression": "1",
     "Time to First Progression (Days)": "154",
-    "Overall Survival (Death)": "1"
+    "Overall Survival (Death)": "1",
+    "Initial Chemo Therapy": "Yes",
+    "Name of Initial Chemo Therapy": "Temozolomide",
+    "Radiation Therapy": "Yes",
+    "Dose": "60 Gy",
+    "Number of Fractions": "30"
   },
   {
     "Patient_ID": "PatientID_0033",
@@ -277,7 +412,12 @@
     "Grade of Primary Brain Tumor": "4",
     "Progression": "1",
     "Time to First Progression (Days)": "113",
-    "Overall Survival (Death)": "1"
+    "Overall Survival (Death)": "1",
+    "Initial Chemo Therapy": "Yes",
+    "Name of Initial Chemo Therapy": "Temozolomide",
+    "Radiation Therapy": "Yes",
+    "Dose": "NA",
+    "Number of Fractions": "NA"
   },
   {
     "Patient_ID": "PatientID_0034",
@@ -287,7 +427,12 @@
     "Grade of Primary Brain Tumor": "4",
     "Progression": "1",
     "Time to First Progression (Days)": "113",
-    "Overall Survival (Death)": "1"
+    "Overall Survival (Death)": "1",
+    "Initial Chemo Therapy": "NA",
+    "Name of Initial Chemo Therapy": "NA",
+    "Radiation Therapy": "NA",
+    "Dose": "NA",
+    "Number of Fractions": "NA"
   },
   {
     "Patient_ID": "PatientID_0035",
@@ -297,7 +442,12 @@
     "Grade of Primary Brain Tumor": "4",
     "Progression": "1",
     "Time to First Progression (Days)": "64",
-    "Overall Survival (Death)": "1"
+    "Overall Survival (Death)": "1",
+    "Initial Chemo Therapy": "Yes",
+    "Name of Initial Chemo Therapy": "Temozolomide",
+    "Radiation Therapy": "Yes",
+    "Dose": "60 Gy",
+    "Number of Fractions": "30"
   },
   {
     "Patient_ID": "PatientID_0036",
@@ -307,7 +457,12 @@
     "Grade of Primary Brain Tumor": "4",
     "Progression": "1",
     "Time to First Progression (Days)": "156",
-    "Overall Survival (Death)": "1"
+    "Overall Survival (Death)": "1",
+    "Initial Chemo Therapy": "Yes",
+    "Name of Initial Chemo Therapy": "Temozolomide",
+    "Radiation Therapy": "Yes",
+    "Dose": "NA",
+    "Number of Fractions": "NA"
   },
   {
     "Patient_ID": "PatientID_0037",
@@ -317,7 +472,12 @@
     "Grade of Primary Brain Tumor": "4",
     "Progression": "1",
     "Time to First Progression (Days)": "371",
-    "Overall Survival (Death)": "0"
+    "Overall Survival (Death)": "0",
+    "Initial Chemo Therapy": "Yes",
+    "Name of Initial Chemo Therapy": "Temozolomide",
+    "Radiation Therapy": "Yes",
+    "Dose": "60 Gy",
+    "Number of Fractions": "30"
   },
   {
     "Patient_ID": "PatientID_0038",
@@ -327,7 +487,12 @@
     "Grade of Primary Brain Tumor": "4",
     "Progression": "1",
     "Time to First Progression (Days)": "255",
-    "Overall Survival (Death)": "1"
+    "Overall Survival (Death)": "1",
+    "Initial Chemo Therapy": "Yes",
+    "Name of Initial Chemo Therapy": "Temozolomide",
+    "Radiation Therapy": "Yes",
+    "Dose": "60 Gy",
+    "Number of Fractions": "30"
   },
   {
     "Patient_ID": "PatientID_0039",
@@ -337,7 +502,12 @@
     "Grade of Primary Brain Tumor": "4",
     "Progression": "1",
     "Time to First Progression (Days)": "197",
-    "Overall Survival (Death)": "1"
+    "Overall Survival (Death)": "1",
+    "Initial Chemo Therapy": "Yes",
+    "Name of Initial Chemo Therapy": "Temozolomide",
+    "Radiation Therapy": "Yes",
+    "Dose": "60 Gy",
+    "Number of Fractions": "30"
   },
   {
     "Patient_ID": "PatientID_0040",
@@ -347,7 +517,12 @@
     "Grade of Primary Brain Tumor": "4",
     "Progression": "0",
     "Time to First Progression (Days)": null,
-    "Overall Survival (Death)": "0"
+    "Overall Survival (Death)": "0",
+    "Initial Chemo Therapy": "NA",
+    "Name of Initial Chemo Therapy": "NA",
+    "Radiation Therapy": "NA",
+    "Dose": "NA",
+    "Number of Fractions": "NA"
   },
   {
     "Patient_ID": "PatientID_0041",
@@ -357,7 +532,12 @@
     "Grade of Primary Brain Tumor": "4",
     "Progression": "1",
     "Time to First Progression (Days)": "259",
-    "Overall Survival (Death)": "0"
+    "Overall Survival (Death)": "0",
+    "Initial Chemo Therapy": "Yes",
+    "Name of Initial Chemo Therapy": "Temozolomide",
+    "Radiation Therapy": "Yes",
+    "Dose": "60 Gy",
+    "Number of Fractions": "30"
   },
   {
     "Patient_ID": "PatientID_0042",
@@ -367,7 +547,12 @@
     "Grade of Primary Brain Tumor": "4",
     "Progression": "1",
     "Time to First Progression (Days)": "388",
-    "Overall Survival (Death)": "1"
+    "Overall Survival (Death)": "1",
+    "Initial Chemo Therapy": "NA",
+    "Name of Initial Chemo Therapy": "NA",
+    "Radiation Therapy": "NA",
+    "Dose": "NA",
+    "Number of Fractions": "NA"
   },
   {
     "Patient_ID": "PatientID_0043",
@@ -377,7 +562,12 @@
     "Grade of Primary Brain Tumor": "4",
     "Progression": "1",
     "Time to First Progression (Days)": "55",
-    "Overall Survival (Death)": "1"
+    "Overall Survival (Death)": "1",
+    "Initial Chemo Therapy": "Yes",
+    "Name of Initial Chemo Therapy": "Temozolomide",
+    "Radiation Therapy": "Yes",
+    "Dose": "30 Gy",
+    "Number of Fractions": "10"
   },
   {
     "Patient_ID": "PatientID_0044",
@@ -387,7 +577,12 @@
     "Grade of Primary Brain Tumor": "4",
     "Progression": "0",
     "Time to First Progression (Days)": null,
-    "Overall Survival (Death)": "1"
+    "Overall Survival (Death)": "1",
+    "Initial Chemo Therapy": "NA",
+    "Name of Initial Chemo Therapy": "NA",
+    "Radiation Therapy": "NA",
+    "Dose": "NA",
+    "Number of Fractions": "NA"
   },
   {
     "Patient_ID": "PatientID_0045",
@@ -397,7 +592,12 @@
     "Grade of Primary Brain Tumor": "4",
     "Progression": "1",
     "Time to First Progression (Days)": "98",
-    "Overall Survival (Death)": "0"
+    "Overall Survival (Death)": "0",
+    "Initial Chemo Therapy": "Yes",
+    "Name of Initial Chemo Therapy": "Temozolomide",
+    "Radiation Therapy": "Yes",
+    "Dose": "60 Gy",
+    "Number of Fractions": "30"
   },
   {
     "Patient_ID": "PatientID_0046",
@@ -407,7 +607,12 @@
     "Grade of Primary Brain Tumor": "4",
     "Progression": "0",
     "Time to First Progression (Days)": null,
-    "Overall Survival (Death)": "0"
+    "Overall Survival (Death)": "0",
+    "Initial Chemo Therapy": "NA",
+    "Name of Initial Chemo Therapy": "NA",
+    "Radiation Therapy": "NA",
+    "Dose": "NA",
+    "Number of Fractions": "NA"
   },
   {
     "Patient_ID": "PatientID_0047",
@@ -417,7 +622,12 @@
     "Grade of Primary Brain Tumor": "4",
     "Progression": "1",
     "Time to First Progression (Days)": "63",
-    "Overall Survival (Death)": "1"
+    "Overall Survival (Death)": "1",
+    "Initial Chemo Therapy": "Yes",
+    "Name of Initial Chemo Therapy": "Temozolomide",
+    "Radiation Therapy": "Yes",
+    "Dose": "40 Gy",
+    "Number of Fractions": "15"
   },
   {
     "Patient_ID": "PatientID_0049",
@@ -427,7 +637,12 @@
     "Grade of Primary Brain Tumor": "4",
     "Progression": "1",
     "Time to First Progression (Days)": "216",
-    "Overall Survival (Death)": "0"
+    "Overall Survival (Death)": "0",
+    "Initial Chemo Therapy": "Yes",
+    "Name of Initial Chemo Therapy": "Temozolomide",
+    "Radiation Therapy": "Yes",
+    "Dose": "60 Gy",
+    "Number of Fractions": "30"
   },
   {
     "Patient_ID": "PatientID_0051",
@@ -437,7 +652,12 @@
     "Grade of Primary Brain Tumor": "4",
     "Progression": "1",
     "Time to First Progression (Days)": "237",
-    "Overall Survival (Death)": "1"
+    "Overall Survival (Death)": "1",
+    "Initial Chemo Therapy": "Yes",
+    "Name of Initial Chemo Therapy": "Lomustine",
+    "Radiation Therapy": "Yes",
+    "Dose": "34 Gy",
+    "Number of Fractions": "10"
   },
   {
     "Patient_ID": "PatientID_0052",
@@ -447,7 +667,12 @@
     "Grade of Primary Brain Tumor": "4",
     "Progression": "1",
     "Time to First Progression (Days)": "108",
-    "Overall Survival (Death)": "1"
+    "Overall Survival (Death)": "1",
+    "Initial Chemo Therapy": "Yes",
+    "Name of Initial Chemo Therapy": "Temozolomide",
+    "Radiation Therapy": "Yes",
+    "Dose": "60 Gy",
+    "Number of Fractions": "30"
   },
   {
     "Patient_ID": "PatientID_0053",
@@ -457,7 +682,12 @@
     "Grade of Primary Brain Tumor": "4",
     "Progression": "1",
     "Time to First Progression (Days)": "714",
-    "Overall Survival (Death)": "0"
+    "Overall Survival (Death)": "0",
+    "Initial Chemo Therapy": "Yes",
+    "Name of Initial Chemo Therapy": "Temozolomide",
+    "Radiation Therapy": "Yes",
+    "Dose": "60 Gy",
+    "Number of Fractions": "30"
   },
   {
     "Patient_ID": "PatientID_0054",
@@ -467,7 +697,12 @@
     "Grade of Primary Brain Tumor": "4",
     "Progression": "1",
     "Time to First Progression (Days)": "99",
-    "Overall Survival (Death)": "1"
+    "Overall Survival (Death)": "1",
+    "Initial Chemo Therapy": "Yes",
+    "Name of Initial Chemo Therapy": "Temozolomide",
+    "Radiation Therapy": "Yes",
+    "Dose": "60 Gy",
+    "Number of Fractions": "30"
   },
   {
     "Patient_ID": "PatientID_0055",
@@ -477,7 +712,12 @@
     "Grade of Primary Brain Tumor": "4",
     "Progression": "1",
     "Time to First Progression (Days)": "381",
-    "Overall Survival (Death)": "1"
+    "Overall Survival (Death)": "1",
+    "Initial Chemo Therapy": "Yes",
+    "Name of Initial Chemo Therapy": "Temozolomide",
+    "Radiation Therapy": "Yes",
+    "Dose": "60 Gy",
+    "Number of Fractions": "30"
   },
   {
     "Patient_ID": "PatientID_0056",
@@ -487,7 +727,12 @@
     "Grade of Primary Brain Tumor": "4",
     "Progression": "1",
     "Time to First Progression (Days)": "273",
-    "Overall Survival (Death)": "1"
+    "Overall Survival (Death)": "1",
+    "Initial Chemo Therapy": "Yes",
+    "Name of Initial Chemo Therapy": "Temozolomide",
+    "Radiation Therapy": "Yes",
+    "Dose": "60 Gy",
+    "Number of Fractions": "30"
   },
   {
     "Patient_ID": "PatientID_0057",
@@ -497,7 +742,12 @@
     "Grade of Primary Brain Tumor": "4",
     "Progression": "1",
     "Time to First Progression (Days)": "9",
-    "Overall Survival (Death)": "0"
+    "Overall Survival (Death)": "0",
+    "Initial Chemo Therapy": "NA",
+    "Name of Initial Chemo Therapy": "NA",
+    "Radiation Therapy": "NA",
+    "Dose": "NA",
+    "Number of Fractions": "NA"
   },
   {
     "Patient_ID": "PatientID_0058",
@@ -507,7 +757,12 @@
     "Grade of Primary Brain Tumor": "4",
     "Progression": "1",
     "Time to First Progression (Days)": "41",
-    "Overall Survival (Death)": "1"
+    "Overall Survival (Death)": "1",
+    "Initial Chemo Therapy": "Yes",
+    "Name of Initial Chemo Therapy": "Temozolomide",
+    "Radiation Therapy": "Yes",
+    "Dose": "60 Gy",
+    "Number of Fractions": "30"
   },
   {
     "Patient_ID": "PatientID_0059",
@@ -517,7 +772,12 @@
     "Grade of Primary Brain Tumor": "4",
     "Progression": "1",
     "Time to First Progression (Days)": "2067",
-    "Overall Survival (Death)": "0"
+    "Overall Survival (Death)": "0",
+    "Initial Chemo Therapy": "Yes",
+    "Name of Initial Chemo Therapy": "Temozolomide",
+    "Radiation Therapy": "Yes",
+    "Dose": "60 Gy",
+    "Number of Fractions": "30"
   },
   {
     "Patient_ID": "PatientID_0060",
@@ -527,7 +787,12 @@
     "Grade of Primary Brain Tumor": "4",
     "Progression": "1",
     "Time to First Progression (Days)": "7",
-    "Overall Survival (Death)": "1"
+    "Overall Survival (Death)": "1",
+    "Initial Chemo Therapy": "Yes",
+    "Name of Initial Chemo Therapy": "Temozolomide",
+    "Radiation Therapy": "Yes",
+    "Dose": "NA",
+    "Number of Fractions": "NA"
   },
   {
     "Patient_ID": "PatientID_0061",
@@ -537,7 +802,12 @@
     "Grade of Primary Brain Tumor": "4",
     "Progression": "1",
     "Time to First Progression (Days)": "2112",
-    "Overall Survival (Death)": "0"
+    "Overall Survival (Death)": "0",
+    "Initial Chemo Therapy": "Yes",
+    "Name of Initial Chemo Therapy": "Temozolomide",
+    "Radiation Therapy": "Yes",
+    "Dose": "60 Gy",
+    "Number of Fractions": "30"
   },
   {
     "Patient_ID": "PatientID_0062",
@@ -547,7 +817,12 @@
     "Grade of Primary Brain Tumor": "4",
     "Progression": "1",
     "Time to First Progression (Days)": "7",
-    "Overall Survival (Death)": "1"
+    "Overall Survival (Death)": "1",
+    "Initial Chemo Therapy": "Yes",
+    "Name of Initial Chemo Therapy": "Temozolomide",
+    "Radiation Therapy": "Yes",
+    "Dose": "NA",
+    "Number of Fractions": "NA"
   },
   {
     "Patient_ID": "PatientID_0063",
@@ -557,7 +832,12 @@
     "Grade of Primary Brain Tumor": "4",
     "Progression": "1",
     "Time to First Progression (Days)": "53",
-    "Overall Survival (Death)": "1"
+    "Overall Survival (Death)": "1",
+    "Initial Chemo Therapy": "Yes",
+    "Name of Initial Chemo Therapy": "Temozolomide",
+    "Radiation Therapy": "Yes",
+    "Dose": "60 Gy",
+    "Number of Fractions": "30"
   },
   {
     "Patient_ID": "PatientID_0064",
@@ -567,7 +847,12 @@
     "Grade of Primary Brain Tumor": "4",
     "Progression": "1",
     "Time to First Progression (Days)": "96",
-    "Overall Survival (Death)": "1"
+    "Overall Survival (Death)": "1",
+    "Initial Chemo Therapy": "Yes",
+    "Name of Initial Chemo Therapy": "Temozolomide",
+    "Radiation Therapy": "Yes",
+    "Dose": "40 Gy",
+    "Number of Fractions": "15"
   },
   {
     "Patient_ID": "PatientID_0065",
@@ -577,7 +862,12 @@
     "Grade of Primary Brain Tumor": "4",
     "Progression": "1",
     "Time to First Progression (Days)": "77",
-    "Overall Survival (Death)": "1"
+    "Overall Survival (Death)": "1",
+    "Initial Chemo Therapy": "Yes",
+    "Name of Initial Chemo Therapy": "Temozolomide",
+    "Radiation Therapy": "Yes",
+    "Dose": "60 Gy",
+    "Number of Fractions": "30"
   },
   {
     "Patient_ID": "PatientID_0066",
@@ -587,7 +877,12 @@
     "Grade of Primary Brain Tumor": "4",
     "Progression": "0",
     "Time to First Progression (Days)": null,
-    "Overall Survival (Death)": "0"
+    "Overall Survival (Death)": "0",
+    "Initial Chemo Therapy": "NA",
+    "Name of Initial Chemo Therapy": "NA",
+    "Radiation Therapy": "NA",
+    "Dose": "NA",
+    "Number of Fractions": "NA"
   },
   {
     "Patient_ID": "PatientID_0067",
@@ -597,7 +892,12 @@
     "Grade of Primary Brain Tumor": "4",
     "Progression": "1",
     "Time to First Progression (Days)": "203",
-    "Overall Survival (Death)": "0"
+    "Overall Survival (Death)": "0",
+    "Initial Chemo Therapy": "Yes",
+    "Name of Initial Chemo Therapy": "Temozolomide",
+    "Radiation Therapy": "Yes",
+    "Dose": "60 Gy",
+    "Number of Fractions": "30"
   },
   {
     "Patient_ID": "PatientID_0068",
@@ -607,7 +907,12 @@
     "Grade of Primary Brain Tumor": "4",
     "Progression": "1",
     "Time to First Progression (Days)": "159",
-    "Overall Survival (Death)": "1"
+    "Overall Survival (Death)": "1",
+    "Initial Chemo Therapy": "Yes",
+    "Name of Initial Chemo Therapy": "Temozolomide",
+    "Radiation Therapy": "Yes",
+    "Dose": "60 Gy",
+    "Number of Fractions": "30"
   },
   {
     "Patient_ID": "PatientID_0069",
@@ -617,7 +922,12 @@
     "Grade of Primary Brain Tumor": "4",
     "Progression": "1",
     "Time to First Progression (Days)": "470",
-    "Overall Survival (Death)": "0"
+    "Overall Survival (Death)": "0",
+    "Initial Chemo Therapy": "Yes",
+    "Name of Initial Chemo Therapy": "Temozolomide",
+    "Radiation Therapy": "Yes",
+    "Dose": "60 Gy",
+    "Number of Fractions": "30"
   },
   {
     "Patient_ID": "PatientID_0070",
@@ -627,7 +937,12 @@
     "Grade of Primary Brain Tumor": "4",
     "Progression": "1",
     "Time to First Progression (Days)": "169",
-    "Overall Survival (Death)": "0"
+    "Overall Survival (Death)": "0",
+    "Initial Chemo Therapy": "Yes",
+    "Name of Initial Chemo Therapy": "Temozolomide",
+    "Radiation Therapy": "Yes",
+    "Dose": "60 Gy",
+    "Number of Fractions": "30"
   },
   {
     "Patient_ID": "PatientID_0071",
@@ -637,7 +952,12 @@
     "Grade of Primary Brain Tumor": "4",
     "Progression": "0",
     "Time to First Progression (Days)": null,
-    "Overall Survival (Death)": "0"
+    "Overall Survival (Death)": "0",
+    "Initial Chemo Therapy": "NA",
+    "Name of Initial Chemo Therapy": "NA",
+    "Radiation Therapy": "NA",
+    "Dose": "NA",
+    "Number of Fractions": "NA"
   },
   {
     "Patient_ID": "PatientID_0072",
@@ -647,7 +967,12 @@
     "Grade of Primary Brain Tumor": "4",
     "Progression": "1",
     "Time to First Progression (Days)": "147",
-    "Overall Survival (Death)": "1"
+    "Overall Survival (Death)": "1",
+    "Initial Chemo Therapy": "Yes",
+    "Name of Initial Chemo Therapy": "Temozolomide",
+    "Radiation Therapy": "Yes",
+    "Dose": "60 Gy",
+    "Number of Fractions": "30"
   },
   {
     "Patient_ID": "PatientID_0073",
@@ -657,7 +982,12 @@
     "Grade of Primary Brain Tumor": "4",
     "Progression": "1",
     "Time to First Progression (Days)": "92",
-    "Overall Survival (Death)": "1"
+    "Overall Survival (Death)": "1",
+    "Initial Chemo Therapy": "Yes",
+    "Name of Initial Chemo Therapy": "Temozolomide",
+    "Radiation Therapy": "Yes",
+    "Dose": "60 Gy",
+    "Number of Fractions": "30"
   },
   {
     "Patient_ID": "PatientID_0074",
@@ -667,7 +997,12 @@
     "Grade of Primary Brain Tumor": "4",
     "Progression": "1",
     "Time to First Progression (Days)": "27",
-    "Overall Survival (Death)": "1"
+    "Overall Survival (Death)": "1",
+    "Initial Chemo Therapy": "Yes",
+    "Name of Initial Chemo Therapy": "Temozolomide",
+    "Radiation Therapy": "Yes",
+    "Dose": "NA",
+    "Number of Fractions": "NA"
   },
   {
     "Patient_ID": "PatientID_0076",
@@ -677,7 +1012,12 @@
     "Grade of Primary Brain Tumor": "4",
     "Progression": "1",
     "Time to First Progression (Days)": "36",
-    "Overall Survival (Death)": "1"
+    "Overall Survival (Death)": "1",
+    "Initial Chemo Therapy": "Yes",
+    "Name of Initial Chemo Therapy": "Temozolomide",
+    "Radiation Therapy": "Yes",
+    "Dose": "30 Gy",
+    "Number of Fractions": "15"
   },
   {
     "Patient_ID": "PatientID_0077",
@@ -687,7 +1027,12 @@
     "Grade of Primary Brain Tumor": "4",
     "Progression": "0",
     "Time to First Progression (Days)": null,
-    "Overall Survival (Death)": "0"
+    "Overall Survival (Death)": "0",
+    "Initial Chemo Therapy": "NA",
+    "Name of Initial Chemo Therapy": "NA",
+    "Radiation Therapy": "NA",
+    "Dose": "NA",
+    "Number of Fractions": "NA"
   },
   {
     "Patient_ID": "PatientID_0078",
@@ -697,7 +1042,12 @@
     "Grade of Primary Brain Tumor": "4",
     "Progression": "1",
     "Time to First Progression (Days)": "167",
-    "Overall Survival (Death)": "1"
+    "Overall Survival (Death)": "1",
+    "Initial Chemo Therapy": "NA",
+    "Name of Initial Chemo Therapy": "NA",
+    "Radiation Therapy": "NA",
+    "Dose": "NA",
+    "Number of Fractions": "NA"
   },
   {
     "Patient_ID": "PatientID_0079",
@@ -707,7 +1057,12 @@
     "Grade of Primary Brain Tumor": "4",
     "Progression": "1",
     "Time to First Progression (Days)": "67",
-    "Overall Survival (Death)": "1"
+    "Overall Survival (Death)": "1",
+    "Initial Chemo Therapy": "Yes",
+    "Name of Initial Chemo Therapy": "Temozolomide",
+    "Radiation Therapy": "Yes",
+    "Dose": "60 Gy",
+    "Number of Fractions": "30"
   },
   {
     "Patient_ID": "PatientID_0080",
@@ -717,7 +1072,12 @@
     "Grade of Primary Brain Tumor": "4",
     "Progression": "1",
     "Time to First Progression (Days)": "71",
-    "Overall Survival (Death)": "1"
+    "Overall Survival (Death)": "1",
+    "Initial Chemo Therapy": "Yes",
+    "Name of Initial Chemo Therapy": "Temozolomide",
+    "Radiation Therapy": "Yes",
+    "Dose": "60 Gy",
+    "Number of Fractions": "30"
   },
   {
     "Patient_ID": "PatientID_0081",
@@ -727,7 +1087,12 @@
     "Grade of Primary Brain Tumor": "4",
     "Progression": "1",
     "Time to First Progression (Days)": "24",
-    "Overall Survival (Death)": "0"
+    "Overall Survival (Death)": "0",
+    "Initial Chemo Therapy": "NA",
+    "Name of Initial Chemo Therapy": "NA",
+    "Radiation Therapy": "NA",
+    "Dose": "NA",
+    "Number of Fractions": "NA"
   },
   {
     "Patient_ID": "PatientID_0082",
@@ -737,7 +1102,12 @@
     "Grade of Primary Brain Tumor": "4",
     "Progression": "1",
     "Time to First Progression (Days)": "79",
-    "Overall Survival (Death)": "0"
+    "Overall Survival (Death)": "0",
+    "Initial Chemo Therapy": "Yes",
+    "Name of Initial Chemo Therapy": "Temozolomide",
+    "Radiation Therapy": "Yes",
+    "Dose": "60 Gy",
+    "Number of Fractions": "30"
   },
   {
     "Patient_ID": "PatientID_0083",
@@ -747,7 +1117,12 @@
     "Grade of Primary Brain Tumor": "4",
     "Progression": "1",
     "Time to First Progression (Days)": "207",
-    "Overall Survival (Death)": "1"
+    "Overall Survival (Death)": "1",
+    "Initial Chemo Therapy": "Yes",
+    "Name of Initial Chemo Therapy": "Temozolomide",
+    "Radiation Therapy": "Yes",
+    "Dose": "40 Gy",
+    "Number of Fractions": "15"
   },
   {
     "Patient_ID": "PatientID_0084",
@@ -757,7 +1132,12 @@
     "Grade of Primary Brain Tumor": "4",
     "Progression": "1",
     "Time to First Progression (Days)": "97",
-    "Overall Survival (Death)": "1"
+    "Overall Survival (Death)": "1",
+    "Initial Chemo Therapy": "Yes",
+    "Name of Initial Chemo Therapy": "Temozolomide",
+    "Radiation Therapy": "Yes",
+    "Dose": "60 Gy",
+    "Number of Fractions": "30"
   },
   {
     "Patient_ID": "PatientID_0085",
@@ -767,7 +1147,12 @@
     "Grade of Primary Brain Tumor": "4",
     "Progression": "1",
     "Time to First Progression (Days)": "202",
-    "Overall Survival (Death)": "0"
+    "Overall Survival (Death)": "0",
+    "Initial Chemo Therapy": "Yes",
+    "Name of Initial Chemo Therapy": "Temozolomide",
+    "Radiation Therapy": "Yes",
+    "Dose": "40 Gy",
+    "Number of Fractions": "15"
   },
   {
     "Patient_ID": "PatientID_0086",
@@ -777,7 +1162,12 @@
     "Grade of Primary Brain Tumor": "4",
     "Progression": "0",
     "Time to First Progression (Days)": null,
-    "Overall Survival (Death)": "0"
+    "Overall Survival (Death)": "0",
+    "Initial Chemo Therapy": "NA",
+    "Name of Initial Chemo Therapy": "NA",
+    "Radiation Therapy": "NA",
+    "Dose": "NA",
+    "Number of Fractions": "NA"
   },
   {
     "Patient_ID": "PatientID_0087",
@@ -787,7 +1177,12 @@
     "Grade of Primary Brain Tumor": "4",
     "Progression": "1",
     "Time to First Progression (Days)": "133",
-    "Overall Survival (Death)": "1"
+    "Overall Survival (Death)": "1",
+    "Initial Chemo Therapy": "Yes",
+    "Name of Initial Chemo Therapy": "Temozolomide",
+    "Radiation Therapy": "Yes",
+    "Dose": "NA",
+    "Number of Fractions": "NA"
   },
   {
     "Patient_ID": "PatientID_0088",
@@ -797,7 +1192,12 @@
     "Grade of Primary Brain Tumor": "4",
     "Progression": "0",
     "Time to First Progression (Days)": null,
-    "Overall Survival (Death)": "1"
+    "Overall Survival (Death)": "1",
+    "Initial Chemo Therapy": "NA",
+    "Name of Initial Chemo Therapy": "NA",
+    "Radiation Therapy": "NA",
+    "Dose": "NA",
+    "Number of Fractions": "NA"
   },
   {
     "Patient_ID": "PatientID_0089",
@@ -807,7 +1207,12 @@
     "Grade of Primary Brain Tumor": "4",
     "Progression": "1",
     "Time to First Progression (Days)": "568",
-    "Overall Survival (Death)": "1"
+    "Overall Survival (Death)": "1",
+    "Initial Chemo Therapy": "Yes",
+    "Name of Initial Chemo Therapy": "Temozolomide",
+    "Radiation Therapy": "Yes",
+    "Dose": "60 Gy",
+    "Number of Fractions": "30"
   },
   {
     "Patient_ID": "PatientID_0090",
@@ -817,7 +1222,12 @@
     "Grade of Primary Brain Tumor": "4",
     "Progression": "1",
     "Time to First Progression (Days)": "161",
-    "Overall Survival (Death)": "1"
+    "Overall Survival (Death)": "1",
+    "Initial Chemo Therapy": "Yes",
+    "Name of Initial Chemo Therapy": "Temozolomide",
+    "Radiation Therapy": "Yes",
+    "Dose": "60 Gy",
+    "Number of Fractions": "30"
   },
   {
     "Patient_ID": "PatientID_0091",
@@ -827,7 +1237,12 @@
     "Grade of Primary Brain Tumor": "4",
     "Progression": "1",
     "Time to First Progression (Days)": "24",
-    "Overall Survival (Death)": "1"
+    "Overall Survival (Death)": "1",
+    "Initial Chemo Therapy": "NA",
+    "Name of Initial Chemo Therapy": "NA",
+    "Radiation Therapy": "NA",
+    "Dose": "NA",
+    "Number of Fractions": "NA"
   },
   {
     "Patient_ID": "PatientID_0092",
@@ -837,7 +1252,12 @@
     "Grade of Primary Brain Tumor": "4",
     "Progression": "1",
     "Time to First Progression (Days)": "222",
-    "Overall Survival (Death)": "0"
+    "Overall Survival (Death)": "0",
+    "Initial Chemo Therapy": "Yes",
+    "Name of Initial Chemo Therapy": "Temozolomide",
+    "Radiation Therapy": "Yes",
+    "Dose": "60 Gy",
+    "Number of Fractions": "30"
   },
   {
     "Patient_ID": "PatientID_0093",
@@ -847,7 +1267,12 @@
     "Grade of Primary Brain Tumor": "4",
     "Progression": "1",
     "Time to First Progression (Days)": "173",
-    "Overall Survival (Death)": "0"
+    "Overall Survival (Death)": "0",
+    "Initial Chemo Therapy": "Yes",
+    "Name of Initial Chemo Therapy": "Temozolomide",
+    "Radiation Therapy": "Yes",
+    "Dose": "60 Gy",
+    "Number of Fractions": "30"
   },
   {
     "Patient_ID": "PatientID_0094",
@@ -857,7 +1282,12 @@
     "Grade of Primary Brain Tumor": "4",
     "Progression": "1",
     "Time to First Progression (Days)": "270",
-    "Overall Survival (Death)": "1"
+    "Overall Survival (Death)": "1",
+    "Initial Chemo Therapy": "Yes",
+    "Name of Initial Chemo Therapy": "Temozolomide",
+    "Radiation Therapy": "Yes",
+    "Dose": "60 Gy",
+    "Number of Fractions": "30"
   },
   {
     "Patient_ID": "PatientID_0095",
@@ -867,7 +1297,12 @@
     "Grade of Primary Brain Tumor": "4",
     "Progression": "1",
     "Time to First Progression (Days)": "150",
-    "Overall Survival (Death)": "1"
+    "Overall Survival (Death)": "1",
+    "Initial Chemo Therapy": "Yes",
+    "Name of Initial Chemo Therapy": "Temozolomide",
+    "Radiation Therapy": "Yes",
+    "Dose": "60 Gy",
+    "Number of Fractions": "30"
   },
   {
     "Patient_ID": "PatientID_0097",
@@ -877,7 +1312,12 @@
     "Grade of Primary Brain Tumor": "4",
     "Progression": "1",
     "Time to First Progression (Days)": "196",
-    "Overall Survival (Death)": "1"
+    "Overall Survival (Death)": "1",
+    "Initial Chemo Therapy": "Yes",
+    "Name of Initial Chemo Therapy": "Temozolomide",
+    "Radiation Therapy": "Yes",
+    "Dose": "60 Gy",
+    "Number of Fractions": "30"
   },
   {
     "Patient_ID": "PatientID_0099",
@@ -887,7 +1327,12 @@
     "Grade of Primary Brain Tumor": "4",
     "Progression": "0",
     "Time to First Progression (Days)": null,
-    "Overall Survival (Death)": "1"
+    "Overall Survival (Death)": "1",
+    "Initial Chemo Therapy": "NA",
+    "Name of Initial Chemo Therapy": "NA",
+    "Radiation Therapy": "NA",
+    "Dose": "NA",
+    "Number of Fractions": "NA"
   },
   {
     "Patient_ID": "PatientID_0101",
@@ -897,7 +1342,12 @@
     "Grade of Primary Brain Tumor": "4",
     "Progression": "0",
     "Time to First Progression (Days)": null,
-    "Overall Survival (Death)": "0"
+    "Overall Survival (Death)": "0",
+    "Initial Chemo Therapy": "NA",
+    "Name of Initial Chemo Therapy": "NA",
+    "Radiation Therapy": "NA",
+    "Dose": "NA",
+    "Number of Fractions": "NA"
   },
   {
     "Patient_ID": "PatientID_0103",
@@ -907,7 +1357,12 @@
     "Grade of Primary Brain Tumor": "4",
     "Progression": "1",
     "Time to First Progression (Days)": "183",
-    "Overall Survival (Death)": "1"
+    "Overall Survival (Death)": "1",
+    "Initial Chemo Therapy": "Yes",
+    "Name of Initial Chemo Therapy": "Temozolomide",
+    "Radiation Therapy": "Yes",
+    "Dose": "60 Gy",
+    "Number of Fractions": "30"
   },
   {
     "Patient_ID": "PatientID_0105",
@@ -917,7 +1372,12 @@
     "Grade of Primary Brain Tumor": "4",
     "Progression": "1",
     "Time to First Progression (Days)": "274",
-    "Overall Survival (Death)": "0"
+    "Overall Survival (Death)": "0",
+    "Initial Chemo Therapy": "Yes",
+    "Name of Initial Chemo Therapy": "Temozolomide",
+    "Radiation Therapy": "Yes",
+    "Dose": "60 Gy",
+    "Number of Fractions": "30"
   },
   {
     "Patient_ID": "PatientID_0106",
@@ -927,7 +1387,12 @@
     "Grade of Primary Brain Tumor": "4",
     "Progression": "0",
     "Time to First Progression (Days)": null,
-    "Overall Survival (Death)": "1"
+    "Overall Survival (Death)": "1",
+    "Initial Chemo Therapy": "NA",
+    "Name of Initial Chemo Therapy": "NA",
+    "Radiation Therapy": "NA",
+    "Dose": "NA",
+    "Number of Fractions": "NA"
   },
   {
     "Patient_ID": "PatientID_0108",
@@ -937,7 +1402,12 @@
     "Grade of Primary Brain Tumor": "4",
     "Progression": "0",
     "Time to First Progression (Days)": null,
-    "Overall Survival (Death)": "1"
+    "Overall Survival (Death)": "1",
+    "Initial Chemo Therapy": "NA",
+    "Name of Initial Chemo Therapy": "NA",
+    "Radiation Therapy": "NA",
+    "Dose": "NA",
+    "Number of Fractions": "NA"
   },
   {
     "Patient_ID": "PatientID_0109",
@@ -947,7 +1417,12 @@
     "Grade of Primary Brain Tumor": "4",
     "Progression": "1",
     "Time to First Progression (Days)": "176",
-    "Overall Survival (Death)": "1"
+    "Overall Survival (Death)": "1",
+    "Initial Chemo Therapy": "Yes",
+    "Name of Initial Chemo Therapy": "Temozolomide",
+    "Radiation Therapy": "Yes",
+    "Dose": "60 Gy",
+    "Number of Fractions": "30"
   },
   {
     "Patient_ID": "PatientID_0110",
@@ -957,7 +1432,12 @@
     "Grade of Primary Brain Tumor": "4",
     "Progression": "1",
     "Time to First Progression (Days)": "150",
-    "Overall Survival (Death)": "1"
+    "Overall Survival (Death)": "1",
+    "Initial Chemo Therapy": "Yes",
+    "Name of Initial Chemo Therapy": "Temozolomide",
+    "Radiation Therapy": "Yes",
+    "Dose": "60 Gy",
+    "Number of Fractions": "30"
   },
   {
     "Patient_ID": "PatientID_0111",
@@ -967,7 +1447,12 @@
     "Grade of Primary Brain Tumor": "4",
     "Progression": "0",
     "Time to First Progression (Days)": null,
-    "Overall Survival (Death)": "1"
+    "Overall Survival (Death)": "1",
+    "Initial Chemo Therapy": "NA",
+    "Name of Initial Chemo Therapy": "NA",
+    "Radiation Therapy": "NA",
+    "Dose": "NA",
+    "Number of Fractions": "NA"
   },
   {
     "Patient_ID": "PatientID_0112",
@@ -977,7 +1462,12 @@
     "Grade of Primary Brain Tumor": "4",
     "Progression": "0",
     "Time to First Progression (Days)": null,
-    "Overall Survival (Death)": "1"
+    "Overall Survival (Death)": "1",
+    "Initial Chemo Therapy": "NA",
+    "Name of Initial Chemo Therapy": "NA",
+    "Radiation Therapy": "NA",
+    "Dose": "NA",
+    "Number of Fractions": "NA"
   },
   {
     "Patient_ID": "PatientID_0113",
@@ -987,7 +1477,12 @@
     "Grade of Primary Brain Tumor": "4",
     "Progression": "1",
     "Time to First Progression (Days)": "95",
-    "Overall Survival (Death)": "1"
+    "Overall Survival (Death)": "1",
+    "Initial Chemo Therapy": "Yes",
+    "Name of Initial Chemo Therapy": "Temozolomide",
+    "Radiation Therapy": "Yes",
+    "Dose": "60 Gy",
+    "Number of Fractions": "30"
   },
   {
     "Patient_ID": "PatientID_0114",
@@ -997,7 +1492,12 @@
     "Grade of Primary Brain Tumor": "4",
     "Progression": "1",
     "Time to First Progression (Days)": "62",
-    "Overall Survival (Death)": "1"
+    "Overall Survival (Death)": "1",
+    "Initial Chemo Therapy": "NA",
+    "Name of Initial Chemo Therapy": "NA",
+    "Radiation Therapy": "Yes",
+    "Dose": "34 Gy",
+    "Number of Fractions": "10"
   },
   {
     "Patient_ID": "PatientID_0115",
@@ -1007,7 +1507,12 @@
     "Grade of Primary Brain Tumor": "4",
     "Progression": "1",
     "Time to First Progression (Days)": "294",
-    "Overall Survival (Death)": "0"
+    "Overall Survival (Death)": "0",
+    "Initial Chemo Therapy": "Yes",
+    "Name of Initial Chemo Therapy": "Temozolomide",
+    "Radiation Therapy": "Yes",
+    "Dose": "60 Gy",
+    "Number of Fractions": "30"
   },
   {
     "Patient_ID": "PatientID_0116",
@@ -1017,7 +1522,12 @@
     "Grade of Primary Brain Tumor": "4",
     "Progression": "1",
     "Time to First Progression (Days)": "109",
-    "Overall Survival (Death)": "1"
+    "Overall Survival (Death)": "1",
+    "Initial Chemo Therapy": "Yes",
+    "Name of Initial Chemo Therapy": "Temozolomide",
+    "Radiation Therapy": "Yes",
+    "Dose": "60 Gy",
+    "Number of Fractions": "30"
   },
   {
     "Patient_ID": "PatientID_0117",
@@ -1027,7 +1537,12 @@
     "Grade of Primary Brain Tumor": "4",
     "Progression": "1",
     "Time to First Progression (Days)": "196",
-    "Overall Survival (Death)": "1"
+    "Overall Survival (Death)": "1",
+    "Initial Chemo Therapy": "Yes",
+    "Name of Initial Chemo Therapy": "Temozolomide",
+    "Radiation Therapy": "Yes",
+    "Dose": "60 Gy",
+    "Number of Fractions": "30"
   },
   {
     "Patient_ID": "PatientID_0118",
@@ -1037,7 +1552,12 @@
     "Grade of Primary Brain Tumor": "4",
     "Progression": "1",
     "Time to First Progression (Days)": "181",
-    "Overall Survival (Death)": "0"
+    "Overall Survival (Death)": "0",
+    "Initial Chemo Therapy": "Yes",
+    "Name of Initial Chemo Therapy": "Temozolomide",
+    "Radiation Therapy": "Yes",
+    "Dose": "60 Gy",
+    "Number of Fractions": "30"
   },
   {
     "Patient_ID": "PatientID_0120",
@@ -1047,7 +1567,12 @@
     "Grade of Primary Brain Tumor": "4",
     "Progression": "0",
     "Time to First Progression (Days)": null,
-    "Overall Survival (Death)": "0"
+    "Overall Survival (Death)": "0",
+    "Initial Chemo Therapy": "NA",
+    "Name of Initial Chemo Therapy": "NA",
+    "Radiation Therapy": "NA",
+    "Dose": "NA",
+    "Number of Fractions": "NA"
   },
   {
     "Patient_ID": "PatientID_0121",
@@ -1057,7 +1582,12 @@
     "Grade of Primary Brain Tumor": "4",
     "Progression": "1",
     "Time to First Progression (Days)": "270",
-    "Overall Survival (Death)": "1"
+    "Overall Survival (Death)": "1",
+    "Initial Chemo Therapy": "Yes",
+    "Name of Initial Chemo Therapy": "Temozolomide",
+    "Radiation Therapy": "Yes",
+    "Dose": "60 Gy",
+    "Number of Fractions": "30"
   },
   {
     "Patient_ID": "PatientID_0123",
@@ -1067,7 +1597,12 @@
     "Grade of Primary Brain Tumor": "4",
     "Progression": "1",
     "Time to First Progression (Days)": "91",
-    "Overall Survival (Death)": "1"
+    "Overall Survival (Death)": "1",
+    "Initial Chemo Therapy": "Yes",
+    "Name of Initial Chemo Therapy": "Temozolomide",
+    "Radiation Therapy": "Yes",
+    "Dose": "60 Gy",
+    "Number of Fractions": "30"
   },
   {
     "Patient_ID": "PatientID_0124",
@@ -1077,7 +1612,12 @@
     "Grade of Primary Brain Tumor": "4",
     "Progression": "1",
     "Time to First Progression (Days)": "100",
-    "Overall Survival (Death)": "1"
+    "Overall Survival (Death)": "1",
+    "Initial Chemo Therapy": "Yes",
+    "Name of Initial Chemo Therapy": "Temozolomide",
+    "Radiation Therapy": "Yes",
+    "Dose": "40 Gy",
+    "Number of Fractions": "15"
   },
   {
     "Patient_ID": "PatientID_0125",
@@ -1087,7 +1627,12 @@
     "Grade of Primary Brain Tumor": "4",
     "Progression": "1",
     "Time to First Progression (Days)": "84",
-    "Overall Survival (Death)": "1"
+    "Overall Survival (Death)": "1",
+    "Initial Chemo Therapy": "NA",
+    "Name of Initial Chemo Therapy": "NA",
+    "Radiation Therapy": "Yes",
+    "Dose": "40 Gy",
+    "Number of Fractions": "15"
   },
   {
     "Patient_ID": "PatientID_0126",
@@ -1097,7 +1642,12 @@
     "Grade of Primary Brain Tumor": "4",
     "Progression": "0",
     "Time to First Progression (Days)": null,
-    "Overall Survival (Death)": "0"
+    "Overall Survival (Death)": "0",
+    "Initial Chemo Therapy": "NA",
+    "Name of Initial Chemo Therapy": "NA",
+    "Radiation Therapy": "NA",
+    "Dose": "NA",
+    "Number of Fractions": "NA"
   },
   {
     "Patient_ID": "PatientID_0130",
@@ -1107,7 +1657,12 @@
     "Grade of Primary Brain Tumor": "4",
     "Progression": "1",
     "Time to First Progression (Days)": "4",
-    "Overall Survival (Death)": "0"
+    "Overall Survival (Death)": "0",
+    "Initial Chemo Therapy": "NA",
+    "Name of Initial Chemo Therapy": "NA",
+    "Radiation Therapy": "NA",
+    "Dose": "NA",
+    "Number of Fractions": "NA"
   },
   {
     "Patient_ID": "PatientID_0132",
@@ -1117,7 +1672,12 @@
     "Grade of Primary Brain Tumor": "4",
     "Progression": "1",
     "Time to First Progression (Days)": "95",
-    "Overall Survival (Death)": "1"
+    "Overall Survival (Death)": "1",
+    "Initial Chemo Therapy": "Yes",
+    "Name of Initial Chemo Therapy": "Temozolomide",
+    "Radiation Therapy": "Yes",
+    "Dose": "60 Gy",
+    "Number of Fractions": "30"
   },
   {
     "Patient_ID": "PatientID_0133",
@@ -1127,7 +1687,12 @@
     "Grade of Primary Brain Tumor": "4",
     "Progression": "1",
     "Time to First Progression (Days)": "21",
-    "Overall Survival (Death)": "0"
+    "Overall Survival (Death)": "0",
+    "Initial Chemo Therapy": "NA",
+    "Name of Initial Chemo Therapy": "NA",
+    "Radiation Therapy": "NA",
+    "Dose": "NA",
+    "Number of Fractions": "NA"
   },
   {
     "Patient_ID": "PatientID_0135",
@@ -1137,7 +1702,12 @@
     "Grade of Primary Brain Tumor": "4",
     "Progression": "1",
     "Time to First Progression (Days)": "182",
-    "Overall Survival (Death)": "1"
+    "Overall Survival (Death)": "1",
+    "Initial Chemo Therapy": "Yes",
+    "Name of Initial Chemo Therapy": "Temozolomide",
+    "Radiation Therapy": "Yes",
+    "Dose": "60 Gy",
+    "Number of Fractions": "30"
   },
   {
     "Patient_ID": "PatientID_0136",
@@ -1147,7 +1717,12 @@
     "Grade of Primary Brain Tumor": "4",
     "Progression": "1",
     "Time to First Progression (Days)": "167",
-    "Overall Survival (Death)": "0"
+    "Overall Survival (Death)": "0",
+    "Initial Chemo Therapy": "Yes",
+    "Name of Initial Chemo Therapy": "Temozolomide",
+    "Radiation Therapy": "Yes",
+    "Dose": "60 Gy",
+    "Number of Fractions": "30"
   },
   {
     "Patient_ID": "PatientID_0138",
@@ -1157,7 +1732,12 @@
     "Grade of Primary Brain Tumor": "4",
     "Progression": "1",
     "Time to First Progression (Days)": "208",
-    "Overall Survival (Death)": "1"
+    "Overall Survival (Death)": "1",
+    "Initial Chemo Therapy": "Yes",
+    "Name of Initial Chemo Therapy": "Temozolomide",
+    "Radiation Therapy": "Yes",
+    "Dose": "60 Gy",
+    "Number of Fractions": "30"
   },
   {
     "Patient_ID": "PatientID_0139",
@@ -1167,7 +1747,12 @@
     "Grade of Primary Brain Tumor": "4",
     "Progression": "1",
     "Time to First Progression (Days)": "15",
-    "Overall Survival (Death)": "1"
+    "Overall Survival (Death)": "1",
+    "Initial Chemo Therapy": "NA",
+    "Name of Initial Chemo Therapy": "NA",
+    "Radiation Therapy": "NA",
+    "Dose": "NA",
+    "Number of Fractions": "NA"
   },
   {
     "Patient_ID": "PatientID_0140",
@@ -1177,7 +1762,12 @@
     "Grade of Primary Brain Tumor": "4",
     "Progression": "1",
     "Time to First Progression (Days)": "99",
-    "Overall Survival (Death)": "0"
+    "Overall Survival (Death)": "0",
+    "Initial Chemo Therapy": "Yes",
+    "Name of Initial Chemo Therapy": "Temozolomide",
+    "Radiation Therapy": "Yes",
+    "Dose": "60 Gy",
+    "Number of Fractions": "30"
   },
   {
     "Patient_ID": "PatientID_0141",
@@ -1187,7 +1777,12 @@
     "Grade of Primary Brain Tumor": "4",
     "Progression": "0",
     "Time to First Progression (Days)": null,
-    "Overall Survival (Death)": "1"
+    "Overall Survival (Death)": "1",
+    "Initial Chemo Therapy": "NA",
+    "Name of Initial Chemo Therapy": "NA",
+    "Radiation Therapy": "NA",
+    "Dose": "NA",
+    "Number of Fractions": "NA"
   },
   {
     "Patient_ID": "PatientID_0142",
@@ -1197,7 +1792,12 @@
     "Grade of Primary Brain Tumor": "4",
     "Progression": "1",
     "Time to First Progression (Days)": "128",
-    "Overall Survival (Death)": "0"
+    "Overall Survival (Death)": "0",
+    "Initial Chemo Therapy": "Yes",
+    "Name of Initial Chemo Therapy": "Temozolomide",
+    "Radiation Therapy": "Yes",
+    "Dose": "50 Gy",
+    "Number of Fractions": "30"
   },
   {
     "Patient_ID": "PatientID_0143",
@@ -1207,7 +1807,12 @@
     "Grade of Primary Brain Tumor": "4",
     "Progression": "0",
     "Time to First Progression (Days)": null,
-    "Overall Survival (Death)": "1"
+    "Overall Survival (Death)": "1",
+    "Initial Chemo Therapy": "NA",
+    "Name of Initial Chemo Therapy": "NA",
+    "Radiation Therapy": "NA",
+    "Dose": "NA",
+    "Number of Fractions": "NA"
   },
   {
     "Patient_ID": "PatientID_0144",
@@ -1217,7 +1822,12 @@
     "Grade of Primary Brain Tumor": "4",
     "Progression": "0",
     "Time to First Progression (Days)": null,
-    "Overall Survival (Death)": "0"
+    "Overall Survival (Death)": "0",
+    "Initial Chemo Therapy": "NA",
+    "Name of Initial Chemo Therapy": "NA",
+    "Radiation Therapy": "NA",
+    "Dose": "NA",
+    "Number of Fractions": "NA"
   },
   {
     "Patient_ID": "PatientID_0145",
@@ -1227,7 +1837,12 @@
     "Grade of Primary Brain Tumor": "4",
     "Progression": "1",
     "Time to First Progression (Days)": "66",
-    "Overall Survival (Death)": "1"
+    "Overall Survival (Death)": "1",
+    "Initial Chemo Therapy": "Yes",
+    "Name of Initial Chemo Therapy": "Temozolomide",
+    "Radiation Therapy": "Yes",
+    "Dose": "60 Gy",
+    "Number of Fractions": "30"
   },
   {
     "Patient_ID": "PatientID_0147",
@@ -1237,7 +1852,12 @@
     "Grade of Primary Brain Tumor": "4",
     "Progression": "1",
     "Time to First Progression (Days)": "189",
-    "Overall Survival (Death)": "0"
+    "Overall Survival (Death)": "0",
+    "Initial Chemo Therapy": "Yes",
+    "Name of Initial Chemo Therapy": "Temozolomide",
+    "Radiation Therapy": "Yes",
+    "Dose": "40 Gy",
+    "Number of Fractions": "15"
   },
   {
     "Patient_ID": "PatientID_0148",
@@ -1247,7 +1867,12 @@
     "Grade of Primary Brain Tumor": "4",
     "Progression": "1",
     "Time to First Progression (Days)": "21",
-    "Overall Survival (Death)": "0"
+    "Overall Survival (Death)": "0",
+    "Initial Chemo Therapy": "NA",
+    "Name of Initial Chemo Therapy": "NA",
+    "Radiation Therapy": "NA",
+    "Dose": "NA",
+    "Number of Fractions": "NA"
   },
   {
     "Patient_ID": "PatientID_0149",
@@ -1257,7 +1882,12 @@
     "Grade of Primary Brain Tumor": "4",
     "Progression": "1",
     "Time to First Progression (Days)": "64",
-    "Overall Survival (Death)": "1"
+    "Overall Survival (Death)": "1",
+    "Initial Chemo Therapy": "Yes",
+    "Name of Initial Chemo Therapy": "Temozolomide",
+    "Radiation Therapy": "Yes",
+    "Dose": "60 Gy",
+    "Number of Fractions": "30"
   },
   {
     "Patient_ID": "PatientID_0150",
@@ -1267,7 +1897,12 @@
     "Grade of Primary Brain Tumor": "4",
     "Progression": "1",
     "Time to First Progression (Days)": "235",
-    "Overall Survival (Death)": "0"
+    "Overall Survival (Death)": "0",
+    "Initial Chemo Therapy": "Yes",
+    "Name of Initial Chemo Therapy": "Temozolomide",
+    "Radiation Therapy": "Yes",
+    "Dose": "60 Gy",
+    "Number of Fractions": "30"
   },
   {
     "Patient_ID": "PatientID_0151",
@@ -1277,7 +1912,12 @@
     "Grade of Primary Brain Tumor": "4",
     "Progression": "1",
     "Time to First Progression (Days)": "57",
-    "Overall Survival (Death)": "0"
+    "Overall Survival (Death)": "0",
+    "Initial Chemo Therapy": "Yes",
+    "Name of Initial Chemo Therapy": "Temozolomide",
+    "Radiation Therapy": "Yes",
+    "Dose": "50 Gy",
+    "Number of Fractions": "22"
   },
   {
     "Patient_ID": "PatientID_0152",
@@ -1287,7 +1927,12 @@
     "Grade of Primary Brain Tumor": "4",
     "Progression": "1",
     "Time to First Progression (Days)": "403",
-    "Overall Survival (Death)": "0"
+    "Overall Survival (Death)": "0",
+    "Initial Chemo Therapy": "Yes",
+    "Name of Initial Chemo Therapy": "Temozolomide",
+    "Radiation Therapy": "Yes",
+    "Dose": "60 Gy",
+    "Number of Fractions": "30"
   },
   {
     "Patient_ID": "PatientID_0155",
@@ -1297,7 +1942,12 @@
     "Grade of Primary Brain Tumor": "4",
     "Progression": "0",
     "Time to First Progression (Days)": null,
-    "Overall Survival (Death)": "0"
+    "Overall Survival (Death)": "0",
+    "Initial Chemo Therapy": "NA",
+    "Name of Initial Chemo Therapy": "NA",
+    "Radiation Therapy": "NA",
+    "Dose": "NA",
+    "Number of Fractions": "NA"
   },
   {
     "Patient_ID": "PatientID_0156",
@@ -1307,7 +1957,12 @@
     "Grade of Primary Brain Tumor": "4",
     "Progression": "1",
     "Time to First Progression (Days)": "355",
-    "Overall Survival (Death)": "0"
+    "Overall Survival (Death)": "0",
+    "Initial Chemo Therapy": "Yes",
+    "Name of Initial Chemo Therapy": "Temozolomide",
+    "Radiation Therapy": "Yes",
+    "Dose": "60 Gy",
+    "Number of Fractions": "30"
   },
   {
     "Patient_ID": "PatientID_0157",
@@ -1317,7 +1972,12 @@
     "Grade of Primary Brain Tumor": "4",
     "Progression": "1",
     "Time to First Progression (Days)": "152",
-    "Overall Survival (Death)": "0"
+    "Overall Survival (Death)": "0",
+    "Initial Chemo Therapy": "Yes",
+    "Name of Initial Chemo Therapy": "Temozolomide",
+    "Radiation Therapy": "Yes",
+    "Dose": "40 Gy",
+    "Number of Fractions": "15"
   },
   {
     "Patient_ID": "PatientID_0158",
@@ -1327,7 +1987,12 @@
     "Grade of Primary Brain Tumor": "4",
     "Progression": "1",
     "Time to First Progression (Days)": "101",
-    "Overall Survival (Death)": "1"
+    "Overall Survival (Death)": "1",
+    "Initial Chemo Therapy": "Yes",
+    "Name of Initial Chemo Therapy": "Temozolomide",
+    "Radiation Therapy": "Yes",
+    "Dose": "60 Gy",
+    "Number of Fractions": "30"
   },
   {
     "Patient_ID": "PatientID_0159",
@@ -1337,7 +2002,12 @@
     "Grade of Primary Brain Tumor": "4",
     "Progression": "1",
     "Time to First Progression (Days)": "291",
-    "Overall Survival (Death)": "0"
+    "Overall Survival (Death)": "0",
+    "Initial Chemo Therapy": "Yes",
+    "Name of Initial Chemo Therapy": "Temozolomide",
+    "Radiation Therapy": "Yes",
+    "Dose": "60 Gy",
+    "Number of Fractions": "30"
   },
   {
     "Patient_ID": "PatientID_0160",
@@ -1347,7 +2017,12 @@
     "Grade of Primary Brain Tumor": "4",
     "Progression": "1",
     "Time to First Progression (Days)": "104",
-    "Overall Survival (Death)": "1"
+    "Overall Survival (Death)": "1",
+    "Initial Chemo Therapy": "Yes",
+    "Name of Initial Chemo Therapy": "Temozolomide",
+    "Radiation Therapy": "Yes",
+    "Dose": "60 Gy",
+    "Number of Fractions": "30"
   },
   {
     "Patient_ID": "PatientID_0161",
@@ -1357,7 +2032,12 @@
     "Grade of Primary Brain Tumor": "4",
     "Progression": "1",
     "Time to First Progression (Days)": "206",
-    "Overall Survival (Death)": "1"
+    "Overall Survival (Death)": "1",
+    "Initial Chemo Therapy": "Yes",
+    "Name of Initial Chemo Therapy": "Temozolomide",
+    "Radiation Therapy": "Yes",
+    "Dose": "40 Gy",
+    "Number of Fractions": "15"
   },
   {
     "Patient_ID": "PatientID_0162",
@@ -1367,7 +2047,12 @@
     "Grade of Primary Brain Tumor": "4",
     "Progression": "1",
     "Time to First Progression (Days)": "264",
-    "Overall Survival (Death)": "0"
+    "Overall Survival (Death)": "0",
+    "Initial Chemo Therapy": "Yes",
+    "Name of Initial Chemo Therapy": "Temozolomide",
+    "Radiation Therapy": "Yes",
+    "Dose": "60 Gy",
+    "Number of Fractions": "30"
   },
   {
     "Patient_ID": "PatientID_0164",
@@ -1377,7 +2062,12 @@
     "Grade of Primary Brain Tumor": "4",
     "Progression": "1",
     "Time to First Progression (Days)": "147",
-    "Overall Survival (Death)": "1"
+    "Overall Survival (Death)": "1",
+    "Initial Chemo Therapy": "Yes",
+    "Name of Initial Chemo Therapy": "Temozolomide",
+    "Radiation Therapy": "Yes",
+    "Dose": "40 Gy",
+    "Number of Fractions": "15"
   },
   {
     "Patient_ID": "PatientID_0165",
@@ -1387,7 +2077,12 @@
     "Grade of Primary Brain Tumor": "4",
     "Progression": "0",
     "Time to First Progression (Days)": null,
-    "Overall Survival (Death)": "0"
+    "Overall Survival (Death)": "0",
+    "Initial Chemo Therapy": "NA",
+    "Name of Initial Chemo Therapy": "NA",
+    "Radiation Therapy": "NA",
+    "Dose": "NA",
+    "Number of Fractions": "NA"
   },
   {
     "Patient_ID": "PatientID_0168",
@@ -1397,7 +2092,12 @@
     "Grade of Primary Brain Tumor": "4",
     "Progression": "0",
     "Time to First Progression (Days)": null,
-    "Overall Survival (Death)": "0"
+    "Overall Survival (Death)": "0",
+    "Initial Chemo Therapy": "NA",
+    "Name of Initial Chemo Therapy": "NA",
+    "Radiation Therapy": "NA",
+    "Dose": "NA",
+    "Number of Fractions": "NA"
   },
   {
     "Patient_ID": "PatientID_0169",
@@ -1407,7 +2107,12 @@
     "Grade of Primary Brain Tumor": "4",
     "Progression": "1",
     "Time to First Progression (Days)": "78",
-    "Overall Survival (Death)": "0"
+    "Overall Survival (Death)": "0",
+    "Initial Chemo Therapy": "Yes",
+    "Name of Initial Chemo Therapy": "Temozolomide",
+    "Radiation Therapy": "Yes",
+    "Dose": "60 Gy",
+    "Number of Fractions": "30"
   },
   {
     "Patient_ID": "PatientID_0170",
@@ -1417,7 +2122,12 @@
     "Grade of Primary Brain Tumor": "4",
     "Progression": "1",
     "Time to First Progression (Days)": "183",
-    "Overall Survival (Death)": "0"
+    "Overall Survival (Death)": "0",
+    "Initial Chemo Therapy": "Yes",
+    "Name of Initial Chemo Therapy": "Temozolomide",
+    "Radiation Therapy": "Yes",
+    "Dose": "60 Gy",
+    "Number of Fractions": "30"
   },
   {
     "Patient_ID": "PatientID_0171",
@@ -1427,7 +2137,12 @@
     "Grade of Primary Brain Tumor": "4",
     "Progression": "1",
     "Time to First Progression (Days)": "90",
-    "Overall Survival (Death)": "0"
+    "Overall Survival (Death)": "0",
+    "Initial Chemo Therapy": "Yes",
+    "Name of Initial Chemo Therapy": "Temozolomide",
+    "Radiation Therapy": "Yes",
+    "Dose": "40 Gy",
+    "Number of Fractions": "15"
   },
   {
     "Patient_ID": "PatientID_0173",
@@ -1437,7 +2152,12 @@
     "Grade of Primary Brain Tumor": "4",
     "Progression": "0",
     "Time to First Progression (Days)": null,
-    "Overall Survival (Death)": "0"
+    "Overall Survival (Death)": "0",
+    "Initial Chemo Therapy": "NA",
+    "Name of Initial Chemo Therapy": "NA",
+    "Radiation Therapy": "NA",
+    "Dose": "NA",
+    "Number of Fractions": "NA"
   },
   {
     "Patient_ID": "PatientID_0174",
@@ -1447,7 +2167,12 @@
     "Grade of Primary Brain Tumor": "4",
     "Progression": "0",
     "Time to First Progression (Days)": null,
-    "Overall Survival (Death)": "1"
+    "Overall Survival (Death)": "1",
+    "Initial Chemo Therapy": "NA",
+    "Name of Initial Chemo Therapy": "NA",
+    "Radiation Therapy": "NA",
+    "Dose": "NA",
+    "Number of Fractions": "NA"
   },
   {
     "Patient_ID": "PatientID_0238",
@@ -1457,7 +2182,12 @@
     "Grade of Primary Brain Tumor": "4",
     "Progression": "1",
     "Time to First Progression (Days)": "477",
-    "Overall Survival (Death)": "0"
+    "Overall Survival (Death)": "0",
+    "Initial Chemo Therapy": "Yes",
+    "Name of Initial Chemo Therapy": "Temozolomide",
+    "Radiation Therapy": "Yes",
+    "Dose": "60 Gy",
+    "Number of Fractions": "30"
   },
   {
     "Patient_ID": "PatientID_0239",
@@ -1467,7 +2197,12 @@
     "Grade of Primary Brain Tumor": "4",
     "Progression": "1",
     "Time to First Progression (Days)": "533",
-    "Overall Survival (Death)": "1"
+    "Overall Survival (Death)": "1",
+    "Initial Chemo Therapy": "Yes",
+    "Name of Initial Chemo Therapy": "Temozolomide",
+    "Radiation Therapy": "Yes",
+    "Dose": "60 Gy",
+    "Number of Fractions": "30"
   },
   {
     "Patient_ID": "PatientID_0250",
@@ -1477,7 +2212,12 @@
     "Grade of Primary Brain Tumor": "4",
     "Progression": "1",
     "Time to First Progression (Days)": "108",
-    "Overall Survival (Death)": "1"
+    "Overall Survival (Death)": "1",
+    "Initial Chemo Therapy": "Yes",
+    "Name of Initial Chemo Therapy": "Temozolomide",
+    "Radiation Therapy": "Yes",
+    "Dose": "60 Gy",
+    "Number of Fractions": "30"
   },
   {
     "Patient_ID": "PatientID_0251",
@@ -1487,7 +2227,12 @@
     "Grade of Primary Brain Tumor": "4",
     "Progression": "1",
     "Time to First Progression (Days)": "159",
-    "Overall Survival (Death)": "1"
+    "Overall Survival (Death)": "1",
+    "Initial Chemo Therapy": "Yes",
+    "Name of Initial Chemo Therapy": "Temozolomide",
+    "Radiation Therapy": "Yes",
+    "Dose": "60 Gy",
+    "Number of Fractions": "30"
   },
   {
     "Patient_ID": "PatientID_0252",
@@ -1497,7 +2242,12 @@
     "Grade of Primary Brain Tumor": "4",
     "Progression": "1",
     "Time to First Progression (Days)": "92",
-    "Overall Survival (Death)": "1"
+    "Overall Survival (Death)": "1",
+    "Initial Chemo Therapy": "Yes",
+    "Name of Initial Chemo Therapy": "Temozolomide",
+    "Radiation Therapy": "Yes",
+    "Dose": "60 Gy",
+    "Number of Fractions": "30"
   },
   {
     "Patient_ID": "PatientID_0254",
@@ -1507,7 +2257,12 @@
     "Grade of Primary Brain Tumor": "4",
     "Progression": "1",
     "Time to First Progression (Days)": "183",
-    "Overall Survival (Death)": "1"
+    "Overall Survival (Death)": "1",
+    "Initial Chemo Therapy": "Yes",
+    "Name of Initial Chemo Therapy": "Temozolomide",
+    "Radiation Therapy": "Yes",
+    "Dose": "60 Gy",
+    "Number of Fractions": "30"
   },
   {
     "Patient_ID": "PatientID_0255",
@@ -1517,7 +2272,12 @@
     "Grade of Primary Brain Tumor": "4",
     "Progression": "0",
     "Time to First Progression (Days)": null,
-    "Overall Survival (Death)": "1"
+    "Overall Survival (Death)": "1",
+    "Initial Chemo Therapy": "NA",
+    "Name of Initial Chemo Therapy": "NA",
+    "Radiation Therapy": "NA",
+    "Dose": "NA",
+    "Number of Fractions": "NA"
   },
   {
     "Patient_ID": "PatientID_0260",
@@ -1527,7 +2287,12 @@
     "Grade of Primary Brain Tumor": "4",
     "Progression": "1",
     "Time to First Progression (Days)": "176",
-    "Overall Survival (Death)": "0"
+    "Overall Survival (Death)": "0",
+    "Initial Chemo Therapy": "Yes",
+    "Name of Initial Chemo Therapy": "Temozolomide",
+    "Radiation Therapy": "Yes",
+    "Dose": "60 Gy",
+    "Number of Fractions": "30"
   },
   {
     "Patient_ID": "PatientID_0267",
@@ -1537,7 +2302,12 @@
     "Grade of Primary Brain Tumor": "4",
     "Progression": "1",
     "Time to First Progression (Days)": "264",
-    "Overall Survival (Death)": "0"
+    "Overall Survival (Death)": "0",
+    "Initial Chemo Therapy": "Yes",
+    "Name of Initial Chemo Therapy": "Temozolomide",
+    "Radiation Therapy": "Yes",
+    "Dose": "60 Gy",
+    "Number of Fractions": "30"
   },
   {
     "Patient_ID": "PatientID_0268",
@@ -1547,7 +2317,12 @@
     "Grade of Primary Brain Tumor": "4",
     "Progression": "0",
     "Time to First Progression (Days)": null,
-    "Overall Survival (Death)": "0"
+    "Overall Survival (Death)": "0",
+    "Initial Chemo Therapy": "NA",
+    "Name of Initial Chemo Therapy": "NA",
+    "Radiation Therapy": "NA",
+    "Dose": "NA",
+    "Number of Fractions": "NA"
   },
   {
     "Patient_ID": "PatientID_0272",
@@ -1557,7 +2332,12 @@
     "Grade of Primary Brain Tumor": "4",
     "Progression": "0",
     "Time to First Progression (Days)": null,
-    "Overall Survival (Death)": "0"
+    "Overall Survival (Death)": "0",
+    "Initial Chemo Therapy": "Yes",
+    "Name of Initial Chemo Therapy": "Temozolomide",
+    "Radiation Therapy": "Yes",
+    "Dose": "60 Gy",
+    "Number of Fractions": "30"
   },
   {
     "Patient_ID": "PatientID_0273",
@@ -1567,7 +2347,12 @@
     "Grade of Primary Brain Tumor": "4",
     "Progression": "1",
     "Time to First Progression (Days)": "199",
-    "Overall Survival (Death)": "0"
+    "Overall Survival (Death)": "0",
+    "Initial Chemo Therapy": "Yes",
+    "Name of Initial Chemo Therapy": "Temozolomide",
+    "Radiation Therapy": "Yes",
+    "Dose": "60 Gy",
+    "Number of Fractions": "30"
   },
   {
     "Patient_ID": "PatientID_0274",
@@ -1577,6 +2362,11 @@
     "Grade of Primary Brain Tumor": "4",
     "Progression": "1",
     "Time to First Progression (Days)": "183",
-    "Overall Survival (Death)": "0"
+    "Overall Survival (Death)": "0",
+    "Initial Chemo Therapy": "Yes",
+    "Name of Initial Chemo Therapy": "Temozolomide",
+    "Radiation Therapy": "Yes",
+    "Dose": "60 Gy",
+    "Number of Fractions": "30"
   }
 ]
