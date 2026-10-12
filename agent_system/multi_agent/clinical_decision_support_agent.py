@@ -339,25 +339,7 @@ consideration, pathway, and uncertainty has been recorded.
 
 _TRANSIENT_TYPES = ("serviceunavailable", "ratelimit", "timeout", "apiconnection", "internalserver")
 _TRANSIENT_TEXT = ("503", "429", "unavailable", "high demand", "overloaded", "rate limit", "timed out")
-def create_clinical_decision_support_agent(session, model=None):
-    """Create a fresh ToolCallingAgent whose tools are bound to one isolated session."""
-    from smolagents import LiteLLMModel, ToolCallingAgent
-    if __package__:
-        from ..tools.record_clinical_consideration import create_record_clinical_consideration_tool
-        from ..tools.record_treatment_pathway import create_record_treatment_pathway_tool
-        from ..tools.record_uncertainty import create_record_uncertainty_tool
-    else:
-        import sys
-        sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
-        from tools.record_clinical_consideration import create_record_clinical_consideration_tool
-        from tools.record_treatment_pathway import create_record_treatment_pathway_tool
-        from tools.record_uncertainty import create_record_uncertainty_tool
-    if model is None:
-        from dotenv import load_dotenv
-        root = Path(__file__).resolve().parents[2]
-        # Support the .env position shown in the user's screenshot.
-        load_dotenv(root / ".env")
-        load_dotenv(root / "backend" / ".env")
+
 
 
 def _is_transient_model_error(exc):
@@ -434,19 +416,29 @@ def _build_model():
 
 def create_clinical_decision_support_agent(session, model=None):
     """Create a fresh ToolCallingAgent whose tools are bound to one isolated session."""
-    from smolagents import ToolCallingAgent, tool
+    from smolagents import ToolCallingAgent
+    if __package__:
+        from ..tools.record_clinical_consideration import create_record_clinical_consideration_tool
+        from ..tools.record_treatment_pathway import create_record_treatment_pathway_tool
+        from ..tools.record_uncertainty import create_record_uncertainty_tool
+    else:
+        import sys
+        sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
+        from tools.record_clinical_consideration import create_record_clinical_consideration_tool
+        from tools.record_treatment_pathway import create_record_treatment_pathway_tool
+        from tools.record_uncertainty import create_record_uncertainty_tool
+
     if model is None:
         model = _build_model()
 
-    record_clinical_consideration = create_record_clinical_consideration_tool(session)
-    record_treatment_pathway = create_record_treatment_pathway_tool(session)
-    record_uncertainty = create_record_uncertainty_tool(session)
-
     return ToolCallingAgent(
-        tools=[record_clinical_consideration, record_treatment_pathway, record_uncertainty],
+        tools=[
+            create_record_clinical_consideration_tool(session),
+            create_record_treatment_pathway_tool(session),
+            create_record_uncertainty_tool(session),
+        ],
         model=model, instructions=INSTRUCTIONS, max_steps=16, verbosity_level=0,
     )
-
 
 def update_clinical_decision_support_state(state, cds_result):
     """Store a tool-grounded CDSSession result in the existing shared state."""
