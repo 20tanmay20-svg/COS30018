@@ -5,7 +5,7 @@ import logging
 import re
 
 from dotenv import load_dotenv
-from smolagents import LiteLLMModel, ToolCallingAgent, tool
+from smolagents import LiteLLMModel, ToolCallingAgent
 
 
 # ---------------------------------------------------------
