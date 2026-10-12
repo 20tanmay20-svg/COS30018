@@ -1,9 +1,3 @@
-"""Starts the GBM multi-agent pipeline.
-
-Each agent is built independently and exposes run_*(state) -> state, which
-updates its own section of the shared state. This file creates the state, runs
-the agents in order, and runs the Verification -> CDS revision loop (capped).
-"""
 import json
 
 from shared_state import create_initial_state
@@ -11,7 +5,7 @@ from patient_info_agent import run_patient_info_agent
 from medical_evidence_agent import run_medical_evidence_agent
 from clinical_decision_support_agent import run_clinical_decision_support_agent
 from verification_agent import run_verification_agent, format_feedback
-# Add Report Generation here once it is written.
+
 
 MAX_REVISIONS = 2
 

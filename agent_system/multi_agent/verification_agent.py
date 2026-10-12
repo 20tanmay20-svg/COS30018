@@ -1,19 +1,3 @@
-"""Verification Agent for the GBM multi-agent shared-state pipeline.
-
-Public entry point: run_verification_agent(state, model=None).
-No model, API key, or network connection is needed merely to import this file.
-
-The agent has three tools (defined in tools/verification_tools.py):
-  - run_verification_checks : deterministic checks on the shared state
-  - get_cited_evidence      : read a claim and the abstracts it cites
-  - record_verdict          : record whether those abstracts support the claim
-
-The deterministic checks are always re-run in code and are the source of truth for
-structural problems. The model's job is the judgement code cannot make: does the cited
-abstract actually support the claim? A claim judged 'unsupported' adds an issue and
-therefore requires revision; 'partial' verdicts are kept in semantic_checks only.
-"""
-
 import argparse
 import json
 import logging
