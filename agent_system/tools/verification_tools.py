@@ -1,14 +1,3 @@
-"""Verification tools for the GBM decision-support pipeline.
-
-Two kinds of tool live here, both independent of any model:
-
-1. verify_cds_output      - deterministic structural / evidence-linking checks.
-2. SemanticCheckSession   - validated storage for the model's judgement of whether
-                            each cited abstract actually supports the claim citing it.
-
-Neither makes clinical decisions. Item numbers are 1-based throughout.
-"""
-
 from copy import deepcopy
 import threading
 from typing import Any
