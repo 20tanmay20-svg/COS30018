@@ -46,7 +46,7 @@
   },
   {
     "Patient_ID": "PatientID_0006",
-    "Sex at Birth": "Male",
+    "Sex at Birth": "Male", 
     "Age at diagnosis": "60",
     "Primary Diagnosis": "GBM",
     "Grade of Primary Brain Tumor": "4",
