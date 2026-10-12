@@ -21,10 +21,9 @@ sys.path.append(PROJECT_ROOT)
 # ---------------------------------------------------------
 # Import existing patient search functions
 
-from tools.patient_search import (
-    search_patients,
-    get_patient_by_id
-)
+from tools.patient_search import get_patient_by_id
+from tools.retrieve_patient import retrieve_patient
+from tools.search_patient_records import search_patient_records
 
 from shared_state import create_initial_state
 
@@ -98,98 +97,6 @@ def parse_patient_request(user_request: str) -> dict | None:
         "patient_id": patient_id
     }
 
-
-# ---------------------------------------------------------
-# Patient Search Tools
-
-@tool
-def search_patient_records(
-    age_min: int = None,
-    age_max: int = None,
-    sex: str = None,
-    progression: int = None,
-    death_recorded: int = None
-) -> dict:
-    """
-    Search patient records using demographic and clinical filters.
-
-    Use this tool when the user asks about multiple patients,
-    patient groups, filtering, or comparisons.
-
-    Args:
-        age_min: Minimum patient age.
-        age_max: Maximum patient age.
-        sex: Patient sex at birth.
-        progression: Progression status, 0 or 1.
-        death_recorded: Documented death status, 0 or 1.
-
-    Returns:
-        Dictionary containing matching patient records.
-    """
-
-    logger.info(
-        "Tool action: search_patient_records "
-        "(age_min=%s, age_max=%s, sex=%s, progression=%s, "
-        "death_recorded=%s)",
-        age_min,
-        age_max,
-        sex,
-        progression,
-        death_recorded
-    )
-
-    try:
-        return search_patients(
-            age_min=age_min,
-            age_max=age_max,
-            sex=sex,
-            progression=progression,
-            death_recorded=death_recorded
-        )
-
-    except Exception as e:
-        logger.exception("Patient search failed.")
-
-        return {
-            "success": False,
-            "message": f"Patient search failed: {str(e)}"
-        }
-
-
-# ---------------------------------------------------------
-# Patient retrieval tool
-
-@tool
-def retrieve_patient(
-    patient_id: str
-) -> dict:
-    """
-    Retrieve a patient record using their unique Patient ID.
-
-    Patient IDs in the dataset use the format PatientID_XXXX.
-
-    Args:
-        patient_id: Unique patient identifier, for example PatientID_0003.
-
-    Returns:
-        Dictionary containing the patient record or an error message.
-    """
-
-    logger.info(
-        "Tool action: retrieve_patient(patient_id=%s)",
-        patient_id
-    )
-
-    try:
-        return get_patient_by_id(patient_id)
-
-    except Exception as e:
-        logger.exception("Patient retrieval failed.")
-
-        return {
-            "success": False,
-            "message": f"Patient retrieval failed: {str(e)}"
-        }
 
 
 # ---------------------------------------------------------
