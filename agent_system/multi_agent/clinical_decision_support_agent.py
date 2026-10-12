@@ -6,7 +6,7 @@ No model, API key, or network connection is needed merely to import this file.
 This agent turns successfully retrieved patient information and medical evidence
 into structured, evidence-linked clinical considerations and treatment pathways
 for the Verification Agent to check. It never diagnoses, prescribes, writes the
-final report, modifies patient records, or overrides verification results. Every
+final report, modifies patient records, or oveclrrides verification results. Every
 MRI-derived classification is treated as provisional, every supporting evidence
 identifier must already exist in medical_evidence.retrieved_evidence, and every
 successful run always carries at least one doctor_review_items entry.
@@ -339,6 +339,25 @@ consideration, pathway, and uncertainty has been recorded.
 
 _TRANSIENT_TYPES = ("serviceunavailable", "ratelimit", "timeout", "apiconnection", "internalserver")
 _TRANSIENT_TEXT = ("503", "429", "unavailable", "high demand", "overloaded", "rate limit", "timed out")
+def create_clinical_decision_support_agent(session, model=None):
+    """Create a fresh ToolCallingAgent whose tools are bound to one isolated session."""
+    from smolagents import LiteLLMModel, ToolCallingAgent
+    if __package__:
+        from ..tools.record_clinical_consideration import create_record_clinical_consideration_tool
+        from ..tools.record_treatment_pathway import create_record_treatment_pathway_tool
+        from ..tools.record_uncertainty import create_record_uncertainty_tool
+    else:
+        import sys
+        sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
+        from tools.record_clinical_consideration import create_record_clinical_consideration_tool
+        from tools.record_treatment_pathway import create_record_treatment_pathway_tool
+        from tools.record_uncertainty import create_record_uncertainty_tool
+    if model is None:
+        from dotenv import load_dotenv
+        root = Path(__file__).resolve().parents[2]
+        # Support the .env position shown in the user's screenshot.
+        load_dotenv(root / ".env")
+        load_dotenv(root / "backend" / ".env")
 
 
 def _is_transient_model_error(exc):
@@ -419,47 +438,9 @@ def create_clinical_decision_support_agent(session, model=None):
     if model is None:
         model = _build_model()
 
-    @tool
-    def record_clinical_consideration(
-        consideration: str, reasoning: str, supporting_evidence: list[str], limitations: str,
-        context_info: str = "", requires_review: bool = True
-    ) -> dict:
-        """Record one clinical consideration for clinician review.
-
-        Args:
-            consideration: The clinical consideration being raised.
-            reasoning: Why this consideration follows from the supplied information.
-            supporting_evidence: PMIDs from available_evidence that support it; empty if none.
-            limitations: Limitations, caveats, or unknowns affecting this consideration.
-            context_info: The relevant patient/context information behind it (optional).
-            requires_review: Whether this consideration specifically needs clinician review.
-        """
-        return session.add_consideration(consideration, reasoning, context_info, supporting_evidence, limitations, requires_review)
-
-    @tool
-    def record_treatment_pathway(
-        option: str, when_considered: str, supporting_evidence: list[str],
-        unknown_patient_factors: str, risks_and_limitations: str
-    ) -> dict:
-        """Record one treatment or management pathway for clinician review.
-
-        Args:
-            option: The treatment or management option.
-            when_considered: The circumstances under which it may be considered.
-            supporting_evidence: PMIDs from available_evidence that support it; empty if none.
-            unknown_patient_factors: Patient-specific factors that are unknown but relevant.
-            risks_and_limitations: Risks or limitations of this option.
-        """
-        return session.add_treatment_pathway(option, when_considered, supporting_evidence, unknown_patient_factors, risks_and_limitations)
-
-    @tool
-    def record_uncertainty(description: str) -> dict:
-        """Record an uncertainty affecting the clinical picture.
-
-        Args:
-            description: The uncertainty, unknown, or ambiguity being flagged.
-        """
-        return session.add_uncertainty(description)
+    record_clinical_consideration = create_record_clinical_consideration_tool(session)
+    record_treatment_pathway = create_record_treatment_pathway_tool(session)
+    record_uncertainty = create_record_uncertainty_tool(session)
 
     return ToolCallingAgent(
         tools=[record_clinical_consideration, record_treatment_pathway, record_uncertainty],
