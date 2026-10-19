@@ -6,10 +6,10 @@ def create_assemble_report_tool(session):
 
     @tool
     def assemble_report(section_order: list[str]) -> dict:
-        """Assemble all source sections into the report without changing their text.
+        """Assemble source sections without rewriting their text.
 
         Args:
-            section_order: Every supplied section key exactly once, patient_context first and references last.
+            section_order: Every section key once, patient_context first and references last.
         """
         return session.assemble(section_order)
 

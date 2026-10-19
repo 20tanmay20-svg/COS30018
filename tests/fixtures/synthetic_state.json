@@ -1,0 +1,91 @@
+{
+  "patient_information": {
+    "status": "success",
+    "patient_data": [
+      {
+        "Patient_ID": "SYNTHETIC-001",
+        "Primary Diagnosis": "GBM",
+        "Age at diagnosis": 50,
+        "Sex at Birth": "Unknown",
+        "Grade of Primary Brain Tumor": "Not supplied"
+      }
+    ]
+  },
+  "medical_evidence": {
+    "status": "success",
+    "retrieved_evidence": [
+      {
+        "pmid": "123456",
+        "title": "SYNTHETIC test reference",
+        "abstract": "Synthetic abstract for software testing only.",
+        "publication_types": [],
+        "retraction_flags": [],
+        "evidence_level": "abstract_only"
+      }
+    ],
+    "evidence_relevance": [
+      {
+        "pmid": "123456",
+        "relevance": "high"
+      }
+    ]
+  },
+  "clinical_decision_support": {
+    "status": "success",
+    "clinical_considerations": [
+      {
+        "consideration": "Synthetic consideration",
+        "reasoning": "Synthetic reasoning",
+        "context": "Synthetic context",
+        "limitations": "Synthetic limitations",
+        "supporting_evidence": [
+          "123456"
+        ],
+        "requires_clinician_review": true
+      }
+    ],
+    "treatment_pathways": [
+      {
+        "option": "Synthetic pathway",
+        "when_considered": "Synthetic condition",
+        "unknown_patient_factors": "Unknown",
+        "risks_and_limitations": "Synthetic limitation",
+        "supporting_evidence": [
+          "123456"
+        ],
+        "requires_clinician_review": true
+      }
+    ],
+    "uncertainties": [
+      "Synthetic uncertainty"
+    ],
+    "doctor_review_items": [
+      {
+        "item": "Synthetic review",
+        "reason": "Synthetic reason"
+      }
+    ]
+  },
+  "verification": {
+    "status": "success",
+    "verification_status": "approved",
+    "revision_required": false,
+    "issues": [],
+    "error": null,
+    "semantic_checks": [
+      {
+        "item_type": "consideration",
+        "number": 1,
+        "verdict": "supported",
+        "reason": "Synthetic supported verdict"
+      },
+      {
+        "item_type": "pathway",
+        "number": 1,
+        "verdict": "supported",
+        "reason": "Synthetic supported verdict"
+      }
+    ]
+  },
+  "errors": []
+}
