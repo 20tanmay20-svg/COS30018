@@ -1,5 +1,4 @@
 """Assemble a source-preserving Markdown draft from the shared pipeline state.
-
 Normal runs require verification approval. preview=True produces an explicitly
 unverified test report with status='preview', never status='success'.
 """
@@ -9,17 +8,12 @@ import json
 import os
 from pathlib import Path
 import sys
-
 SECTIONS = ["patient_context", "clinical_considerations", "treatment_pathways",
             "uncertainties", "doctor_review_items", "references"]
 PATIENT_FIELDS = ("Patient_ID", "Primary Diagnosis", "Age at diagnosis",
                   "Sex at Birth", "Grade of Primary Brain Tumor")
-
-
 def empty_report():
     return {"content": None, "status": "pending", "error": None}
-
-
 def text(value):
     """Escape source Markdown/HTML so it displays as data, not report headings."""
     if value is None or value == "":
@@ -28,15 +22,11 @@ def text(value):
     for char in "\\`*_{}[]()#+!|":
         value = value.replace(char, "\\" + char)
     return " ".join(value.split())
-
-
 def _items(section, key):
     result = section.get(key)
     if not isinstance(result, list):
         raise ValueError(f"{key} must be a list in clinical_decision_support.")
     return result
-
-
 def prepare_sections(state, preview=False):
     """Validate inputs and format only fields actually available in this project."""
     if not isinstance(preview, bool):
@@ -81,8 +71,13 @@ def prepare_sections(state, preview=False):
         by_pmid[record["pmid"]] = record
     useful = {a.get("pmid") for a in assessments if isinstance(a, dict)
               and a.get("relevance") in {"high", "medium"}}
+    if any(not isinstance(a, dict) or not isinstance(a.get("pmid"), str)
+           for a in assessments):
+        raise ValueError("Evidence assessments require PMID strings.")
+    assessment_ids = [a["pmid"] for a in assessments]
+    if len(assessment_ids) != len(set(assessment_ids)):
+        raise ValueError("Duplicate evidence assessments; resolve before reporting.")
     cited = set()
-
     def citations(item):
         ids = item.get("supporting_evidence")
         if not isinstance(ids, list) or any(not isinstance(i, str) for i in ids):
@@ -92,16 +87,20 @@ def prepare_sections(state, preview=False):
                 raise ValueError("Clinical output cites missing or insufficiently relevant evidence.")
             rec = by_pmid[pmid]
             if rec.get("retraction_flags") or any("retract" in str(p).lower()
-                                                 for p in rec.get("publication_types", [])):
+                                                 for p in (rec.get("publication_types") or [])):
                 raise ValueError("A clinical item cites flagged evidence; return it for review.")
         cited.update(ids)
         return ", ".join(f"[PMID {i}](https://pubmed.ncbi.nlm.nih.gov/{i}/)" for i in dict.fromkeys(ids)) or "No supporting citation supplied; clinician review required."
-
-    def entries(items, fields):
+    def entries(items, fields, item_type):
         lines = []
         for index, item in enumerate(items, 1):
             if not isinstance(item, dict):
                 raise ValueError("Clinical entries must be dictionaries.")
+            ids = item.get("supporting_evidence")
+            if (item_type == "pathway" or not ids) and item.get("requires_clinician_review") is not True:
+                raise ValueError("Uncited considerations and all pathways must require clinician review.")
+            if "requires_clinician_review" in item and not isinstance(item["requires_clinician_review"], bool):
+                raise ValueError("requires_clinician_review must be a boolean.")
             lines.append(f"### Item {index}")
             for key, label in fields:
                 if not isinstance(item.get(key), str) or not item[key].strip():
@@ -110,18 +109,17 @@ def prepare_sections(state, preview=False):
             lines.extend([f"**Supporting evidence:** {citations(item)}",
                           "**Clinician review:** Required."])
         return "\n\n".join(lines) or "None supplied by the clinical decision support stage."
-
     sections = {
         "patient_context": "\n".join(f"- **{key}:** {text(patients[0].get(key))}" for key in PATIENT_FIELDS)
             + "\n\n**Clinical notes, prior reports and MRI findings:** Not supplied to this report stage as dedicated shared-state fields. No new image interpretation is generated."
             + "\n\n**Retrospective outcomes:** Progression and survival columns are not used to describe the patient's current condition.",
         "clinical_considerations": entries(considerations, [
             ("consideration", "Consideration"), ("reasoning", "Reasoning"),
-            ("context", "Patient context"), ("limitations", "Limitations")]),
+            ("context", "Patient context"), ("limitations", "Limitations")], "consideration"),
         "treatment_pathways": entries(pathways, [
             ("option", "Possible pathway"), ("when_considered", "When considered"),
             ("unknown_patient_factors", "Unknown patient factors"),
-            ("risks_and_limitations", "Risks and limitations")]),
+            ("risks_and_limitations", "Risks and limitations")], "pathway"),
     }
     if any(not isinstance(u, str) or not u.strip() for u in uncertainties):
         raise ValueError("Uncertainties must be nonempty strings.")
@@ -131,6 +129,32 @@ def prepare_sections(state, preview=False):
         if not isinstance(review, dict) or not all(isinstance(review.get(k), str) and review[k].strip() for k in ("item", "reason")):
             raise ValueError("Each doctor review item requires item and reason strings.")
         review_lines.append(f"- **{text(review['item'])}** Reason: {text(review['reason'])}")
+    if not preview:
+        checks = verification.get("semantic_checks")
+        if not isinstance(checks, list):
+            raise ValueError("Approved verification must include semantic_checks.")
+        expected = {(kind, n) for kind, items in
+                    (("consideration", considerations), ("pathway", pathways))
+                    for n, item in enumerate(items, 1) if item["supporting_evidence"]}
+        seen = set()
+        for check in checks:
+            if not isinstance(check, dict):
+                raise ValueError("Semantic checks must be dictionaries.")
+            kind, number = check.get("item_type"), check.get("number")
+            if (not isinstance(kind, str) or type(number) is not int
+                    or (kind, number) not in expected or (kind, number) in seen):
+                raise ValueError("Semantic checks have duplicate or unexpected item identifiers.")
+            seen.add((kind, number))
+            if check.get("verdict") not in {"supported", "partial"}:
+                raise ValueError("All cited items require supported or partial semantic verdicts.")
+            reason = check.get("reason")
+            if not isinstance(reason, str) or not reason.strip():
+                raise ValueError("Semantic checks require a nonempty reason.")
+            if check["verdict"] == "partial":
+                review_lines.append(
+                    f"- **Partial evidence support — {kind} {number}:** {text(reason)}")
+        if seen != expected:
+            raise ValueError("Semantic verification is incomplete for cited clinical items.")
     sections["doctor_review_items"] = "\n".join(review_lines)
     reference_lines = []
     for pmid in sorted(cited):
@@ -140,15 +164,12 @@ def prepare_sections(state, preview=False):
                                f"Access: {text(rec.get('evidence_level', 'abstract_only'))}.")
     sections["references"] = "\n".join(reference_lines) or "No supporting references were cited upstream."
     return sections
-
-
 class ReportSession:
     """The model may arrange sections; it cannot rewrite clinical claims or citations."""
     def __init__(self, sections, preview=False):
         self.sections = deepcopy(sections)
         self.preview = preview
         self.content = None
-
     def assemble(self, section_order):
         if (not isinstance(section_order, list)
                 or any(not isinstance(s, str) for s in section_order)
@@ -166,8 +187,6 @@ class ReportSession:
             parts.extend(["## " + key.replace("_", " ").title(), self.sections[key]])
         self.content = "\n\n".join(parts) + "\n"
         return {"success": True, "sections_included": section_order}
-
-
 INSTRUCTIONS = """
 You are the Report Generation Agent. Assemble a draft from the supplied sections.
 Call assemble_report with all six section keys exactly once. Begin with
@@ -178,16 +197,19 @@ advice, citations or interpretations. The tool preserves all source details.
 After a successful assembly call, finish using final_answer. Your final prose
 is not the saved report. Never claim verification or clinician approval yourself.
 """
-
-
 def create_report_generation_agent(session, model=None):
     from smolagents import LiteLLMModel, ToolCallingAgent
-    if __package__ and "." in __package__:
-        from ..tools.assemble_report import create_assemble_report_tool
+    import importlib
+    if __package__:
+        tools_package = (__package__.rsplit(".", 1)[0] + ".tools"
+                         if "." in __package__ else "tools")
+        create_assemble_report_tool = importlib.import_module(
+            tools_package + ".assemble_report").create_assemble_report_tool
     else:
-        root = str(Path(__file__).resolve().parents[1])
-        if root not in sys.path:
-            sys.path.insert(0, root)
+        agent_dir = Path(__file__).resolve().parent
+        root = agent_dir if (agent_dir / "tools").is_dir() else agent_dir.parent
+        if str(root) not in sys.path:
+            sys.path.insert(0, str(root))
         from tools.assemble_report import create_assemble_report_tool
     if model is None:
         from dotenv import load_dotenv
@@ -196,29 +218,31 @@ def create_report_generation_agent(session, model=None):
         load_dotenv(root / "backend" / ".env")
         provider = os.getenv("MODEL_PROVIDER", "gemini").lower()
         if provider == "ollama":
-            model = LiteLLMModel(model_id=os.getenv("LOCAL_MODEL", "ollama/qwen2.5:7b"),
+            model = LiteLLMModel(model_id=os.getenv("LOCAL_MODEL", "ollama_chat/qwen2.5:7b"),
                                  api_base=os.getenv("LOCAL_API_BASE", "http://localhost:11434"))
         elif provider == "gemini":
-            key, model_id = os.getenv("GEMINI_API_KEY"), os.getenv("GEMINI_MODEL")
+            key = os.getenv("LLM_API_KEY") or os.getenv("GEMINI_API_KEY")
+            model_id = os.getenv("LLM_MODEL") or os.getenv("GEMINI_MODEL")
             if not key or not model_id:
-                raise ValueError("Set GEMINI_API_KEY and GEMINI_MODEL, or pass model=existing_model.")
+                raise ValueError("Set LLM_API_KEY/LLM_MODEL or GEMINI_API_KEY/GEMINI_MODEL, or pass model=existing_model.")
             model = LiteLLMModel(model_id=model_id, api_key=key)
         else:
             raise ValueError("MODEL_PROVIDER must be gemini or ollama.")
     return ToolCallingAgent(tools=[create_assemble_report_tool(session)], model=model,
                             instructions=INSTRUCTIONS, max_steps=4, verbosity_level=0)
-
-
 def run_report_generation_agent(state, *, model=None, preview=False, use_llm=True):
     """Update state['report']; use_llm=False assembles locally without an API call.
-
     Preview always returns status='preview'. Normal completion returns 'success'
     only after the verification gate. Source sections are copied without new prose.
     """
+    if not isinstance(state, dict):
+        raise TypeError("state must be a dictionary.")
     state["current_agent"] = "report_generation_agent"
     state["report"] = empty_report()
     try:
-        sections = prepare_sections(state, preview=preview)
+        if not isinstance(use_llm, bool):
+            raise ValueError("use_llm must be True or False.")
+        sections = prepare_sections(deepcopy(state), preview=preview)
         session = ReportSession(sections, preview=preview)
         if use_llm:
             agent = create_report_generation_agent(session, model=model)
@@ -233,10 +257,10 @@ def run_report_generation_agent(state, *, model=None, preview=False, use_llm=Tru
     except Exception as exc:
         message = str(exc) if isinstance(exc, ValueError) else f"Report generation failed ({type(exc).__name__}); check dependencies and model configuration."
         state["report"] = {"content": None, "status": "failed", "error": message}
-        state.setdefault("errors", []).append("Report Generation Agent: " + message)
+        if not isinstance(state.get("errors"), list):
+            state["errors"] = []
+        state["errors"].append("Report Generation Agent: " + message)
     return state
-
-
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="Assemble a draft report from saved pipeline state.")
     parser.add_argument("state_file", type=Path)
