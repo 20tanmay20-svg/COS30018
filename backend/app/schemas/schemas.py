@@ -1,4 +1,5 @@
 from datetime import datetime
+from typing import Any
 from pydantic import BaseModel, ConfigDict, Field
 
 
@@ -101,4 +102,24 @@ class DiagnosticAnalysisResponse(BaseModel):
     differentialDiagnoses: list[DifferentialItem]
     clinicalNotes: str
     treatmentProtocol: list[TreatmentProtocolSectionData]
+
+
+class PipelineRunRequest(BaseModel):
+    user_request: str
+    patient_id: str | None = None
+    data_source: str | None = None
+    request_type: str | None = None
+    patient_data: dict[str, Any] | None = None
+
+
+class PatientProfileSummary(BaseModel):
+    patient_id: str
+    sex: str | None = None
+    age: str | int | None = None
+    diagnosis: str | None = None
+    grade: str | None = None
+    progression: str | None = None
+    progression_days: str | None = None
+    death: str | None = None
+
 

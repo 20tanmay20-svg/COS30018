@@ -271,7 +271,12 @@ def create_medical_evidence_agent(session, model=None):
         model_id = os.getenv("GEMINI_MODEL")
         if not key or not model_id:
             raise ValueError("Set GEMINI_API_KEY and GEMINI_MODEL, or pass an existing model.")
-        model = LiteLLMModel(model_id=model_id, api_key=key,  num_retries=5)
+        class ThrottledModel(LiteLLMModel):
+            def generate(self, *args, **kwargs):
+                import time
+                time.sleep(4.2)
+                return super().generate(*args, **kwargs)
+        model = ThrottledModel(model_id=model_id, api_key=key, num_retries=0)
 
     search_medical_evidence = create_search_medical_evidence_tool(session)
     assess_evidence = create_assess_evidence_tool(session)
@@ -318,8 +323,8 @@ def update_medical_evidence_state(state, evidence_result):
         state.setdefault("errors", []).append("Medical Evidence Agent: " + evidence_result["error"])
     return state
 
-_TRANSIENT_TYPES = ("serviceunavailable", "ratelimit", "timeout", "apiconnection", "internalserver")
-_TRANSIENT_TEXT = ("503", "429", "unavailable", "high demand", "overloaded", "rate limit", "timed out")
+_TRANSIENT_TYPES = ("serviceunavailable", "ratelimit", "timeout", "apiconnection", "internalserver", "resourceexhausted")
+_TRANSIENT_TEXT = ("503", "429", "unavailable", "high demand", "overloaded", "rate limit", "timed out", "resource_exhausted", "quota")
 
 
 def _is_transient_model_error(exc):
