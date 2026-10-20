@@ -90,6 +90,8 @@ def _build_model():
         using_fallback = False
 
         def generate(self, *args, **kwargs):
+            import time
+            time.sleep(4.2)
             if not self.using_fallback:
                 last_error = None
                 for attempt in range(1, max_attempts + 1):
@@ -109,7 +111,7 @@ def _build_model():
                 self.using_fallback = True
             return local_model.generate(*args, **kwargs)
 
-    return FallbackModel(model_id=model_id, api_key=key)
+    return FallbackModel(model_id=model_id, api_key=key, num_retries=0)
 
 
 def create_verification_agent(state, session, captured, model=None, n_items=1):
@@ -168,8 +170,8 @@ def create_verification_agent(state, session, captured, model=None, n_items=1):
 # ---------------------------------------------------------
 # Helpers
 
-_TRANSIENT_TYPES = ("serviceunavailable", "ratelimit", "timeout", "apiconnection", "internalserver")
-_TRANSIENT_TEXT = ("503", "429", "unavailable", "high demand", "overloaded", "rate limit", "timed out")
+_TRANSIENT_TYPES = ("serviceunavailable", "ratelimit", "timeout", "apiconnection", "internalserver", "resourceexhausted")
+_TRANSIENT_TEXT = ("503", "429", "unavailable", "high demand", "overloaded", "rate limit", "timed out", "resource_exhausted", "quota")
 
 
 def _is_transient_model_error(exc):
@@ -193,7 +195,7 @@ def format_feedback(state):
 # Entry point
 
 def run_verification_agent(state, *, model=None, require_complete_semantic_check=True,
-                           model_retries=0, retry_delay=5):
+                           model_retries=3, retry_delay=8):
     """Run the Verification Agent on the shared state and return it.
 
     require_complete_semantic_check: fail the stage unless the model recorded a verdict

@@ -1,7 +1,10 @@
 import os
 import logging
 from typing import Any
-import torch
+try:
+    import torch
+except ImportError:
+    torch = None
 
 from app.core.config import settings
 

@@ -74,3 +74,14 @@ def create_initial_state(user_request: str) -> dict[str, Any]:
         "errors": [],
         "current_agent": None
     }
+
+import time
+_LAST_GEMINI_CALL = 0.0
+_MIN_GEMINI_INTERVAL = 4.2
+
+def throttle_gemini(min_interval: float = _MIN_GEMINI_INTERVAL):
+    global _LAST_GEMINI_CALL
+    elapsed = time.monotonic() - _LAST_GEMINI_CALL
+    if elapsed < min_interval:
+        time.sleep(min_interval - elapsed)
+    _LAST_GEMINI_CALL = time.monotonic()

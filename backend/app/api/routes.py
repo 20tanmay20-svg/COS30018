@@ -1,7 +1,10 @@
+import logging
 from datetime import datetime
 from fastapi import APIRouter, Depends, Form, File, HTTPException, UploadFile, status
 from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy import select
+
+logger = logging.getLogger(__name__)
 
 from app.core.config import settings
 from app.core.database import get_db
@@ -20,12 +23,22 @@ from app.schemas.schemas import (
     ScanResponse,
     SegmentationResult,
     TreatmentProtocolSectionData,
+    PipelineRunRequest,
+    PatientProfileSummary,
 )
 from app.services.agent import run_agent_chat
 from app.services.gemini import generate_clinical_report
 from app.services.mri import run_mri_segmentation
+from fastapi.responses import StreamingResponse
+import json
+from app.services.multi_agent_service import (
+    execute_multi_agent_pipeline,
+    execute_multi_agent_pipeline_stream,
+    get_patient_summaries,
+)
 
 api_router = APIRouter()
+
 
 
 
@@ -250,4 +263,35 @@ async def run_diagnostic_analysis(
             },
         ],
     }
+
+
+# --- Multi-Agent Pipeline Execution Endpoint ---
+@api_router.post("/agent/run-pipeline", tags=["Multi-Agent Pipeline"])
+async def run_agent_pipeline_endpoint(req: PipelineRunRequest):
+    """
+    Executes the multi-agent clinical decision support pipeline, streaming stage progress:
+    1. Patient Information Agent (retrieves record from gbm_patient_profiles.json)
+    2. Medical Evidence Agent (retrieves relevant PubMed literature)
+    3. Clinical Decision Support Agent (synthesizes evidence-linked pathways)
+    4. Verification Agent (checks claims against cited abstracts)
+    5. Report Generation Agent (assembles formal structured report)
+    """
+    print(f"\n[BACKEND API] >>> Received run-pipeline request: query='{req.user_request}' (patient_id='{req.patient_id}')", flush=True)
+    logger.info("Executing streaming multi-agent pipeline for: %s", req.user_request)
+
+    def event_stream():
+        for event in execute_multi_agent_pipeline_stream(req.user_request):
+            yield json.dumps(event, default=str) + "\n"
+        print(f"[BACKEND API] <<< Multi-agent pipeline finished streaming successfully.\n", flush=True)
+
+    return StreamingResponse(event_stream(), media_type="application/x-ndjson")
+
+
+# --- Patient Database Profiles Endpoint ---
+@api_router.get("/patients", response_model=list[PatientProfileSummary], tags=["Patients"])
+async def list_patients(limit: int = 50):
+    """Retrieves available patient records from gbm_patient_profiles.json."""
+    print(f"[BACKEND API] GET /api/v1/patients requested (limit={limit})", flush=True)
+    return get_patient_summaries(limit=limit)
+
 

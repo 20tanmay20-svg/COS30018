@@ -337,8 +337,8 @@ consideration, pathway, and uncertainty has been recorded.
 """
 
 
-_TRANSIENT_TYPES = ("serviceunavailable", "ratelimit", "timeout", "apiconnection", "internalserver")
-_TRANSIENT_TEXT = ("503", "429", "unavailable", "high demand", "overloaded", "rate limit", "timed out")
+_TRANSIENT_TYPES = ("serviceunavailable", "ratelimit", "timeout", "apiconnection", "internalserver", "resourceexhausted")
+_TRANSIENT_TEXT = ("503", "429", "unavailable", "high demand", "overloaded", "rate limit", "timed out", "resource_exhausted", "quota")
 
 
 
@@ -392,6 +392,8 @@ def _build_model():
         using_fallback = False
 
         def generate(self, *args, **kwargs):
+            import time
+            time.sleep(4.2)
             if not self.using_fallback:
                 last_error = None
                 for attempt in range(1, max_attempts + 1):
@@ -411,7 +413,7 @@ def _build_model():
                 self.using_fallback = True
             return local_model.generate(*args, **kwargs)
 
-    return FallbackModel(model_id=model_id, api_key=key)
+    return FallbackModel(model_id=model_id, api_key=key, num_retries=0)
 
 
 def create_clinical_decision_support_agent(session, model=None):
