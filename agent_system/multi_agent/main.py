@@ -5,6 +5,7 @@ from patient_info_agent import run_patient_info_agent
 from medical_evidence_agent import run_medical_evidence_agent
 from clinical_decision_support_agent import run_clinical_decision_support_agent
 from verification_agent import run_verification_agent, format_feedback
+from report_generation_agent import run_report_generation_agent
 
 
 MAX_REVISIONS = 2
@@ -58,7 +59,8 @@ def run_pipeline(user_request, max_revisions=MAX_REVISIONS):
         )
         return _stop(state)
 
-    # Report generation goes here once it is written.
+    # Report generation agent
+    state = _run_stage(state, "report", run_report_generation_agent)
     return _stop(state)
 
 
