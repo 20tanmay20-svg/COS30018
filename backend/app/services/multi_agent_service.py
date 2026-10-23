@@ -6,6 +6,7 @@ import sys
 from datetime import datetime
 from pathlib import Path
 from typing import Any
+from dotenv import load_dotenv
 
 # Ensure project root and agent_system are on sys.path
 PROJECT_ROOT = Path(__file__).resolve().parents[3]
@@ -15,6 +16,9 @@ MULTI_AGENT_ROOT = AGENT_SYSTEM_ROOT / "multi_agent"
 for p in (str(PROJECT_ROOT), str(AGENT_SYSTEM_ROOT), str(MULTI_AGENT_ROOT)):
     if p not in sys.path:
         sys.path.insert(0, p)
+
+load_dotenv(PROJECT_ROOT / ".env")
+load_dotenv(PROJECT_ROOT / "backend" / ".env")
 
 logger = logging.getLogger(__name__)
 
@@ -33,6 +37,8 @@ except Exception as e:
     logger.warning("Could not import multi_agent.main.run_pipeline: %s", e)
     run_pipeline = None
 
+_import_error: str | None = None
+
 try:
     from agent_system.multi_agent.shared_state import create_initial_state
     from agent_system.multi_agent.patient_info_agent import run_patient_info_agent
@@ -41,6 +47,7 @@ try:
     from agent_system.multi_agent.verification_agent import run_verification_agent
 except Exception as e:
     logger.warning("Could not import multi_agent stage agents: %s", e)
+    _import_error = str(e)
     create_initial_state = None
     run_patient_info_agent = None
     run_medical_evidence_agent = None
@@ -174,17 +181,14 @@ def execute_multi_agent_pipeline_stream(user_request: str):
     """
     Streams multi-agent pipeline progress stage by stage, directly matching terminal logs.
     Yields progress events as each agent begins and finishes, then yields 'complete' with final state.
+    If any stage or dependency fails, yields an error event and stops.
     """
     if not (create_initial_state and run_patient_info_agent and run_medical_evidence_agent and run_clinical_decision_support_agent and run_verification_agent):
-        logger.warning("Pipeline modules not fully available, falling back to dynamic database synthesis.")
-        state = _build_dynamic_database_state(user_request)
-        state = _populate_final_report_summary(state)
+        err_msg = _import_error or "Pipeline agent modules not available. Verify that smolagents[litellm] is installed and GEMINI_API_KEY is configured in .env."
+        logger.error("Cannot run pipeline: %s", err_msg)
         yield {
-            "type": "complete",
-            "percent": 100,
-            "stage_index": 5,
-            "message": "Complete (Synthesized Fallback)",
-            "state": state,
+            "type": "error",
+            "message": f"Pipeline initialization failed: {err_msg}",
         }
         return
 
@@ -206,15 +210,11 @@ def execute_multi_agent_pipeline_stream(user_request: str):
         print(f"--- Finished patient_information: {p_status} ---", flush=True)
 
         if p_status != "success":
-            logger.warning("Patient information failed: %s. Using dynamic synthesis fallback.", state.get("errors"))
-            state = _build_dynamic_database_state(user_request)
-            state = _populate_final_report_summary(state)
+            err_detail = state.get("patient_information", {}).get("error") or ", ".join(state.get("errors", [])) or "Patient record not found"
+            logger.error("Patient Information Agent failed: %s", err_detail)
             yield {
-                "type": "complete",
-                "percent": 100,
-                "stage_index": 5,
-                "message": "Complete (Fallback State Generated)",
-                "state": state,
+                "type": "error",
+                "message": f"Patient Information Agent failed: {err_detail}",
             }
             return
 
@@ -239,6 +239,15 @@ def execute_multi_agent_pipeline_stream(user_request: str):
         e_status = state.get("medical_evidence", {}).get("status")
         print(f"--- Finished medical_evidence: {e_status} ---", flush=True)
 
+        if e_status != "success":
+            err_detail = state.get("medical_evidence", {}).get("error") or ", ".join(state.get("errors", [])) or "Medical evidence retrieval failed"
+            logger.error("Medical Evidence Agent failed: %s", err_detail)
+            yield {
+                "type": "error",
+                "message": f"Medical Evidence Agent failed: {err_detail}",
+            }
+            return
+
         yield {
             "type": "progress",
             "stage": "medical_evidence",
@@ -260,6 +269,15 @@ def execute_multi_agent_pipeline_stream(user_request: str):
         cds_status = state.get("clinical_decision_support", {}).get("status")
         print(f"--- Finished clinical_decision_support: {cds_status} ---", flush=True)
 
+        if cds_status != "success":
+            err_detail = state.get("clinical_decision_support", {}).get("error") or ", ".join(state.get("errors", [])) or "Clinical decision support failed"
+            logger.error("Clinical Decision Support Agent failed: %s", err_detail)
+            yield {
+                "type": "error",
+                "message": f"Clinical Decision Support Agent failed: {err_detail}",
+            }
+            return
+
         yield {
             "type": "progress",
             "stage": "clinical_decision_support",
@@ -280,6 +298,15 @@ def execute_multi_agent_pipeline_stream(user_request: str):
         state = run_verification_agent(state)
         v_status = state.get("verification", {}).get("status")
         print(f"--- Finished verification: {v_status} ---", flush=True)
+
+        if v_status != "success":
+            err_detail = state.get("verification", {}).get("error") or ", ".join(state.get("errors", [])) or "Verification failed"
+            logger.error("Verification Agent failed: %s", err_detail)
+            yield {
+                "type": "error",
+                "message": f"Verification Agent failed: {err_detail}",
+            }
+            return
 
         yield {
             "type": "progress",
@@ -318,14 +345,9 @@ def execute_multi_agent_pipeline_stream(user_request: str):
 
     except Exception as exc:
         logger.exception("Error in pipeline stream: %s", exc)
-        state = _build_dynamic_database_state(user_request)
-        state = _populate_final_report_summary(state)
         yield {
-            "type": "complete",
-            "percent": 100,
-            "stage_index": 5,
-            "message": "Pipeline Complete (Synthesized State)",
-            "state": state,
+            "type": "error",
+            "message": f"Pipeline execution failed: {str(exc)}",
         }
 
 
@@ -334,252 +356,16 @@ def execute_multi_agent_pipeline(user_request: str) -> dict[str, Any]:
     Executes the multi-agent pipeline and returns the final state dictionary.
     """
     final_state = None
+    last_error = None
     for event in execute_multi_agent_pipeline_stream(user_request):
         if event.get("type") == "complete":
             final_state = event.get("state")
+        elif event.get("type") == "error":
+            last_error = event.get("message")
     if not final_state:
-        final_state = _build_dynamic_database_state(user_request)
-        final_state = _populate_final_report_summary(final_state)
+        raise RuntimeError(last_error or "Multi-agent pipeline failed to produce final state.")
     return final_state
 
 
 def _build_dynamic_database_state(user_request: str) -> dict[str, Any]:
-    """
-    Builds a dynamic, authentic SharedState directly from gbm_patient_profiles.json,
-    supporting single patient reports, multi-patient comparisons, and cohort analyses.
-    """
-    pids = _extract_patient_ids(user_request)
-    is_comparison = "compare" in user_request.lower() or "comparison" in user_request.lower() or len(pids) >= 2
-
-    # Load authentic records
-    matched_patients: list[dict[str, Any]] = []
-    for pid in pids:
-        rec = get_single_patient(pid)
-        if rec:
-            matched_patients.append(rec)
-        else:
-            # Fallback mock for non-existent cohort ID
-            matched_patients.append({
-                "Patient_ID": pid,
-                "Sex at Birth": "Male",
-                "Age at diagnosis": "65",
-                "Primary Diagnosis": "GBM",
-                "Grade of Primary Brain Tumor": "4",
-                "Progression": "0",
-                "Time to First Progression (Days)": None,
-                "Overall Survival (Death)": "0",
-            })
-
-    # Default if no patient was mentioned in prompt
-    if not matched_patients:
-        default_rec = get_single_patient("PatientID_0007") or {
-            "Patient_ID": "PatientID_0007",
-            "Sex at Birth": "Male",
-            "Age at diagnosis": "79",
-            "Primary Diagnosis": "GBM",
-            "Grade of Primary Brain Tumor": "4",
-            "Progression": "0",
-            "Time to First Progression (Days)": None,
-            "Overall Survival (Death)": "1",
-        }
-        matched_patients = [default_rec]
-
-    # --- CASE A: MULTI-PATIENT COMPARISON ---
-    if is_comparison and len(matched_patients) >= 2:
-        p1 = matched_patients[0]
-        p2 = matched_patients[1]
-
-        p1_id = p1.get("Patient_ID")
-        p2_id = p2.get("Patient_ID")
-        p1_age = int(p1.get("Age at diagnosis") or 60)
-        p2_age = int(p2.get("Age at diagnosis") or 60)
-        p1_sex = p1.get("Sex at Birth", "Unknown")
-        p2_sex = p2.get("Sex at Birth", "Unknown")
-        p1_days = p1.get("Time to First Progression (Days)")
-        p2_days = p2.get("Time to First Progression (Days)")
-        p1_surv = "Deceased" if p1.get("Overall Survival (Death)") == "1" else "Living / Under Surveillance"
-        p2_surv = "Deceased" if p2.get("Overall Survival (Death)") == "1" else "Living / Under Surveillance"
-
-        p1_chemo = p1.get("Name of Initial Chemo Therapy", "Temozolomide")
-        p2_chemo = p2.get("Name of Initial Chemo Therapy", "Temozolomide")
-        p1_rad = f"{p1.get('Dose', '60 Gy')} ({p1.get('Number of Fractions', '30')} fractions)"
-        p2_rad = f"{p2.get('Dose', '60 Gy')} ({p2.get('Number of Fractions', '30')} fractions)"
-
-        summary_title = f"Comparative Analysis: {p1_id} ({p1_sex}, Age {p1_age}) vs {p2_id} ({p2_sex}, Age {p2_age})"
-
-        findings = (
-            f"CLINICAL PROFILE COMPARISON:\n"
-            f"• {p1_id}: Age {p1_age}, {p1_sex}, WHO Grade {p1.get('Grade of Primary Brain Tumor', '4')} Glioblastoma. "
-            f"First Progression: {f'{p1_days} days' if p1_days else 'None documented'}. Survival: {p1_surv}. "
-            f"Baseline Regimen: {p1_chemo} + Radiotherapy {p1_rad}.\n"
-            f"• {p2_id}: Age {p2_age}, {p2_sex}, WHO Grade {p2.get('Grade of Primary Brain Tumor', '4')} Glioblastoma. "
-            f"First Progression: {f'{p2_days} days' if p2_days else 'None documented'}. Survival: {p2_surv}. "
-            f"Baseline Regimen: {p2_chemo} + Radiotherapy {p2_rad}.\n\n"
-            f"KINETICS & PROGRESSION DELTA:\n"
-            f"Both patients underwent high-grade glial resection followed by standard-of-care chemoradiation. "
-            f"{f'{p1_id} reached progression at {p1_days} days, whereas {p2_id} reached progression at {p2_days} days.' if (p1_days and p2_days) else 'Marked divergence in clinical progression trajectory between baseline and recurrence cohorts.'} "
-        )
-
-        impression = (
-            f"Divergent clinical outcome observed between {p1_id} and {p2_id} despite comparable histopathology. "
-            f"Variation in time-to-progression strongly indicates molecular heterogeneity, differential MGMT promoter methylation, "
-            f"or variable therapeutic sensitivity to alkylating chemotherapy."
-        )
-
-        plan = (
-            f"1. Comparative Neuro-Oncology Multidisciplinary Review.\n"
-            f"2. {p1_id} Protocol: {'Maintenance Temozolomide surveillance protocol' if p1.get('Overall Survival (Death)') != '1' else 'Historical cohort comparator case'}.\n"
-            f"3. {p2_id} Protocol: {'Early salvage chemotherapy (Lomustine / CCNU or Regorafenib) and trial evaluation' if p2.get('Progression') == '1' else 'Standard Stupp maintenance'}.\n"
-            f"4. Comparative Biomarker Sequencing: Evaluate MGMT promoter methylation, IDH1/2 mutation, and EGFR amplification across both records."
-        )
-
-        recs = (
-            f"1. Contrast-enhanced MRI surveillance scheduled every 8-12 weeks per RANO criteria.\n"
-            f"2. Molecular pathology reassessment to correlate progression intervals ({p1_days or 'N/A'}d vs {p2_days or 'N/A'}d) with methylation status."
-        )
-
-        evidence_queries = [
-            f"Comparative outcomes GBM Age {p1_age} vs {p2_age} Stupp protocol",
-            f"Predictors of progression time in glioblastoma ({p1_days}d vs {p2_days}d)",
-        ]
-        evidence = [
-            f"Clinical evidence demonstrates significant survival variance in glioblastoma patients aged 50-65 treated with standard temozolomide chemoradiotherapy based on MGMT promoter methylation.",
-            f"Patients with early progression (<6 months) exhibit poor response to continuation TMZ and warrant early salvage regimens or novel targeted therapies.",
-        ]
-
-        considerations = [
-            f"Age delta ({p1_age} vs {p2_age}) influences tolerability of second-line salvage therapies.",
-            f"Progression timing indicates {p1_id if (p1_days and p2_days and int(p1_days) > int(p2_days)) else p2_id} experienced extended progression-free interval.",
-        ]
-
-        pathways = [
-            f"Stratified Pathway: High-risk early recurrence pathway for rapid progressors.",
-            f"Surveillance Pathway: Continued adjuvant maintenance for stable cohort responders.",
-        ]
-
-        final_report = {
-            "patient_summary": summary_title,
-            "findings": findings,
-            "impression": impression,
-            "treatment_plan": plan,
-            "recommendations": recs,
-        }
-
-        return {
-            "user_request": user_request,
-            "patient_information": {
-                "request_type": "patient_comparison",
-                "requested_task": "compare_patients",
-                "data_source": "gbm_patient_profiles.json",
-                "status": "success",
-                "error": None,
-                "patient_data": matched_patients,
-            },
-            "medical_evidence": {
-                "status": "verified",
-                "search_attempts": len(evidence_queries),
-                "search_queries": evidence_queries,
-                "retrieved_evidence": evidence,
-                "evidence_relevance": ["96%", "95%"],
-                "error": None,
-            },
-            "clinical_decision_support": {
-                "status": "verified",
-                "verification_status": "Approved by Verification Agent",
-                "clinical_considerations": considerations,
-                "treatment_pathways": pathways,
-            },
-            "final_report": final_report,
-        }
-
-    # --- CASE B: INDIVIDUAL PATIENT REPORT ---
-    patient_rec = matched_patients[0]
-    p_id = patient_rec.get("Patient_ID", "PatientID_0007")
-    p_sex = patient_rec.get("Sex at Birth", "Male")
-    p_age = int(patient_rec.get("Age at diagnosis") or 65)
-    p_diag = patient_rec.get("Primary Diagnosis", "GBM")
-    p_grade = patient_rec.get("Grade of Primary Brain Tumor", "4")
-    p_prog = patient_rec.get("Progression", "0")
-    p_days = patient_rec.get("Time to First Progression (Days)")
-    p_death = patient_rec.get("Overall Survival (Death)", "0")
-
-    p_chemo = patient_rec.get("Name of Initial Chemo Therapy")
-    p_dose = patient_rec.get("Dose")
-    p_fractions = patient_rec.get("Number of Fractions")
-
-    is_elderly = p_age >= 70
-    prog_str = f"Documented recurrence/progression at {p_days} days post-intervention" if p_prog == "1" else "No clinical progression documented"
-    survival_str = "Deceased" if p_death == "1" else "Living / in active surveillance"
-
-    treatment_history = ""
-    if p_chemo and p_chemo != "NA":
-        treatment_history += f" Prior chemotherapy: {p_chemo}."
-    if p_dose and p_dose != "NA":
-        treatment_history += f" Prior radiation: {p_dose} across {p_fractions or 'N/A'} fractions."
-
-    evidence_queries = [
-        f"{p_diag} Grade {p_grade} {'elderly hypofractionated' if is_elderly else 'standard Stupp'} protocol",
-        f"Temozolomide tolerance and progression management at age {p_age}",
-    ]
-    retrieved_evidence = [
-        f"Hypofractionated radiotherapy (40 Gy in 15 fractions) combined with temozolomide demonstrates improved survival and functional preservation in glioblastoma patients aged 70 and older." if is_elderly
-        else f"Standard Stupp protocol (60 Gy in 30 fractions with concurrent and adjuvant Temozolomide) provides maximum overall survival in adult GBM patients under 70.",
-        f"Molecular biomarker profiling (MGMT promoter methylation and IDH1 status) is essential to evaluate alkylating chemotherapy responsiveness.",
-    ]
-
-    considerations = [
-        f"Patient age ({p_age}) {'mandates age-adjusted hypofractionated radiation to reduce neurocognitive toxicity' if is_elderly else 'supports full-course 60 Gy / 30 fx chemoradiation'}.",
-        f"Documented recurrence milestone ({p_days} days) indicates secondary salvage therapy evaluation." if p_prog == "1" else "Primary baseline management indicated.",
-    ]
-
-    treatment_pathways = [
-        "Primary: Target-dosed hypofractionated radiotherapy (40 Gy / 15 fx) with adjuvant Temozolomide." if is_elderly
-        else "Primary: Full-dose Stupp protocol chemoradiation (60 Gy in 30 fractions with concurrent daily TMZ).",
-        "Supportive: Functional performance assessment and early palliative oncology integration.",
-    ]
-
-    treatment_plan = (
-        f"1. Multidisciplinary Neuro-Oncology review.\n"
-        f"2. {'Targeted hypofractionated radiotherapy (40 Gy in 15 fractions) with concurrent Temozolomide (75 mg/m²).' if is_elderly else 'Standard Stupp Protocol: Concomitant radiotherapy (60 Gy in 30 fractions) with daily Temozolomide (75 mg/m²).'}\n"
-        f"3. Adjuvant Temozolomide therapy (150-200 mg/m² for 5 days every 28 days) conditional upon MGMT methylation status.\n"
-        f"4. {'Salvage therapy review for documented recurrence.' if p_prog == '1' else 'Post-treatment baseline MRI within 48 hours.'}"
-    )
-
-    final_report = {
-        "patient_summary": f"{p_id} • {p_sex} • Age {p_age} (WHO Grade {p_grade})",
-        "findings": f"Clinical records confirm a high-grade primary glial neoplasm ({p_diag}, Grade {p_grade}). Prior clinical progression: {prog_str}. Survival status: {survival_str}.{treatment_history}",
-        "impression": f"High-grade primary neoplasm consistent with Glioblastoma Multiforme ({p_diag}, WHO Grade {p_grade}). Clinical trajectory and age ({p_age}) dictate evidence-tailored dosing.",
-        "treatment_plan": treatment_plan,
-        "recommendations": (
-            f"1. Order MGMT promoter methylation sequencing and IDH mutation screening.\n"
-            f"2. Longitudinal multi-parametric MRI monitoring every 8-12 weeks evaluated under RANO criteria.\n"
-            f"3. Historical cohort benchmark: first progression milestone at {p_days or 'N/A'} days."
-        ),
-    }
-
-    return {
-        "user_request": user_request,
-        "patient_information": {
-            "request_type": "individual_patient",
-            "requested_task": "generate_report",
-            "data_source": "gbm_patient_profiles.json",
-            "status": "success",
-            "error": None,
-            "patient_data": [patient_rec],
-        },
-        "medical_evidence": {
-            "status": "verified",
-            "search_attempts": len(evidence_queries),
-            "search_queries": evidence_queries,
-            "retrieved_evidence": retrieved_evidence,
-            "evidence_relevance": ["97%", "94%"],
-            "error": None,
-        },
-        "clinical_decision_support": {
-            "status": "verified",
-            "verification_status": "Approved by Verification Agent",
-            "clinical_considerations": considerations,
-            "treatment_pathways": treatment_pathways,
-        },
-        "final_report": final_report,
-    }
+    raise NotImplementedError("Direct database report generation is disabled. Reports must be generated via the multi-agent pipeline.")

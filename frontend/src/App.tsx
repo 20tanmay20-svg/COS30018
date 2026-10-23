@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 
 interface PatientInput {
   Patient_ID: string;
@@ -63,6 +63,7 @@ const DEFAULT_NEW_PATIENT: PatientInput = {
 export default function App() {
   const [promptInput, setPromptInput] = useState('make me a report for patient 7');
   const [loading, setLoading] = useState(false);
+  const [errorMessage, setErrorMessage] = useState<string | null>(null);
   const [statusMessage, setStatusMessage] = useState('');
   const [pipelineMode, setPipelineMode] = useState<'multi' | 'single'>('multi');
   const [pipelineProgress, setPipelineProgress] = useState<{
@@ -71,109 +72,16 @@ export default function App() {
     stageName: string;
   }>({ percent: 0, stageIndex: 0, stageName: '' });
   const [sharedState, setSharedState] = useState<SharedState | null>(null);
-  const [patientDatabase, setPatientDatabase] = useState<PatientInput[]>([]);
 
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [newPatientForm, setNewPatientForm] = useState<PatientInput>(DEFAULT_NEW_PATIENT);
 
-  const normalizePatient = (raw: any): PatientInput => ({
-    Patient_ID: raw?.Patient_ID || raw?.patient_id || 'Unknown',
-    'Sex at Birth': raw?.['Sex at Birth'] || raw?.sex || 'Male',
-    'Age at diagnosis': String(raw?.['Age at diagnosis'] || raw?.age || '65'),
-    'Primary Diagnosis': raw?.['Primary Diagnosis'] || raw?.diagnosis || 'GBM',
-    'Grade of Primary Brain Tumor': String(raw?.['Grade of Primary Brain Tumor'] || raw?.grade || '4'),
-    Progression: String(raw?.Progression ?? raw?.progression ?? '0'),
-    'Time to First Progression (Days)': raw?.['Time to First Progression (Days)'] ?? raw?.progression_days ?? null,
-    'Overall Survival (Death)': String(raw?.['Overall Survival (Death)'] ?? raw?.death ?? '0'),
-  });
-
-  useEffect(() => {
-    // Attempt to load patient directory from FastAPI backend
-    fetch('/api/v1/patients')
-      .then(async (res) => {
-        if (!res.ok) throw new Error('Backend not available');
-        const data = await res.json();
-        if (Array.isArray(data) && data.length > 0) {
-          setPatientDatabase(data.map(normalizePatient));
-          return;
-        }
-        throw new Error('Empty database response');
-      })
-      .catch(() => {
-        // Resilient fallback to static bundled patient records
-        fetch('/gbm_patient_profiles.json')
-          .then(async (res) => {
-            const data = await res.json();
-            if (Array.isArray(data)) {
-              setPatientDatabase(data.map(normalizePatient));
-                  }
-          })
-          .catch((err) => {
-            console.warn('Could not load bundled patient profiles:', err);
-              });
-      });
-  }, []);
-
-  const resolvePatientRecord = (queryText: string): PatientInput => {
-    const seriesMatch = queryText.match(/\bpatient(?:s)?\s+([0-9\s,and&]+)/i);
-    const numMatch = queryText.match(/\bpatient[s]?\s*#?(\d+)\b/i);
-    const idMatch = queryText.match(/patientid[_\s-]*(\d+)/i);
-    let targetId = '';
-
-    if (seriesMatch) {
-      const numbers = seriesMatch[1].match(/\b(\d+)\b/g);
-      if (numbers && numbers.length > 0) {
-        targetId = `PatientID_${numbers[0].padStart(4, '0')}`;
-      }
-    } else if (numMatch) {
-      targetId = `PatientID_${numMatch[1].padStart(4, '0')}`;
-    } else if (idMatch) {
-      targetId = `PatientID_${idMatch[1].padStart(4, '0')}`;
-    }
-
-    if (targetId && patientDatabase.length > 0) {
-      const found = patientDatabase.find((p) => {
-        const pid = p?.Patient_ID || (p as any)?.patient_id || '';
-        return pid.toLowerCase() === targetId.toLowerCase();
-      });
-      if (found) return normalizePatient(found);
-    }
-
-    if (targetId) {
-      return {
-        Patient_ID: targetId,
-        'Sex at Birth': 'Male',
-        'Age at diagnosis': '65',
-        'Primary Diagnosis': 'GBM',
-        'Grade of Primary Brain Tumor': '4',
-        Progression: '0',
-        'Time to First Progression (Days)': null,
-        'Overall Survival (Death)': '0',
-      };
-    }
-
-    const defaultP = patientDatabase.find((p) => {
-      const pid = p?.Patient_ID || (p as any)?.patient_id || '';
-      return pid.toLowerCase() === 'patientid_0007';
-    }) || patientDatabase[0];
-    if (defaultP) return normalizePatient(defaultP);
-
-    return {
-      Patient_ID: 'PatientID_0007',
-      'Sex at Birth': 'Male',
-      'Age at diagnosis': '79',
-      'Primary Diagnosis': 'GBM',
-      'Grade of Primary Brain Tumor': '4',
-      Progression: '0',
-      'Time to First Progression (Days)': null,
-      'Overall Survival (Death)': '1',
-    };
-  };
-
-  const executePipeline = async (query: string, patientData: PatientInput, source: string, reqType: string) => {
-    console.log(`[FRONTEND CONSOLE] >>> Running pipeline for query: "${query}" (Target: ${patientData.Patient_ID})`);
+  const executePipeline = async (query: string, customPatientData?: PatientInput | null) => {
+    console.log(`[FRONTEND CONSOLE] >>> Running pipeline for query: "${query}"`);
     setLoading(true);
-    setStatusMessage(`Synthesizing clinical dossier for ${patientData.Patient_ID}...`);
+    setErrorMessage(null);
+    setSharedState(null);
+    setStatusMessage('Synthesizing clinical dossier via multi-agent pipeline...');
     setPipelineProgress({
       percent: 10,
       stageIndex: 1,
@@ -182,148 +90,115 @@ export default function App() {
 
     try {
       console.log('[FRONTEND CONSOLE] Requesting POST /api/v1/agent/run-pipeline ...');
+      const payload: Record<string, any> = {
+        user_request: query,
+      };
+      if (customPatientData) {
+        payload.patient_id = customPatientData.Patient_ID;
+        payload.patient_data = customPatientData;
+        payload.data_source = 'manual_intake_buffer';
+        payload.request_type = 'new_patient_intake';
+      }
+
       const response = await fetch('/api/v1/agent/run-pipeline', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          user_request: query,
-          patient_id: patientData.Patient_ID,
-          patient_data: patientData,
-          data_source: source,
-          request_type: reqType,
-        }),
+        body: JSON.stringify(payload),
       });
 
       console.log('[FRONTEND CONSOLE] Backend response HTTP code:', response.status);
 
-      if (response.ok && response.body) {
-        const reader = response.body.getReader();
-        const decoder = new TextDecoder('utf-8');
-        let buffer = '';
-        let finalState: SharedState | null = null;
-
-        while (true) {
-          const { done, value } = await reader.read();
-          if (done) break;
-          buffer += decoder.decode(value, { stream: true });
-          const lines = buffer.split('\n');
-          buffer = lines.pop() || '';
-
-          for (const line of lines) {
-            const trimmed = line.trim();
-            if (!trimmed) continue;
-            try {
-              const event = JSON.parse(trimmed);
-              if (event.type === 'progress') {
-                setPipelineProgress({
-                  percent: event.percent,
-                  stageIndex: event.stage_index,
-                  stageName: event.message,
-                });
-                setStatusMessage(event.message);
-              } else if (event.type === 'complete') {
-                setPipelineProgress({
-                  percent: 100,
-                  stageIndex: 5,
-                  stageName: event.message || 'Multi-Agent Pipeline Complete: Dossier Assembled & Verified',
-                });
-                if (event.state) {
-                  finalState = event.state;
-                }
-              }
-            } catch (pErr) {
-              console.warn('[FRONTEND CONSOLE] Stream parse warning:', trimmed, pErr);
-            }
-          }
-        }
-
-        if (buffer.trim()) {
-          try {
-            const event = JSON.parse(buffer.trim());
-            if (event.type === 'complete' && event.state) {
-              finalState = event.state;
-            }
-          } catch {
-            // ignore
-          }
-        }
-
-        if (finalState) {
-          console.log('[FRONTEND CONSOLE] <<< Final pipeline state received:', finalState);
-          setSharedState(finalState);
-          setLoading(false);
-          setStatusMessage(`Completed via backend pipeline for ${patientData.Patient_ID}.`);
-          return;
-        }
-      } else {
+      if (!response.ok) {
         const errText = await response.text();
-        console.warn('[FRONTEND CONSOLE] Backend returned non-200:', response.status, errText);
+        throw new Error(`Backend error (${response.status}): ${errText || response.statusText}`);
       }
-    } catch (err) {
-      console.info('[FRONTEND CONSOLE] Backend stream unreachable, switching to local dynamic engine:', err);
-    }
 
-    // High fidelity dynamic fallback using real patient record if backend is offline
-    setTimeout(() => {
+      if (!response.body) {
+        throw new Error('Pipeline response body is empty or stream unavailable.');
+      }
+
+      const reader = response.body.getReader();
+      const decoder = new TextDecoder('utf-8');
+      let buffer = '';
+      let finalState: SharedState | null = null;
+      let streamError: string | null = null;
+
+      while (true) {
+        const { done, value } = await reader.read();
+        if (done) break;
+        buffer += decoder.decode(value, { stream: true });
+        const lines = buffer.split('\n');
+        buffer = lines.pop() || '';
+
+        for (const line of lines) {
+          const trimmed = line.trim();
+          if (!trimmed) continue;
+          try {
+            const event = JSON.parse(trimmed);
+            if (event.type === 'progress') {
+              setPipelineProgress({
+                percent: event.percent,
+                stageIndex: event.stage_index,
+                stageName: event.message,
+              });
+              setStatusMessage(event.message);
+            } else if (event.type === 'complete') {
+              setPipelineProgress({
+                percent: 100,
+                stageIndex: 5,
+                stageName: event.message || 'Multi-Agent Pipeline Complete: Dossier Assembled & Verified',
+              });
+              if (event.state) {
+                finalState = event.state;
+              }
+            } else if (event.type === 'error') {
+              streamError = event.message || 'An error occurred during pipeline execution.';
+            }
+          } catch (pErr) {
+            console.warn('[FRONTEND CONSOLE] Stream parse warning:', trimmed, pErr);
+          }
+        }
+      }
+
+      if (buffer.trim()) {
+        try {
+          const event = JSON.parse(buffer.trim());
+          if (event.type === 'complete' && event.state) {
+            finalState = event.state;
+          } else if (event.type === 'error') {
+            streamError = event.message || 'An error occurred during pipeline execution.';
+          }
+        } catch {
+          // ignore
+        }
+      }
+
+      if (streamError) {
+        throw new Error(streamError);
+      }
+
+      if (finalState) {
+        console.log('[FRONTEND CONSOLE] <<< Final pipeline state received:', finalState);
+        setSharedState(finalState);
+        setLoading(false);
+        setStatusMessage('Pipeline completed successfully.');
+        return;
+      }
+
+      throw new Error('Pipeline completed without returning report state.');
+    } catch (err: any) {
+      console.error('[FRONTEND CONSOLE] Pipeline error:', err);
+      const msg = err?.message || 'Failed to execute multi-agent pipeline.';
+      setErrorMessage(msg);
+      setStatusMessage(`Error: ${msg}`);
       setPipelineProgress({
-        percent: 100,
-        stageIndex: 5,
-        stageName: 'Complete: Multi-Agent Dossier Assembled & Verified',
+        percent: 0,
+        stageIndex: 0,
+        stageName: 'Pipeline failed',
       });
-      console.log(`[FRONTEND CONSOLE] Generating dynamic response for ${patientData.Patient_ID}`);
-      const mockResult: SharedState = {
-        user_request: query,
-        patient_information: {
-          request_type: reqType,
-          requested_task: 'generate_report',
-          data_source: source,
-          status: 'success',
-          error: null,
-          patient_data: [patientData],
-        },
-        medical_evidence: {
-          status: 'verified',
-          search_attempts: 2,
-          search_queries: [
-            `${patientData['Primary Diagnosis']} Grade ${patientData['Grade of Primary Brain Tumor']} clinical protocol`,
-            `Radiation and temozolomide dosing tolerance at age ${patientData['Age at diagnosis']}`,
-          ],
-          retrieved_evidence: [
-            `Hypofractionated radiotherapy (40 Gy in 15 fractions) combined with temozolomide demonstrates improved survival in patients aged ${patientData['Age at diagnosis']}.`,
-            'Molecular biomarker profiling (MGMT promoter methylation) is critical to determine alkylating chemotherapy efficacy.',
-          ],
-          evidence_relevance: ['97%', '94%'],
-          error: null,
-        },
-        clinical_decision_support: {
-          status: 'verified',
-          verification_status: 'Approved by Verification Agent',
-          clinical_considerations: [
-            `Patient age (${patientData['Age at diagnosis']}) warrants age-adapted dosing to mitigate neurological toxicity.`,
-            patientData.Progression === '1'
-              ? 'Documented recurrence requires salvage or secondary line evaluation.'
-              : 'Primary baseline intervention indicated.',
-          ],
-          treatment_pathways: [
-            'Primary: Target-dosed hypofractionated radiotherapy (40 Gy / 15 fx) with adjuvant Temozolomide.',
-            'Supportive: Early integration of palliative oncology and functional assessment.',
-          ],
-        },
-        final_report: {
-          patient_summary: `${patientData.Patient_ID} • ${patientData['Sex at Birth']} • Age ${patientData['Age at diagnosis']}`,
-          findings: `Clinical records confirm a high-grade primary glial neoplasm (${patientData['Primary Diagnosis']}, Grade ${patientData['Grade of Primary Brain Tumor']}). Prior clinical progression: ${
-            patientData.Progression === '0' ? 'None documented' : 'Confirmed progression'
-          }.`,
-          impression: `High-grade primary neoplasm requiring evidence-grounded dosing adjustments to preserve performance status.`,
-          treatment_plan: `1. Multidisciplinary Neuro-Oncology formal review.\n2. Initiate targeted hypofractionated radiotherapy (40 Gy over 15 fractions).\n3. Concurrent Temozolomide therapy conditional upon MGMT promoter methylation profiling.`,
-          recommendations: 'Order MGMT promoter methylation sequencing and IDH mutation screening to establish chemotherapeutic responsiveness.',
-        },
-      };
-
-      setSharedState(mockResult);
+      setSharedState(null);
       setLoading(false);
-      setStatusMessage(`Completed for ${patientData.Patient_ID}.`);
-    }, 450);
+    }
   };
 
   const handlePromptSubmit = (e: React.FormEvent) => {
@@ -335,11 +210,11 @@ export default function App() {
       if (!promptInput.trim()) {
         setPromptInput(query);
       }
-      const targetPatient = resolvePatientRecord(query);
-      console.log('[FRONTEND CONSOLE] Submitting query:', query, 'resolved target:', targetPatient.Patient_ID);
-      executePipeline(query, targetPatient, 'gbm_patient_profiles.json', 'individual_patient');
+      console.log('[FRONTEND CONSOLE] Submitting query to pipeline:', query);
+      executePipeline(query);
     } catch (err: any) {
       console.error('[FRONTEND CONSOLE] Exception in handlePromptSubmit:', err);
+      setErrorMessage(err?.message || String(err));
       setStatusMessage(`Error: ${err?.message || err}`);
     }
   };
@@ -350,8 +225,9 @@ export default function App() {
     const createdRecord: PatientInput = { ...newPatientForm, Patient_ID: pid };
 
     setIsModalOpen(false);
-    setPromptInput(`generate report for ${pid}`);
-    executePipeline(`generate report for ${pid}`, createdRecord, 'manual_intake_buffer', 'new_patient_intake');
+    const query = `generate report for ${pid}`;
+    setPromptInput(query);
+    executePipeline(query, createdRecord);
   };
 
   const inputStyle: React.CSSProperties = {
@@ -520,14 +396,8 @@ export default function App() {
                 key={idx}
                 type="button"
                 onClick={() => {
-                  try {
-                    setPromptInput(suggested);
-                    const p = resolvePatientRecord(suggested);
-                    executePipeline(suggested, p, 'gbm_patient_profiles.json', 'individual_patient');
-                  } catch (err: any) {
-                    console.error('[FRONTEND CONSOLE] Quick run error:', err);
-                    setStatusMessage(`Error: ${err?.message || err}`);
-                  }
+                  setPromptInput(suggested);
+                  executePipeline(suggested);
                 }}
                 style={{
                   background: '#0f172a',
@@ -552,6 +422,32 @@ export default function App() {
               </button>
             ))}
           </div>
+
+          {/* Error Banner when pipeline fails */}
+          {errorMessage && (
+            <div
+              style={{
+                marginTop: '18px',
+                background: '#2d1215',
+                border: '1px solid #ef4444',
+                borderRadius: '8px',
+                padding: '14px 18px',
+                display: 'flex',
+                alignItems: 'center',
+                gap: '12px',
+              }}
+            >
+              <span style={{ fontSize: '20px' }}>⚠️</span>
+              <div>
+                <div style={{ fontWeight: 600, fontSize: '13px', color: '#fecaca' }}>
+                  Pipeline Execution Failed
+                </div>
+                <div style={{ fontSize: '12px', color: '#fca5a5', marginTop: '2px' }}>
+                  {errorMessage}
+                </div>
+              </div>
+            </div>
+          )}
 
           {/* Live Multi-Agent Pipeline Progress Bar */}
           {(loading || pipelineProgress.percent > 0) && (
@@ -723,7 +619,7 @@ export default function App() {
                   <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
                     <div style={{ width: '8px', height: '8px', borderRadius: '50%', background: '#10b981' }} />
                     <span style={{ fontSize: '12px', fontWeight: 600, letterSpacing: '0.04em', color: '#f8fafc', textTransform: 'uppercase' }}>
-                      Report Generation Agent — Comprehensive Assembled Dossier
+                      Report Generation Agent — Json Output
                     </span>
                   </div>
                   <span style={{ fontSize: '11px', background: '#0f291e', color: '#34d399', border: '1px solid #059669', padding: '2px 8px', borderRadius: '4px', fontWeight: 600 }}>
