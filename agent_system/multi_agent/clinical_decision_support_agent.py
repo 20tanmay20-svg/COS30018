@@ -6,7 +6,7 @@ No model, API key, or network connection is needed merely to import this file.
 This agent turns successfully retrieved patient information and medical evidence
 into structured, evidence-linked clinical considerations and treatment pathways
 for the Verification Agent to check. It never diagnoses, prescribes, writes the
-final report, modifies patient records, or oveclrrides verification results. Every
+final report, modifies patient records, or overrides verification results. Every
 MRI-derived classification is treated as provisional, every supporting evidence
 identifier must already exist in medical_evidence.retrieved_evidence, and every
 successful run always carries at least one doctor_review_items entry.
@@ -28,6 +28,11 @@ logger = logging.getLogger(__name__)
 # these levels are trusted as "supporting" evidence for a clinical consideration
 # or treatment pathway; low/not_relevant material may not be cited as support.
 USEFUL_RELEVANCE = {"high", "medium"}
+
+# Caps stop the model looping and re-recording paraphrases of the same item.
+# MAX_UNCERTAINTIES includes the MRI uncertainties seeded in code (up to 3).
+MAX_ITEMS = 6
+MAX_UNCERTAINTIES = 8
 
 # Dataset fields safe to share with the LLM. Patient IDs, names and retrospective
 # outcome columns (progression, death_recorded, survival) are deliberately excluded
@@ -64,7 +69,7 @@ def _sanitize_previous_reports(previous_reports):
 
 
 def _context(state, mri_findings=None, clinical_notes=None, previous_reports=None,
-             verification_feedback=None):
+             verification_feedback=None, revision_request=None):
     """Build the de-identified JSON prompt context and the evidence the LLM may cite.
 
     Raises ValueError (a safe, user-facing message) for any missing or malformed
@@ -138,6 +143,11 @@ def _context(state, mri_findings=None, clinical_notes=None, previous_reports=Non
             if isinstance(verification_feedback, str) and verification_feedback.strip()
             else "none"
         ),
+        "clinician_revision_request": (
+            revision_request.strip()
+            if isinstance(revision_request, str) and revision_request.strip()
+            else "none"
+        ),
         "mri_findings": mri_findings if isinstance(mri_findings, dict) else "unknown",
         "available_evidence": evidence_summaries,
         "missing_data_rule": (
@@ -165,6 +175,12 @@ class CDSSession:
         self.review_items = []
         self.lock = threading.RLock()
         self._seed_mri_review(mri_findings, low_confidence_threshold)
+
+    # -------------------------------------------------------------
+    @staticmethod
+    def _key(s):
+        """Normalise text so near-identical repeats are detected."""
+        return " ".join(str(s).lower().split())
 
     # -------------------------------------------------------------
     def _seed_mri_review(self, mri_findings, threshold):
@@ -213,6 +229,11 @@ class CDSSession:
                     f"Unsupported evidence identifiers not found among retrieved, "
                     f"sufficiently relevant evidence: {unknown}. Do not invent citations."
                 )}
+            key = self._key(consideration)
+            if any(self._key(c["consideration"]) == key for c in self.considerations):
+                return {"success": True, "note": "Already recorded; do not repeat. Call final_answer alone if finished."}
+            if len(self.considerations) >= MAX_ITEMS:
+                return {"success": False, "error": "Limit reached. Do not record more; call final_answer alone."}
             entry = {
                 "consideration": consideration.strip(),
                 "reasoning": reasoning.strip(),
@@ -247,6 +268,11 @@ class CDSSession:
                     f"Unsupported evidence identifiers not found among retrieved, "
                     f"sufficiently relevant evidence: {unknown}. Do not invent citations."
                 )}
+            key = self._key(option)
+            if any(self._key(p["option"]) == key for p in self.pathways):
+                return {"success": True, "note": "Already recorded; do not repeat. Call final_answer alone if finished."}
+            if len(self.pathways) >= MAX_ITEMS:
+                return {"success": False, "error": "Limit reached. Do not record more; call final_answer alone."}
             entry = {
                 "option": option.strip(),
                 "when_considered": when_considered.strip(),
@@ -267,6 +293,11 @@ class CDSSession:
         with self.lock:
             if not isinstance(description, str) or not description.strip():
                 return {"success": False, "error": "description must be a nonempty string."}
+            key = self._key(description)
+            if any(self._key(u) == key for u in self.uncertainties):
+                return {"success": True, "note": "Already recorded; do not repeat."}
+            if len(self.uncertainties) >= MAX_UNCERTAINTIES:
+                return {"success": False, "error": "Limit reached. Do not record more; call final_answer alone."}
             self.uncertainties.append(description.strip())
             return {"success": True, "recorded_count": len(self.uncertainties)}
 
@@ -280,7 +311,16 @@ class CDSSession:
             cited |= {pmid for p in self.pathways for pmid in p["supporting_evidence"]}
             result["supporting_evidence"] = deepcopy([self.evidence_by_pmid[pmid] for pmid in sorted(cited)])
             result["uncertainties"] = deepcopy(self.uncertainties)
-            result["doctor_review_items"] = deepcopy(self.review_items)
+
+            # Last safeguard: drop any duplicate review items.
+            seen, unique_reviews = set(), []
+            for r in self.review_items:
+                k = self._key(r["item"])
+                if k not in seen:
+                    seen.add(k)
+                    unique_reviews.append(r)
+            result["doctor_review_items"] = deepcopy(unique_reviews)
+
             if error:
                 result.update(status="failed", error=error)
             elif not self.considerations and not self.pathways:
@@ -332,6 +372,16 @@ Verification Agent. Everything you record is DATA for a human clinician to check
 9. Pass every tool argument as its own top-level field using the exact parameter name
    (for example consideration, reasoning, supporting_evidence, limitations). Never
    nest them inside an "arguments" object. context_info is optional.
+10. If "clinician_revision_request" is not "none", it is a legitimate instruction from the
+    clinician. Apply each listed request to your output. Where several are listed, apply
+    all of them. Still cite only PMIDs from "available_evidence", and keep every safety
+    rule above. If a request cannot be supported by the available evidence, record it
+    as a consideration with no supporting evidence and explain this in its limitations.
+11. Record each distinct item once. Never re-record an item that a tool result already
+    confirmed. Combine all missing-data points into at most 5 uncertainties.
+12. Never call final_answer in the same step as any other tool call. Make your recording
+    calls first, wait for their results, and only then call final_answer ALONE in its
+    own final step.
 Finish with a brief completion message using final_answer once every relevant
 consideration, pathway, and uncertainty has been recorded.
 """
@@ -452,7 +502,8 @@ def update_clinical_decision_support_state(state, cds_result):
 
 def run_clinical_decision_support_agent(
     state, *, model=None, mri_findings=None, clinical_notes=None,
-    previous_reports=None, low_confidence_threshold=0.7, verification_feedback=None
+    previous_reports=None, low_confidence_threshold=0.7, verification_feedback=None,
+    revision_request=None
 ):
     """Mutate and return state, retaining any partially recorded output if a stage fails.
 
@@ -466,13 +517,15 @@ def run_clinical_decision_support_agent(
         and doctor-review item.
     verification_feedback: optional plain-text list of problems the Verification Agent
         found in a previous draft; the model is asked to address them on this run.
+    revision_request: optional clinician instruction(s) to apply to the output.
     """
     state["current_agent"] = "clinical_decision_support_agent"
     state["clinical_decision_support"] = empty_cds()  # Clear stale success on every run.
     session = None
     try:
         prompt, useful_evidence = _context(
-            state, mri_findings, clinical_notes, previous_reports, verification_feedback
+            state, mri_findings, clinical_notes, previous_reports,
+            verification_feedback, revision_request
         )
         session = CDSSession(
             evidence_records=useful_evidence, mri_findings=mri_findings,
@@ -480,6 +533,18 @@ def run_clinical_decision_support_agent(
         )
         agent = create_clinical_decision_support_agent(session, model=model)
         agent.run("Generate clinical decision support for this JSON context:\n" + prompt)
+
+        # smolagents returns quietly when it runs out of steps, so flag it explicitly.
+        # (Appended directly so the flag is not blocked by the uncertainty cap.)
+        if getattr(agent, "step_number", 0) > agent.max_steps:
+            session.uncertainties.append(
+                "Generation hit the step limit; the output may be incomplete."
+            )
+            session.review_items.append({
+                "item": "Clinical decision support output may be incomplete (step limit reached).",
+                "reason": "The agent did not finish normally.",
+            })
+
         result = session.finish()
     except Exception as exc:
         message = (str(exc) if isinstance(exc, ValueError)
