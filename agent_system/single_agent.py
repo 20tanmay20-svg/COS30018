@@ -30,7 +30,12 @@ from multi_agent.medical_evidence_agent import (
 )
 from multi_agent.shared_state import create_initial_state
 from multi_agent.verification_agent import INSTRUCTIONS as VERIFICATION_INSTRUCTIONS
-from multi_agent.report_generation_agent import ReportSession, prepare_sections
+from multi_agent.report_generation_agent import (
+    INSTRUCTIONS as REPORT_INSTRUCTIONS,
+    SECTIONS as REPORT_SECTION_ORDER,
+    ReportSession,
+    prepare_sections,
+)
 from tools.assemble_report import create_assemble_report_tool
 from tools.assess_evidence import create_assess_evidence_tool
 from tools.record_clinical_consideration import create_record_clinical_consideration_tool
@@ -54,15 +59,6 @@ PATIENT_FIELDS = (
     "Grade of Primary Brain Tumor",
 )
 MAX_REVISIONS = 2
-# Keep report section order in sync with the source-preserving assembler's contract.
-REPORT_SECTION_ORDER = [
-    "patient_context",
-    "clinical_considerations",
-    "treatment_pathways",
-    "uncertainties",
-    "doctor_review_items",
-    "references",
-]
 PATIENT_FILTERS = ("age_min", "age_max", "sex", "progression", "death_recorded")
 
 
@@ -288,9 +284,9 @@ class SingleAgentPipeline:
         assemble_report = create_assemble_report_tool(self.report_session)
         self._set_phase_tools("report", [assemble_report])
         self.agent.run(
-            "The report sections are validated and ready. Call assemble_report with "
-            "every section key exactly once, starting with patient_context and ending "
-            "with references. Use this order: " + json.dumps(REPORT_SECTION_ORDER)
+            REPORT_INSTRUCTIONS
+            + "\nThe report sections are validated and ready. Call assemble_report "
+            "with this order: " + json.dumps(REPORT_SECTION_ORDER)
         )
         if self.report_session.content is None:
             raise ValueError("The agent did not successfully assemble the report.")
@@ -408,7 +404,6 @@ def create_model():
     # LiteLLM routes Gemini models by the "gemini/" prefix.
     if not model_id.startswith("gemini/"):
         model_id = f"gemini/{model_id}"
-    # The keyword is model_id; model= is silently ignored and defaults to an Anthropic model.
     return LiteLLMModel(model_id=model_id, api_key=api_key)
 
 
