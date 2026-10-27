@@ -1,5 +1,7 @@
 """Session-bound record_treatment_pathway tool."""
 
+from .tool_schemas import PubMedId, ToolResult
+
 
 def create_record_treatment_pathway_tool(session):
     """Bind the tool to this run's session."""
@@ -7,10 +9,12 @@ def create_record_treatment_pathway_tool(session):
 
     @tool
     def record_treatment_pathway(
-        option: str, when_considered: str, supporting_evidence: list[str],
+        option: str, when_considered: str, supporting_evidence: list[PubMedId],
         unknown_patient_factors: str, risks_and_limitations: str
-    ) -> dict:
+    ) -> ToolResult:
         """Record one treatment or management pathway for clinician review.
+
+        Result: Success returns success and recorded_count. Failure returns success=false and error.
 
         Args:
             option: The treatment or management option.
