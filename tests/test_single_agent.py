@@ -136,6 +136,15 @@ class SingleAgentPipelineTests(unittest.TestCase):
         self.assertEqual(result["verification"]["verification_status"], "approved", result["verification"])
         self.assertEqual(result["report"]["status"], "success")
         self.assertIn("PMID 12345678", result["report"]["content"])
+        content = result["report"]["content"]
+        self.assertIn("**DRAFT — FOR CLINICIAN REVIEW**", content)
+        self.assertIn("**Consideration:** Mock consideration", content)
+        self.assertIn("**Possible pathway:** Mock pathway", content)
+        self.assertIn("**Clinician review:** Required.", content)
+        headings = ["Patient Context", "Clinical Considerations", "Treatment Pathways",
+                "Uncertainties", "Doctor Review Items", "References"]
+        positions = [content.index("## " + heading) for heading in headings]
+        self.assertEqual(positions, sorted(positions))
         # Confirm the final object remains JSON-serializable and includes assembled report text.
         output = json.loads(json.dumps(result, ensure_ascii=False, default=str))
         self.assertEqual(output["patient_information"]["patient_data"][0]["Patient_ID"], "PatientID_0003")
