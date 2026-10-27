@@ -5,6 +5,7 @@ import logging
 from smolagents import tool
 
 from .patient_search import get_patient_by_id
+from .tool_schemas import PatientId, ToolResult
 
 logger = logging.getLogger(__name__)
 
@@ -13,12 +14,14 @@ logger = logging.getLogger(__name__)
 
 #agent tool for retrieving one patient
 def retrieve_patient(
-    patient_id: str
-) -> dict:
+    patient_id: PatientId,
+) -> ToolResult:
     """
     -retrieve a patient record using their unique Patient ID.
 
     -use this tool when the user identifies a specific patient.
+
+    Result: Success returns success and patient. Failure returns success=false and message.
 
     Args:
         patient_id: Unique patient identifier.

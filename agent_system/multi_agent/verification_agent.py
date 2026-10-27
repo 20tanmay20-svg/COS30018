@@ -8,7 +8,11 @@ import time
 
 sys.path.append(str(Path(__file__).resolve().parent))
 
-from tools.verification_tools import SemanticCheckSession, verify_cds_output
+from tools.verification_tools import (
+    SemanticCheckSession,
+    create_verification_tools,
+    verify_cds_output,
+)
 
 logger = logging.getLogger(__name__)
 
@@ -114,50 +118,14 @@ def _build_model():
 
 def create_verification_agent(state, session, captured, model=None, n_items=1):
     """Create a fresh ToolCallingAgent whose tools are bound to one isolated session."""
-    from smolagents import ToolCallingAgent, tool
+    from smolagents import ToolCallingAgent
 
     if model is None:
         model = _build_model()
 
-    @tool
-    def run_verification_checks() -> dict:
-        """Run the deterministic verification checks on the current shared state.
-
-        Returns:
-            Dictionary with passed, issues and revision_required.
-        """
-        result = verify_cds_output(
-            state.get("patient_information", {}),
-            state.get("medical_evidence", {}),
-            state.get("clinical_decision_support", {}),
-        )
-        captured["rules"] = result
-        return result
-
-    @tool
-    def get_cited_evidence(item_type: str, number: int) -> dict:
-        """Read a claim and the abstracts it cites.
-
-        Args:
-            item_type: 'consideration' or 'pathway'.
-            number: The item's number as listed in the task.
-        """
-        return session.get_evidence(item_type, number)
-
-    @tool
-    def record_verdict(item_type: str, number: int, verdict: str, reason: str) -> dict:
-        """Record whether the cited evidence supports a claim.
-
-        Args:
-            item_type: 'consideration' or 'pathway'.
-            number: The item's number as listed in the task.
-            verdict: supported, partial, or unsupported.
-            reason: Short reason referring to what the abstract says.
-        """
-        return session.record_verdict(item_type, number, verdict, reason)
-
+    # Reuse the shared factory so both workflow types expose identical verification tools.
     return ToolCallingAgent(
-        tools=[run_verification_checks, get_cited_evidence, record_verdict],
+        tools=create_verification_tools(state, session, captured),
         model=model,
         instructions=INSTRUCTIONS,
         max_steps=n_items * 3 + 5,
