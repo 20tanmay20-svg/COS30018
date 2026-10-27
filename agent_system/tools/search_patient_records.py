@@ -5,18 +5,19 @@ import logging
 from smolagents import tool
 
 from .patient_search import search_patients
+from .tool_schemas import BinaryPatientStatus, PatientSex, ToolResult
 
 logger = logging.getLogger(__name__)
 
 
 @tool
 def search_patient_records(
-    age_min: int = None,
-    age_max: int = None,
-    sex: str = None,
-    progression: int = None,
-    death_recorded: int = None
-) -> dict:
+    age_min: int | None = None,
+    age_max: int | None = None,
+    sex: PatientSex | None = None,
+    progression: BinaryPatientStatus | None = None,
+    death_recorded: BinaryPatientStatus | None = None,
+) -> ToolResult:
     """
     Search patient records using demographic and clinical filters.
 
@@ -24,12 +25,14 @@ def search_patient_records(
     comparisons between groups, or patients matching specific
     demographic or clinical criteria.
 
+    Result: Success returns success, count, and patients. Failure returns success=false and message.
+
     Args:
         age_min: Minimum patient age.
         age_max: Maximum patient age.
-        sex: Patient sex at birth.
-        progression: Progression status, 0 or 1.
-        death_recorded: Documented death status, 0 or 1.
+        sex: Patient sex at birth (choices: ["Female", "Male"]).
+        progression: Progression status (choices: [0, 1]).
+        death_recorded: Documented death status (choices: [0, 1]).
 
     Returns:
         Dictionary containing matching patient records.

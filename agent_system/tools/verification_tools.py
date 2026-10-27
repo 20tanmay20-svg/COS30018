@@ -2,6 +2,8 @@ from copy import deepcopy
 import threading
 from typing import Any
 
+from .tool_schemas import ToolResult, VerificationItemType, VerificationVerdict
+
 USEFUL_RELEVANCE = {"high", "medium"}
 VERDICTS = {"supported", "partial", "unsupported"}
 ITEM_TYPES = {"consideration", "pathway"}
@@ -144,6 +146,63 @@ def verify_cds_output(
         "issues": issues,
         "revision_required": bool(issues),
     }
+
+
+def create_verification_tools(state, session, captured):
+    """Create the verification tools shared by single- and multi-agent workflows."""
+    from smolagents import tool
+
+    # Capture the shared state and semantic session for one isolated verification run.
+    @tool
+    def run_verification_checks() -> ToolResult:
+        """Run checks; return passed, issues, and revision_required.
+
+        Result: Returns passed, issues, and revision_required fields.
+        """
+        result = verify_cds_output(
+            state.get("patient_information", {}),
+            state.get("medical_evidence", {}),
+            state.get("clinical_decision_support", {}),
+        )
+        # Keep deterministic findings available to the multi-agent caller.
+        captured["rules"] = result
+        return result
+
+    @tool
+    def get_cited_evidence(item_type: VerificationItemType, number: int) -> ToolResult:
+        """Read a claim and the abstracts it cites.
+
+        Result: Success returns success, claim, and cited_evidence. Failure returns success=false and error.
+
+        Args:
+            item_type: Claim type (choices: ["consideration", "pathway"]).
+            number: The item's one-based number.
+        """
+        # The session enforces that a claim's cited abstract is read before verdicts.
+        return session.get_evidence(item_type, number)
+
+    @tool
+    def record_verdict(
+        item_type: VerificationItemType,
+        number: int,
+        verdict: VerificationVerdict,
+        reason: str,
+    ) -> ToolResult:
+        """Record whether the cited evidence supports a claim.
+
+        Result: Success returns success and checked_count. Failure returns success=false and error.
+
+        Args:
+            item_type: Claim type (choices: ["consideration", "pathway"]).
+            number: The item's one-based number.
+            verdict: Evidence verdict (choices: ["supported", "partial", "unsupported"]).
+            reason: Concise rationale grounded in the abstract.
+        """
+        # The session validates the item, prior evidence read, verdict, and rationale.
+        return session.record_verdict(item_type, number, verdict, reason)
+
+    # Return the original named tools so both pipeline implementations share their contracts.
+    return [run_verification_checks, get_cited_evidence, record_verdict]
 
 
 # ---------------------------------------------------------

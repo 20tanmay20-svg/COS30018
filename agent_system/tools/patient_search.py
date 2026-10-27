@@ -1,6 +1,8 @@
 import json
 from pathlib import Path
 
+from .tool_schemas import BinaryPatientStatus, PatientId, PatientRecord, PatientSex, ToolResult
+
 
 #locate the processed patient dataset
 PROJECT_ROOT = Path(__file__).resolve().parents[1]
@@ -14,7 +16,7 @@ DATA_FILE = (
 
 
 #load GBM patient records from the JSON dataset
-def load_patients():
+def load_patients() -> list[PatientRecord]:
    
     #check if file exists
     if not DATA_FILE.exists():
@@ -29,12 +31,12 @@ def load_patients():
 
 #optional filters for searching patients 
 def search_patients(
-    age_min=None,
-    age_max=None,
-    sex=None,
-    progression=None,
-    death_recorded=None
-):
+    age_min: int | None = None,
+    age_max: int | None = None,
+    sex: PatientSex | None = None,
+    progression: BinaryPatientStatus | None = None,
+    death_recorded: BinaryPatientStatus | None = None,
+) -> ToolResult:
     """
     Search GBM patients using optional criteria.
 
@@ -176,7 +178,7 @@ def search_patients(
     }
 
 
-def get_patient_by_id(patient_id):
+def get_patient_by_id(patient_id: PatientId) -> ToolResult:
     """
     Retrieve a patient using their Patient ID.
 
