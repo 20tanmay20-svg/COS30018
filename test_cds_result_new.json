@@ -1,0 +1,86 @@
+{
+  "user_request": "Consider management options for suspected glioblastoma.",
+  "patient_information": {
+    "patient_data": [
+      {
+        "Primary Diagnosis": "Glioblastoma",
+        "Age at diagnosis": 54,
+        "Sex at Birth": "Male",
+        "Grade of Primary Brain Tumor": "Grade 4"
+      }
+    ],
+    "status": "success"
+  },
+  "medical_evidence": {
+    "retrieved_evidence": [
+      {
+        "pmid": "12345678",
+        "title": "Test evidence",
+        "url": "https://pubmed.ncbi.nlm.nih.gov/12345678/"
+      }
+    ],
+    "evidence_relevance": [
+      {
+        "pmid": "12345678",
+        "relevance": "high",
+        "supporting_quote": "Test supporting quote.",
+        "limitations": "Synthetic test evidence."
+      }
+    ],
+    "status": "success"
+  },
+  "current_agent": "clinical_decision_support_agent",
+  "clinical_decision_support": {
+    "clinical_considerations": [
+      {
+        "consideration": "Management of Grade 4 Glioblastoma in a 54-year-old male.",
+        "reasoning": "Glioblastoma is an aggressive malignancy requiring a multidisciplinary approach, typically involving surgery, radiation therapy, and chemotherapy. Tailoring this approach requires detailed patient-specific data not currently available.",
+        "context": "54-year-old male, diagnosis of Grade 4 Glioblastoma. Clinical notes, MRI findings, and previous report summaries are unknown.",
+        "supporting_evidence": [
+          "12345678"
+        ],
+        "limitations": "Lack of specific clinical status, functional status (KPS), tumor location, extent of surgical resection, and molecular profile (e.g., MGMT, IDH status) limits the ability to provide tailored clinical considerations. Evidence provided is synthetic test data.",
+        "requires_clinician_review": true
+      }
+    ],
+    "treatment_pathways": [
+      {
+        "option": "Standard of care: Surgical resection followed by concurrent chemoradiotherapy with temozolomide and adjuvant temozolomide.",
+        "when_considered": "Considered as the primary treatment strategy for newly diagnosed glioblastoma patients who are candidates for surgery and aggressive systemic therapy.",
+        "supporting_evidence": [
+          "12345678"
+        ],
+        "unknown_patient_factors": "Patient's performance status (KPS), specific tumor location, presence of neurological deficits, extent of surgical resection, and molecular tumor profiling (IDH, MGMT, etc.).",
+        "risks_and_limitations": "Risks include neurocognitive decline, surgical complications, and potential toxicities (e.g., myelosuppression). Efficacy is highly dependent on tumor location, performance status, and molecular markers like MGMT promoter methylation status.",
+        "requires_clinician_review": true
+      }
+    ],
+    "supporting_evidence": [
+      {
+        "pmid": "12345678",
+        "title": "Test evidence",
+        "url": "https://pubmed.ncbi.nlm.nih.gov/12345678/"
+      }
+    ],
+    "uncertainties": [
+      "No MRI classification result was supplied; tumour type/grade is unknown.",
+      "Absence of clinical notes, MRI imaging, performance status, and molecular pathology data makes the development of a patient-specific management plan impossible. The clinical context is entirely unknown."
+    ],
+    "doctor_review_items": [
+      {
+        "item": "Confirm MRI-based tumour classification with radiologist/pathology review.",
+        "reason": "MRI classifier output is provisional and must not be treated as a confirmed diagnosis."
+      },
+      {
+        "item": "Clinical consideration requires review: Management of Grade 4 Glioblastoma in a 54-year-old male.",
+        "reason": "Lack of specific clinical status, functional status (KPS), tumor location, extent of surgical resection, and molecular profile (e.g., MGMT, IDH status) limits the ability to provide tailored clinical considerations. Evidence provided is synthetic test data."
+      },
+      {
+        "item": "Treatment pathway requires clinician decision: Standard of care: Surgical resection followed by concurrent chemoradiotherapy with temozolomide and adjuvant temozolomide.",
+        "reason": "Risks include neurocognitive decline, surgical complications, and potential toxicities (e.g., myelosuppression). Efficacy is highly dependent on tumor location, performance status, and molecular markers like MGMT promoter methylation status."
+      }
+    ],
+    "status": "success",
+    "error": null
+  }
+}
