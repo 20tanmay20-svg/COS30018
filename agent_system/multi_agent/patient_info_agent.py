@@ -103,20 +103,23 @@ def parse_patient_request(user_request: str) -> dict | None:
 # Local model configuration (Ollama)
 
 local_model = os.getenv("LOCAL_MODEL")
+gemini_key = os.getenv("GEMINI_API_KEY")
+gemini_model = os.getenv("GEMINI_MODEL", "gemini/gemini-flash-latest")
 
-if not local_model:
-    raise ValueError(
-        "LOCAL_MODEL is not set. Add it to your .env file, "
-        "e.g. LOCAL_MODEL=ollama_chat/qwen3:8b"
+if local_model:
+    model = LiteLLMModel(
+        model_id=local_model,
+        api_base=os.getenv("LOCAL_API_BASE", "http://localhost:11434"),
     )
-
-model = LiteLLMModel(
-    model_id=local_model,
-    api_base=os.getenv(
-        "LOCAL_API_BASE",
-        "http://localhost:11434"
-    ),
-)
+elif gemini_key:
+    model = LiteLLMModel(
+        model_id=gemini_model,
+        api_key=gemini_key,
+    )
+else:
+    raise ValueError(
+        "Neither LOCAL_MODEL nor GEMINI_API_KEY is set. Add GEMINI_API_KEY to your .env file."
+    )
 
 
 # ---------------------------------------------------------

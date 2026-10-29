@@ -42,6 +42,11 @@ interface SharedState {
     treatment_plan: string;
     recommendations: string;
   };
+  report?: {
+    status?: string;
+    content?: string | null;
+    error?: string | null;
+  };
 }
 
 const DEFAULT_NEW_PATIENT: PatientInput = {
@@ -56,99 +61,162 @@ const DEFAULT_NEW_PATIENT: PatientInput = {
 };
 
 export default function App() {
-  const [promptInput, setPromptInput] = useState('');
+  const [promptInput, setPromptInput] = useState('make me a report for patient 7');
   const [loading, setLoading] = useState(false);
+  const [errorMessage, setErrorMessage] = useState<string | null>(null);
+  const [statusMessage, setStatusMessage] = useState('');
+  const [pipelineMode, setPipelineMode] = useState<'multi' | 'single'>('multi');
+  const [pipelineProgress, setPipelineProgress] = useState<{
+    percent: number;
+    stageIndex: number;
+    stageName: string;
+  }>({ percent: 0, stageIndex: 0, stageName: '' });
   const [sharedState, setSharedState] = useState<SharedState | null>(null);
 
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [newPatientForm, setNewPatientForm] = useState<PatientInput>(DEFAULT_NEW_PATIENT);
 
-  const resolvePatientRecord = (queryText: string): PatientInput => {
-    const numMatch = queryText.match(/patient\s*#?(\d+)/i);
-    const idMatch = queryText.match(/patientid[_-]?(\d+)/i);
-    let resolvedId = 'PatientID_0007';
-
-    if (numMatch) {
-      resolvedId = `PatientID_${numMatch[1].padStart(4, '0')}`;
-    } else if (idMatch) {
-      resolvedId = `PatientID_${idMatch[1].padStart(4, '0')}`;
-    }
-
-    return {
-      Patient_ID: resolvedId,
-      'Sex at Birth': 'Male',
-      'Age at diagnosis': '79',
-      'Primary Diagnosis': 'GBM',
-      'Grade of Primary Brain Tumor': '4',
-      Progression: '0',
-      'Time to First Progression (Days)': null,
-      'Overall Survival (Death)': '1',
-    };
-  };
-
-  const executePipeline = (query: string, patientData: PatientInput, source: string, reqType: string) => {
+  const executePipeline = async (query: string, customPatientData?: PatientInput | null) => {
+    console.log(`[FRONTEND CONSOLE] >>> Running pipeline for query: "${query}"`);
     setLoading(true);
+    setErrorMessage(null);
+    setSharedState(null);
+    setStatusMessage('Synthesizing clinical dossier via multi-agent pipeline...');
+    setPipelineProgress({
+      percent: 10,
+      stageIndex: 1,
+      stageName: 'Patient Information Agent: Locating and indexing patient record...',
+    });
 
-    setTimeout(() => {
-      const mockResult: SharedState = {
+    try {
+      console.log('[FRONTEND CONSOLE] Requesting POST /api/v1/agent/run-pipeline ...');
+      const payload: Record<string, any> = {
         user_request: query,
-        patient_information: {
-          request_type: reqType,
-          requested_task: 'generate_report',
-          data_source: source,
-          status: 'success',
-          error: null,
-          patient_data: [patientData],
-        },
-        medical_evidence: {
-          status: 'verified',
-          search_attempts: 2,
-          search_queries: [
-            `${patientData['Primary Diagnosis']} Grade ${patientData['Grade of Primary Brain Tumor']} elderly protocol`,
-            `Hypofractionated radiation and temozolomide tolerance at age ${patientData['Age at diagnosis']}`,
-          ],
-          retrieved_evidence: [
-            'Hypofractionated radiotherapy (40 Gy in 15 fractions) combined with temozolomide demonstrates improved survival in elderly GBM patients over 70 years.',
-            'Molecular biomarker profiling (MGMT promoter methylation) is critical to determine alkylating chemotherapy efficacy.',
-          ],
-          evidence_relevance: ['97%', '94%'],
-          error: null,
-        },
-        clinical_decision_support: {
-          status: 'verified',
-          verification_status: 'Approved by Verification Agent',
-          clinical_considerations: [
-            `Patient age (${patientData['Age at diagnosis']}) warrants hypofractionated dosing to mitigate neurological toxicity.`,
-            patientData.Progression === '1'
-              ? 'Documented recurrence requires salvage or secondary line evaluation.'
-              : 'Primary baseline intervention indicated.',
-          ],
-          treatment_pathways: [
-            'Primary: Target-dosed hypofractionated radiotherapy (40 Gy / 15 fx) with adjuvant Temozolomide.',
-            'Supportive: Early integration of palliative oncology and functional assessment.',
-          ],
-        },
-        final_report: {
-          patient_summary: `${patientData.Patient_ID} • ${patientData['Sex at Birth']} • Age ${patientData['Age at diagnosis']}`,
-          findings: `Clinical records confirm a high-grade primary glial neoplasm (${patientData['Primary Diagnosis']}, Grade ${patientData['Grade of Primary Brain Tumor']}). Prior clinical progression: ${
-            patientData.Progression === '0' ? 'None documented' : 'Confirmed progression'
-          }.`,
-          impression: `High-grade primary neoplasm requiring evidence-grounded dosing adjustments to preserve performance status.`,
-          treatment_plan: `1. Multidisciplinary Neuro-Oncology formal review.\n2. Initiate targeted hypofractionated radiotherapy (40 Gy over 15 fractions).\n3. Concurrent Temozolomide therapy conditional upon MGMT promoter methylation profiling.`,
-          recommendations: 'Order MGMT promoter methylation sequencing and IDH mutation screening to establish chemotherapeutic responsiveness.',
-        },
       };
+      if (customPatientData) {
+        payload.patient_id = customPatientData.Patient_ID;
+        payload.patient_data = customPatientData;
+        payload.data_source = 'manual_intake_buffer';
+        payload.request_type = 'new_patient_intake';
+      }
 
-      setSharedState(mockResult);
+      const response = await fetch('/api/v1/agent/run-pipeline', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload),
+      });
+
+      console.log('[FRONTEND CONSOLE] Backend response HTTP code:', response.status);
+
+      if (!response.ok) {
+        const errText = await response.text();
+        throw new Error(`Backend error (${response.status}): ${errText || response.statusText}`);
+      }
+
+      if (!response.body) {
+        throw new Error('Pipeline response body is empty or stream unavailable.');
+      }
+
+      const reader = response.body.getReader();
+      const decoder = new TextDecoder('utf-8');
+      let buffer = '';
+      let finalState: SharedState | null = null;
+      let streamError: string | null = null;
+
+      while (true) {
+        const { done, value } = await reader.read();
+        if (done) break;
+        buffer += decoder.decode(value, { stream: true });
+        const lines = buffer.split('\n');
+        buffer = lines.pop() || '';
+
+        for (const line of lines) {
+          const trimmed = line.trim();
+          if (!trimmed) continue;
+          try {
+            const event = JSON.parse(trimmed);
+            if (event.type === 'progress') {
+              setPipelineProgress({
+                percent: event.percent,
+                stageIndex: event.stage_index,
+                stageName: event.message,
+              });
+              setStatusMessage(event.message);
+            } else if (event.type === 'complete') {
+              setPipelineProgress({
+                percent: 100,
+                stageIndex: 5,
+                stageName: event.message || 'Multi-Agent Pipeline Complete: Dossier Assembled & Verified',
+              });
+              if (event.state) {
+                finalState = event.state;
+              }
+            } else if (event.type === 'error') {
+              streamError = event.message || 'An error occurred during pipeline execution.';
+            }
+          } catch (pErr) {
+            console.warn('[FRONTEND CONSOLE] Stream parse warning:', trimmed, pErr);
+          }
+        }
+      }
+
+      if (buffer.trim()) {
+        try {
+          const event = JSON.parse(buffer.trim());
+          if (event.type === 'complete' && event.state) {
+            finalState = event.state;
+          } else if (event.type === 'error') {
+            streamError = event.message || 'An error occurred during pipeline execution.';
+          }
+        } catch {
+          // ignore
+        }
+      }
+
+      if (streamError) {
+        throw new Error(streamError);
+      }
+
+      if (finalState) {
+        console.log('[FRONTEND CONSOLE] <<< Final pipeline state received:', finalState);
+        setSharedState(finalState);
+        setLoading(false);
+        setStatusMessage('Pipeline completed successfully.');
+        return;
+      }
+
+      throw new Error('Pipeline completed without returning report state.');
+    } catch (err: any) {
+      console.error('[FRONTEND CONSOLE] Pipeline error:', err);
+      const msg = err?.message || 'Failed to execute multi-agent pipeline.';
+      setErrorMessage(msg);
+      setStatusMessage(`Error: ${msg}`);
+      setPipelineProgress({
+        percent: 0,
+        stageIndex: 0,
+        stageName: 'Pipeline failed',
+      });
+      setSharedState(null);
       setLoading(false);
-    }, 650);
+    }
   };
 
   const handlePromptSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    if (!promptInput.trim() || loading) return;
-    const targetPatient = resolvePatientRecord(promptInput);
-    executePipeline(promptInput, targetPatient, 'gbm_patient_profiles.json', 'individual_patient');
+    console.log('[FRONTEND CONSOLE] handlePromptSubmit triggered');
+    if (loading) return;
+    try {
+      const query = promptInput.trim() || 'make me a report for patient 7';
+      if (!promptInput.trim()) {
+        setPromptInput(query);
+      }
+      console.log('[FRONTEND CONSOLE] Submitting query to pipeline:', query);
+      executePipeline(query);
+    } catch (err: any) {
+      console.error('[FRONTEND CONSOLE] Exception in handlePromptSubmit:', err);
+      setErrorMessage(err?.message || String(err));
+      setStatusMessage(`Error: ${err?.message || err}`);
+    }
   };
 
   const handleCreatePatientSubmit = (e: React.FormEvent) => {
@@ -157,8 +225,9 @@ export default function App() {
     const createdRecord: PatientInput = { ...newPatientForm, Patient_ID: pid };
 
     setIsModalOpen(false);
-    setPromptInput(`generate report for ${pid}`);
-    executePipeline(`generate report for ${pid}`, createdRecord, 'manual_intake_buffer', 'new_patient_intake');
+    const query = `generate report for ${pid}`;
+    setPromptInput(query);
+    executePipeline(query, createdRecord);
   };
 
   const inputStyle: React.CSSProperties = {
@@ -189,16 +258,51 @@ export default function App() {
       {/* Enterprise Header */}
       <header style={{ borderBottom: '1px solid #1e293b', background: '#0b1329', padding: '14px 28px', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
         <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
-          <div style={{ width: '9px', height: '9px', borderRadius: '50%', background: '#38bdf8', boxShadow: '0 0 10px #38bdf8' }} />
           <span style={{ fontWeight: 700, letterSpacing: '0.04em', fontSize: '14px', color: '#f8fafc' }}>
             CLINICAL DECISION SUPPORT PLATFORM
           </span>
-          <span style={{ fontSize: '11px', background: '#1e293b', color: '#94a3b8', padding: '2px 8px', borderRadius: '4px', border: '1px solid #334155' }}>
-            PROMPT PIPELINE
-          </span>
         </div>
 
-        <div style={{ display: 'flex', gap: '12px', alignItems: 'center' }}>
+        <div style={{ display: 'flex', gap: '14px', alignItems: 'center' }}>
+          {/* Agent Pipeline Mode Switch */}
+          <div style={{ display: 'flex', alignItems: 'center', background: '#090e1f', border: '1px solid #1e293b', borderRadius: '20px', padding: '3px', gap: '3px' }}>
+            <button
+              type="button"
+              onClick={() => setPipelineMode('single')}
+              style={{
+                padding: '5px 12px',
+                borderRadius: '16px',
+                fontSize: '11px',
+                fontWeight: 600,
+                border: 'none',
+                cursor: 'pointer',
+                background: pipelineMode === 'single' ? '#1e293b' : 'transparent',
+                color: pipelineMode === 'single' ? '#f8fafc' : '#64748b',
+                transition: 'all 0.2s',
+              }}
+            >
+              Single Agent
+            </button>
+            <button
+              type="button"
+              onClick={() => setPipelineMode('multi')}
+              style={{
+                padding: '5px 12px',
+                borderRadius: '16px',
+                fontSize: '11px',
+                fontWeight: 600,
+                border: 'none',
+                cursor: 'pointer',
+                background: pipelineMode === 'multi' ? '#0284c7' : 'transparent',
+                color: pipelineMode === 'multi' ? '#ffffff' : '#64748b',
+                boxShadow: pipelineMode === 'multi' ? '0 0 10px rgba(2, 132, 199, 0.4)' : 'none',
+                transition: 'all 0.2s',
+              }}
+            >
+              Multi-Agent
+            </button>
+          </div>
+
           <button
             onClick={() => setIsModalOpen(true)}
             style={{
@@ -230,7 +334,7 @@ export default function App() {
               Multi-Agent Clinical Diagnostic Console
             </h1>
             <p style={{ color: '#94a3b8', fontSize: '14px', margin: 0 }}>
-              Issue prompt instructions to generate an example report.
+              Issue prompt instructions to generate a multi-agent evidence synthesis and treatment report.
             </p>
           </div>
 
@@ -280,80 +384,166 @@ export default function App() {
           </form>
 
           {/* List of example prompts */}
-          <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginTop: '12px', justifyContent: 'center' }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginTop: '12px', justifyContent: 'center', flexWrap: 'wrap' }}>
             <span style={{ fontSize: '11px', color: '#64748b', fontWeight: 600 }}>QUICK RUNS:</span>
             {[
               'make me a report for patient 7',
-              'evaluate PatientID_0012 for treatment plan',
-              'generate clinical report for PatientID_0007',
+              'make me a report for patient 3',
+              'evaluate PatientID_0005 with prior progression',
+              'generate clinical report for PatientID_0004',
             ].map((suggested, idx) => (
               <button
                 key={idx}
-                onClick={() => setPromptInput(suggested)}
+                type="button"
+                onClick={() => {
+                  setPromptInput(suggested);
+                  executePipeline(suggested);
+                }}
                 style={{
                   background: '#0f172a',
                   border: '1px solid #1e293b',
                   color: '#94a3b8',
-                  padding: '3px 8px',
+                  padding: '4px 10px',
                   borderRadius: '4px',
                   fontSize: '11px',
                   cursor: 'pointer',
+                  transition: 'all 0.2s',
+                }}
+                onMouseEnter={(e) => {
+                  (e.currentTarget as HTMLElement).style.borderColor = '#38bdf8';
+                  (e.currentTarget as HTMLElement).style.color = '#f8fafc';
+                }}
+                onMouseLeave={(e) => {
+                  (e.currentTarget as HTMLElement).style.borderColor = '#1e293b';
+                  (e.currentTarget as HTMLElement).style.color = '#94a3b8';
                 }}
               >
                 {suggested}
               </button>
             ))}
           </div>
+
+          {/* Error Banner when pipeline fails */}
+          {errorMessage && (
+            <div
+              style={{
+                marginTop: '18px',
+                background: '#2d1215',
+                border: '1px solid #ef4444',
+                borderRadius: '8px',
+                padding: '14px 18px',
+                display: 'flex',
+                alignItems: 'center',
+                gap: '12px',
+              }}
+            >
+              <span style={{ fontSize: '20px' }}>⚠️</span>
+              <div>
+                <div style={{ fontWeight: 600, fontSize: '13px', color: '#fecaca' }}>
+                  Pipeline Execution Failed
+                </div>
+                <div style={{ fontSize: '12px', color: '#fca5a5', marginTop: '2px' }}>
+                  {errorMessage}
+                </div>
+              </div>
+            </div>
+          )}
+
+          {/* Live Multi-Agent Pipeline Progress Bar */}
+          {(loading || pipelineProgress.percent > 0) && (
+            <div style={{ marginTop: '18px', background: '#0b1329', border: '1px solid #1e293b', borderRadius: '8px', padding: '16px 20px' }}>
+              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '10px' }}>
+                <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                  <span
+                    style={{
+                      fontSize: '11px',
+                      fontWeight: 700,
+                      letterSpacing: '0.04em',
+                      textTransform: 'uppercase',
+                      color: loading ? '#38bdf8' : '#4ade80',
+                    }}
+                  >
+                    {loading ? '⟳ Processing Multi-Agent Pipeline' : '✓ Pipeline Synthesis Complete'}
+                  </span>
+                  <span style={{ fontSize: '11px', color: '#475569' }}>•</span>
+                  <span style={{ fontSize: '12px', color: '#cbd5e1' }}>
+                    {pipelineProgress.stageName || statusMessage}
+                  </span>
+                </div>
+                <span
+                  style={{
+                    fontSize: '14px',
+                    fontWeight: 700,
+                    color: loading ? '#38bdf8' : '#4ade80',
+                    fontFamily: 'monospace',
+                  }}
+                >
+                  {pipelineProgress.percent}%
+                </span>
+              </div>
+
+              {/* Progress Track */}
+              <div style={{ width: '100%', height: '8px', background: '#070d1d', borderRadius: '4px', overflow: 'hidden', border: '1px solid #1e293b' }}>
+                <div
+                  style={{
+                    width: `${pipelineProgress.percent}%`,
+                    height: '100%',
+                    background: loading
+                      ? 'linear-gradient(90deg, #0284c7 0%, #38bdf8 100%)'
+                      : '#10b981',
+                    borderRadius: '4px',
+                    transition: 'width 0.4s ease-in-out',
+                    boxShadow: loading ? '0 0 10px rgba(56, 189, 248, 0.5)' : '0 0 10px rgba(16, 185, 129, 0.4)',
+                  }}
+                />
+              </div>
+
+              {/* Stage Indicator Pills */}
+              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(5, 1fr)', gap: '8px', marginTop: '12px' }}>
+                {[
+                  { id: 1, label: '1. Patient Profile' },
+                  { id: 2, label: '2. PubMed Evidence' },
+                  { id: 3, label: '3. Decision Support' },
+                  { id: 4, label: '4. Verification' },
+                  { id: 5, label: '5. Report Agent' },
+                ].map((stg) => {
+                  const isDone = pipelineProgress.stageIndex > stg.id || (!loading && pipelineProgress.percent === 100);
+                  const isCurrent = loading && pipelineProgress.stageIndex === stg.id;
+                  return (
+                    <div
+                      key={stg.id}
+                      style={{
+                        fontSize: '11px',
+                        padding: '6px 8px',
+                        borderRadius: '4px',
+                        textAlign: 'center',
+                        fontWeight: 600,
+                        background: isDone ? '#064e3b' : isCurrent ? '#0c4a6e' : '#0f172a',
+                        color: isDone ? '#6ee7b7' : isCurrent ? '#38bdf8' : '#64748b',
+                        border: isDone ? '1px solid #059669' : isCurrent ? '1px solid #0284c7' : '1px solid #1e293b',
+                        boxShadow: isCurrent ? '0 0 8px rgba(56, 189, 248, 0.25)' : 'none',
+                        transition: 'all 0.3s',
+                      }}
+                    >
+                      {stg.label}
+                    </div>
+                  );
+                })}
+              </div>
+            </div>
+          )}
         </section>
 
         {/* Example Report (Ai generated for example) (This is hard coded but needs to become fluid with the backend) */}
         {sharedState && (
           <section style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
             
-            {/* Multi-Agent Node Status Trackers */}
-            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '14px' }}>
-              
-              <div style={{ background: '#0f172a', border: '1px solid #1e293b', borderRadius: '6px', padding: '14px' }}>
-                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '6px' }}>
-                  <span style={{ fontSize: '10px', fontWeight: 600, color: '#64748b' }}>NODE 01</span>
-                  <span style={{ fontSize: '10px', color: '#4ade80', fontWeight: 600 }}>SYNCHRONIZED</span>
-                </div>
-                <div style={{ fontSize: '13px', fontWeight: 600, color: '#f1f5f9' }}>Patient Profile Intake</div>
-                <div style={{ fontSize: '11px', color: '#94a3b8', marginTop: '4px' }}>
-                  {sharedState.patient_information?.patient_data[0].Patient_ID} &bull; {sharedState.patient_information?.data_source}[cite: 7]
-                </div>
-              </div>
-
-              <div style={{ background: '#0f172a', border: '1px solid #1e293b', borderRadius: '6px', padding: '14px' }}>
-                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '6px' }}>
-                  <span style={{ fontSize: '10px', fontWeight: 600, color: '#64748b' }}>NODE 02</span>
-                  <span style={{ fontSize: '10px', color: '#4ade80', fontWeight: 600 }}>SYNCHRONIZED</span>
-                </div>
-                <div style={{ fontSize: '13px', fontWeight: 600, color: '#f1f5f9' }}>Evidence Synthesis</div>
-                <div style={{ fontSize: '11px', color: '#94a3b8', marginTop: '4px' }}>
-                  {sharedState.medical_evidence?.search_attempts} Queries Evaluated &bull; PubMed Indexed[cite: 7, 8]
-                </div>
-              </div>
-
-              <div style={{ background: '#0f172a', border: '1px solid #1e293b', borderRadius: '6px', padding: '14px' }}>
-                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '6px' }}>
-                  <span style={{ fontSize: '10px', fontWeight: 600, color: '#64748b' }}>NODE 03 & 04</span>
-                  <span style={{ fontSize: '10px', color: '#4ade80', fontWeight: 600 }}>VERIFIED</span>
-                </div>
-                <div style={{ fontSize: '13px', fontWeight: 600, color: '#f1f5f9' }}>Clinical Protocol & Verification</div>
-                <div style={{ fontSize: '11px', color: '#94a3b8', marginTop: '4px' }}>
-                  Protocol Approved[cite: 8]
-                </div>
-              </div>
-
-            </div>
-
             {/* Generated Clinical Report Card */}
             {sharedState.final_report && (
               <div style={{ background: '#0f172a', border: '1px solid #1e293b', borderRadius: '8px', overflow: 'hidden' }}>
                 <div style={{ padding: '14px 20px', borderBottom: '1px solid #1e293b', background: '#111c38', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
                   <span style={{ fontSize: '12px', fontWeight: 600, letterSpacing: '0.04em', color: '#94a3b8', textTransform: 'uppercase' }}>
-                    Structured Draft Radiology & Decision Report[cite: 8]
+                    Structured Draft Radiology & Decision Report
                   </span>
                   <span style={{ fontSize: '11px', background: '#064e3b', color: '#6ee7b7', border: '1px solid #059669', padding: '2px 8px', borderRadius: '4px', fontWeight: 600 }}>
                     VERIFIED DRAFT
@@ -373,7 +563,7 @@ export default function App() {
                     <div style={{ textAlign: 'right' }}>
                       <div style={{ fontSize: '11px', color: '#64748b', textTransform: 'uppercase' }}>Prompt Origin</div>
                       <div style={{ fontSize: '13px', color: '#cbd5e1', marginTop: '2px' }}>
-                        "{sharedState.user_request}"[cite: 7]
+                        "{sharedState.user_request}"
                       </div>
                     </div>
                   </div>
@@ -381,7 +571,7 @@ export default function App() {
                   {/* Findings */}
                   <div>
                     <h4 style={{ fontSize: '11px', textTransform: 'uppercase', letterSpacing: '0.05em', color: '#38bdf8', margin: '0 0 6px 0' }}>
-                      Clinical Findings[cite: 8]
+                      Clinical Findings
                     </h4>
                     <p style={{ margin: 0, fontSize: '13px', lineHeight: '1.6', color: '#cbd5e1' }}>
                       {sharedState.final_report.findings}
@@ -391,7 +581,7 @@ export default function App() {
                   {/* Impression */}
                   <div>
                     <h4 style={{ fontSize: '11px', textTransform: 'uppercase', letterSpacing: '0.05em', color: '#38bdf8', margin: '0 0 6px 0' }}>
-                      Clinical Impression[cite: 8]
+                      Clinical Impression
                     </h4>
                     <p style={{ margin: 0, fontSize: '13px', lineHeight: '1.6', color: '#cbd5e1' }}>
                       {sharedState.final_report.impression}
@@ -401,7 +591,7 @@ export default function App() {
                   {/* Verified Treatment Strategy */}
                   <div style={{ background: '#071226', border: '1px solid #1e3a8a', padding: '16px', borderRadius: '6px' }}>
                     <h4 style={{ fontSize: '11px', textTransform: 'uppercase', letterSpacing: '0.05em', color: '#60a5fa', margin: '0 0 8px 0' }}>
-                      Verified Treatment Plan[cite: 8]
+                      Verified Treatment Plan
                     </h4>
                     <div style={{ fontSize: '13px', lineHeight: '1.7', color: '#e2e8f0', whiteSpace: 'pre-line' }}>
                       {sharedState.final_report.treatment_plan}
@@ -411,13 +601,35 @@ export default function App() {
                   {/* Recommendations */}
                   <div>
                     <h4 style={{ fontSize: '11px', textTransform: 'uppercase', letterSpacing: '0.05em', color: '#94a3b8', margin: '0 0 6px 0' }}>
-                      Recommendations[cite: 8]
+                      Recommendations
                     </h4>
                     <p style={{ margin: 0, fontSize: '13px', lineHeight: '1.6', color: '#94a3b8' }}>
                       {sharedState.final_report.recommendations}
                     </p>
                   </div>
 
+                </div>
+              </div>
+            )}
+
+            {/* Comprehensive Multi-Agent Assembled Report */}
+            {sharedState.report?.content && (
+              <div style={{ background: '#0f172a', border: '1px solid #1e293b', borderRadius: '8px', overflow: 'hidden' }}>
+                <div style={{ padding: '14px 20px', borderBottom: '1px solid #1e293b', background: '#111c38', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                    <div style={{ width: '8px', height: '8px', borderRadius: '50%', background: '#10b981' }} />
+                    <span style={{ fontSize: '12px', fontWeight: 600, letterSpacing: '0.04em', color: '#f8fafc', textTransform: 'uppercase' }}>
+                      Report Generation Agent — Json Output
+                    </span>
+                  </div>
+                  <span style={{ fontSize: '11px', background: '#0f291e', color: '#34d399', border: '1px solid #059669', padding: '2px 8px', borderRadius: '4px', fontWeight: 600 }}>
+                    {sharedState.report.status?.toUpperCase() || 'VERIFIED'}
+                  </span>
+                </div>
+                <div style={{ padding: '24px', background: '#090e1f' }}>
+                  <div style={{ fontSize: '13px', lineHeight: '1.7', color: '#cbd5e1', whiteSpace: 'pre-wrap', fontFamily: 'ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace' }}>
+                    {sharedState.report.content}
+                  </div>
                 </div>
               </div>
             )}
@@ -478,7 +690,7 @@ export default function App() {
             <form onSubmit={handleCreatePatientSubmit} style={{ padding: '20px' }}>
               <div style={{ display: 'flex', flexDirection: 'column', gap: '14px' }}>
                 <div>
-                  <label style={labelStyle}>Patient Identifier[cite: 7]</label>
+                  <label style={labelStyle}>Patient Identifier</label>
                   <input
                     type="text"
                     placeholder="e.g. PatientID_0099"
@@ -491,7 +703,7 @@ export default function App() {
 
                 <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '10px' }}>
                   <div>
-                    <label style={labelStyle}>Diagnosis[cite: 7]</label>
+                    <label style={labelStyle}>Diagnosis</label>
                     <input
                       type="text"
                       value={newPatientForm['Primary Diagnosis']}
@@ -501,7 +713,7 @@ export default function App() {
                     />
                   </div>
                   <div>
-                    <label style={labelStyle}>WHO Grade[cite: 7]</label>
+                    <label style={labelStyle}>WHO Grade</label>
                     <input
                       type="text"
                       value={newPatientForm['Grade of Primary Brain Tumor']}
@@ -514,7 +726,7 @@ export default function App() {
 
                 <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '10px' }}>
                   <div>
-                    <label style={labelStyle}>Age at Diagnosis[cite: 7]</label>
+                    <label style={labelStyle}>Age at Diagnosis</label>
                     <input
                       type="number"
                       value={newPatientForm['Age at diagnosis']}
@@ -524,7 +736,7 @@ export default function App() {
                     />
                   </div>
                   <div>
-                    <label style={labelStyle}>Sex at Birth[cite: 7]</label>
+                    <label style={labelStyle}>Sex at Birth</label>
                     <select
                       value={newPatientForm['Sex at Birth']}
                       onChange={(e) => setNewPatientForm({ ...newPatientForm, 'Sex at Birth': e.target.value })}
@@ -537,7 +749,7 @@ export default function App() {
                 </div>
 
                 <div>
-                  <label style={labelStyle}>Progression Status[cite: 7]</label>
+                  <label style={labelStyle}>Progression Status</label>
                   <select
                     value={newPatientForm.Progression}
                     onChange={(e) => setNewPatientForm({ ...newPatientForm, Progression: e.target.value })}
