@@ -49,6 +49,8 @@ interface SharedState {
   };
 }
 
+const PIPELINE_LABELS = { multi: 'Multi-Agent', single: 'Single-Agent' } as const;
+
 const DEFAULT_NEW_PATIENT: PatientInput = {
   Patient_ID: '',
   'Sex at Birth': 'Male',
@@ -66,6 +68,8 @@ export default function App() {
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
   const [statusMessage, setStatusMessage] = useState('');
   const [pipelineMode, setPipelineMode] = useState<'multi' | 'single'>('multi');
+  // Mode of the run in progress (or last run), so toggling mid-run doesn't relabel its progress
+  const [activeRunMode, setActiveRunMode] = useState<'multi' | 'single'>('multi');
   const [pipelineProgress, setPipelineProgress] = useState<{
     percent: number;
     stageIndex: number;
@@ -77,21 +81,27 @@ export default function App() {
   const [newPatientForm, setNewPatientForm] = useState<PatientInput>(DEFAULT_NEW_PATIENT);
 
   const executePipeline = async (query: string, customPatientData?: PatientInput | null) => {
-    console.log(`[FRONTEND CONSOLE] >>> Running pipeline for query: "${query}"`);
+    const mode = pipelineMode;
+    const modeLabel = PIPELINE_LABELS[mode];
+    console.log(`[FRONTEND CONSOLE] >>> Running ${modeLabel} pipeline for query: "${query}"`);
+    setActiveRunMode(mode);
     setLoading(true);
     setErrorMessage(null);
     setSharedState(null);
-    setStatusMessage('Synthesizing clinical dossier via multi-agent pipeline...');
+    setStatusMessage(`Synthesizing clinical dossier via ${modeLabel.toLowerCase()} pipeline...`);
     setPipelineProgress({
       percent: 10,
       stageIndex: 1,
-      stageName: 'Patient Information Agent: Locating and indexing patient record...',
+      stageName: mode === 'single'
+        ? 'Single Agent: Locating and indexing patient record...'
+        : 'Patient Information Agent: Locating and indexing patient record...',
     });
 
     try {
       console.log('[FRONTEND CONSOLE] Requesting POST /api/v1/agent/run-pipeline ...');
       const payload: Record<string, any> = {
         user_request: query,
+        pipeline_mode: mode,
       };
       if (customPatientData) {
         payload.patient_id = customPatientData.Patient_ID;
@@ -146,7 +156,7 @@ export default function App() {
               setPipelineProgress({
                 percent: 100,
                 stageIndex: 5,
-                stageName: event.message || 'Multi-Agent Pipeline Complete: Dossier Assembled & Verified',
+                stageName: event.message || `${modeLabel} Pipeline Complete: Dossier Assembled & Verified`,
               });
               if (event.state) {
                 finalState = event.state;
@@ -188,7 +198,7 @@ export default function App() {
       throw new Error('Pipeline completed without returning report state.');
     } catch (err: any) {
       console.error('[FRONTEND CONSOLE] Pipeline error:', err);
-      const msg = err?.message || 'Failed to execute multi-agent pipeline.';
+      const msg = err?.message || `Failed to execute ${modeLabel.toLowerCase()} pipeline.`;
       setErrorMessage(msg);
       setStatusMessage(`Error: ${msg}`);
       setPipelineProgress({
@@ -269,15 +279,19 @@ export default function App() {
             <button
               type="button"
               onClick={() => setPipelineMode('single')}
+              disabled={loading}
+              title={loading ? 'Pipeline mode is locked while a report is generating' : undefined}
               style={{
                 padding: '5px 12px',
                 borderRadius: '16px',
                 fontSize: '11px',
                 fontWeight: 600,
                 border: 'none',
-                cursor: 'pointer',
-                background: pipelineMode === 'single' ? '#1e293b' : 'transparent',
-                color: pipelineMode === 'single' ? '#f8fafc' : '#64748b',
+                cursor: loading ? 'not-allowed' : 'pointer',
+                opacity: loading && pipelineMode !== 'single' ? 0.5 : 1,
+                background: pipelineMode === 'single' ? '#0284c7' : 'transparent',
+                color: pipelineMode === 'single' ? '#ffffff' : '#64748b',
+                boxShadow: pipelineMode === 'single' ? '0 0 10px rgba(2, 132, 199, 0.4)' : 'none',
                 transition: 'all 0.2s',
               }}
             >
@@ -286,13 +300,16 @@ export default function App() {
             <button
               type="button"
               onClick={() => setPipelineMode('multi')}
+              disabled={loading}
+              title={loading ? 'Pipeline mode is locked while a report is generating' : undefined}
               style={{
                 padding: '5px 12px',
                 borderRadius: '16px',
                 fontSize: '11px',
                 fontWeight: 600,
                 border: 'none',
-                cursor: 'pointer',
+                cursor: loading ? 'not-allowed' : 'pointer',
+                opacity: loading && pipelineMode !== 'multi' ? 0.5 : 1,
                 background: pipelineMode === 'multi' ? '#0284c7' : 'transparent',
                 color: pipelineMode === 'multi' ? '#ffffff' : '#64748b',
                 boxShadow: pipelineMode === 'multi' ? '0 0 10px rgba(2, 132, 199, 0.4)' : 'none',
@@ -331,10 +348,10 @@ export default function App() {
         <section style={{ maxWidth: '820px', margin: '0 auto 36px auto' }}>
           <div style={{ textAlign: 'center', marginBottom: '22px' }}>
             <h1 style={{ fontSize: '26px', fontWeight: 700, color: '#f8fafc', margin: '0 0 8px 0', letterSpacing: '-0.02em' }}>
-              Multi-Agent Clinical Diagnostic Console
+              {PIPELINE_LABELS[pipelineMode]} Clinical Diagnostic Console
             </h1>
             <p style={{ color: '#94a3b8', fontSize: '14px', margin: 0 }}>
-              Issue prompt instructions to generate a multi-agent evidence synthesis and treatment report.
+              Issue prompt instructions to generate a {PIPELINE_LABELS[pipelineMode].toLowerCase()} evidence synthesis and treatment report.
             </p>
           </div>
 
@@ -449,7 +466,7 @@ export default function App() {
             </div>
           )}
 
-          {/* Live Multi-Agent Pipeline Progress Bar */}
+          {/* Live Pipeline Progress Bar */}
           {(loading || pipelineProgress.percent > 0) && (
             <div style={{ marginTop: '18px', background: '#0b1329', border: '1px solid #1e293b', borderRadius: '8px', padding: '16px 20px' }}>
               <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '10px' }}>
@@ -463,7 +480,7 @@ export default function App() {
                       color: loading ? '#38bdf8' : '#4ade80',
                     }}
                   >
-                    {loading ? '⟳ Processing Multi-Agent Pipeline' : '✓ Pipeline Synthesis Complete'}
+                    {loading ? `⟳ Processing ${PIPELINE_LABELS[activeRunMode]} Pipeline` : '✓ Pipeline Synthesis Complete'}
                   </span>
                   <span style={{ fontSize: '11px', color: '#475569' }}>•</span>
                   <span style={{ fontSize: '12px', color: '#cbd5e1' }}>
@@ -612,7 +629,7 @@ export default function App() {
               </div>
             )}
 
-            {/* Comprehensive Multi-Agent Assembled Report */}
+            {/* Comprehensive Assembled Report */}
             {sharedState.report?.content && (
               <div style={{ background: '#0f172a', border: '1px solid #1e293b', borderRadius: '8px', overflow: 'hidden' }}>
                 <div style={{ padding: '14px 20px', borderBottom: '1px solid #1e293b', background: '#111c38', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>

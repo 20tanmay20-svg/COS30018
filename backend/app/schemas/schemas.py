@@ -1,5 +1,5 @@
 from datetime import datetime
-from typing import Any
+from typing import Any, Literal
 from pydantic import BaseModel, ConfigDict, Field
 
 
@@ -110,6 +110,7 @@ class PipelineRunRequest(BaseModel):
     data_source: str | None = None
     request_type: str | None = None
     patient_data: dict[str, Any] | None = None
+    pipeline_mode: Literal["multi", "single"] = "multi"
 
 
 class PatientProfileSummary(BaseModel):

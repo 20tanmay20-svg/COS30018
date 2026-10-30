@@ -36,6 +36,7 @@ from app.services.multi_agent_service import (
     execute_multi_agent_pipeline_stream,
     get_patient_summaries,
 )
+from app.services.single_agent_service import execute_single_agent_pipeline_stream
 
 api_router = APIRouter()
 
@@ -269,20 +270,31 @@ async def run_diagnostic_analysis(
 @api_router.post("/agent/run-pipeline", tags=["Multi-Agent Pipeline"])
 async def run_agent_pipeline_endpoint(req: PipelineRunRequest):
     """
-    Executes the multi-agent clinical decision support pipeline, streaming stage progress:
+    Executes the clinical decision support pipeline selected by `pipeline_mode`, streaming stage progress.
+
+    multi (default): five cooperating agents
     1. Patient Information Agent (retrieves record from gbm_patient_profiles.json)
     2. Medical Evidence Agent (retrieves relevant PubMed literature)
     3. Clinical Decision Support Agent (synthesizes evidence-linked pathways)
     4. Verification Agent (checks claims against cited abstracts)
     5. Report Generation Agent (assembles formal structured report)
+
+    single: one phase-gated agent running the same five stages (agent_system/single_agent.py)
     """
-    print(f"\n[BACKEND API] >>> Received run-pipeline request: query='{req.user_request}' (patient_id='{req.patient_id}')", flush=True)
-    logger.info("Executing streaming multi-agent pipeline for: %s", req.user_request)
+    mode_label = "single-agent" if req.pipeline_mode == "single" else "multi-agent"
+    print(f"\n[BACKEND API] >>> Received run-pipeline request ({mode_label}): query='{req.user_request}' (patient_id='{req.patient_id}')", flush=True)
+    logger.info("Executing streaming %s pipeline for: %s", mode_label, req.user_request)
+
+    stream = (
+        execute_single_agent_pipeline_stream
+        if req.pipeline_mode == "single"
+        else execute_multi_agent_pipeline_stream
+    )
 
     def event_stream():
-        for event in execute_multi_agent_pipeline_stream(req.user_request):
+        for event in stream(req.user_request):
             yield json.dumps(event, default=str) + "\n"
-        print(f"[BACKEND API] <<< Multi-agent pipeline finished streaming successfully.\n", flush=True)
+        print(f"[BACKEND API] <<< {mode_label.capitalize()} pipeline finished streaming successfully.\n", flush=True)
 
     return StreamingResponse(event_stream(), media_type="application/x-ndjson")
 
