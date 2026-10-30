@@ -39,12 +39,14 @@ except Exception as e:
 
 _import_error: str | None = None
 
+MAX_REVISIONS = 2  # automatic verification -> CDS correction rounds, same as multi_agent/main.py
+
 try:
     from agent_system.multi_agent.shared_state import create_initial_state
     from agent_system.multi_agent.patient_info_agent import run_patient_info_agent
     from agent_system.multi_agent.medical_evidence_agent import run_medical_evidence_agent
     from agent_system.multi_agent.clinical_decision_support_agent import run_clinical_decision_support_agent
-    from agent_system.multi_agent.verification_agent import run_verification_agent
+    from agent_system.multi_agent.verification_agent import run_verification_agent, format_feedback
 except Exception as e:
     logger.warning("Could not import multi_agent stage agents: %s", e)
     _import_error = str(e)
@@ -53,6 +55,7 @@ except Exception as e:
     run_medical_evidence_agent = None
     run_clinical_decision_support_agent = None
     run_verification_agent = None
+    format_feedback = None
 
 try:
     from agent_system.multi_agent.report_generation_agent import run_report_generation_agent
@@ -256,65 +259,92 @@ def execute_multi_agent_pipeline_stream(user_request: str):
             "message": "Medical Evidence Agent: Literature retrieved and assessed.",
         }
 
-        # Stage 3: Clinical Decision Support Agent
-        yield {
-            "type": "progress",
-            "stage": "clinical_decision_support",
-            "stage_index": 3,
-            "percent": 55,
-            "message": "Clinical Decision Support Agent: Formulating considerations & treatment pathways...",
-        }
-        print(f"\n--- Running clinical_decision_support ---", flush=True)
-        state = run_clinical_decision_support_agent(state)
-        cds_status = state.get("clinical_decision_support", {}).get("status")
-        print(f"--- Finished clinical_decision_support: {cds_status} ---", flush=True)
+        # Stages 3-4: Clinical Decision Support + Verification, retried on verification feedback
+        # (mirrors _cds_verification_loop in agent_system/multi_agent/main.py)
+        feedback = None
+        for attempt in range(MAX_REVISIONS + 1):
+            suffix = f" (revision {attempt}/{MAX_REVISIONS})" if attempt else ""
 
-        if cds_status != "success":
-            err_detail = state.get("clinical_decision_support", {}).get("error") or ", ".join(state.get("errors", [])) or "Clinical decision support failed"
-            logger.error("Clinical Decision Support Agent failed: %s", err_detail)
+            # Stage 3: Clinical Decision Support Agent
             yield {
-                "type": "error",
-                "message": f"Clinical Decision Support Agent failed: {err_detail}",
+                "type": "progress",
+                "stage": "clinical_decision_support",
+                "stage_index": 3,
+                "percent": 55,
+                "message": "Clinical Decision Support Agent: Formulating considerations & treatment pathways..." + suffix,
             }
-            return
+            print(f"\n--- Running clinical_decision_support{suffix} ---", flush=True)
+            state = run_clinical_decision_support_agent(state, verification_feedback=feedback)
+            cds_status = state.get("clinical_decision_support", {}).get("status")
+            print(f"--- Finished clinical_decision_support: {cds_status} ---", flush=True)
 
-        yield {
-            "type": "progress",
-            "stage": "clinical_decision_support",
-            "stage_index": 3,
-            "percent": 75,
-            "message": "Clinical Decision Support Agent: Decision pathways synthesized.",
-        }
+            if cds_status != "success":
+                err_detail = state.get("clinical_decision_support", {}).get("error") or ", ".join(state.get("errors", [])) or "Clinical decision support failed"
+                logger.error("Clinical Decision Support Agent failed: %s", err_detail)
+                yield {
+                    "type": "error",
+                    "message": f"Clinical Decision Support Agent failed: {err_detail}",
+                }
+                return
 
-        # Stage 4: Verification Agent
-        yield {
-            "type": "progress",
-            "stage": "verification",
-            "stage_index": 4,
-            "percent": 80,
-            "message": "Verification Agent: Cross-referencing claims against cited abstracts...",
-        }
-        print(f"\n--- Running verification ---", flush=True)
-        state = run_verification_agent(state)
-        v_status = state.get("verification", {}).get("status")
-        print(f"--- Finished verification: {v_status} ---", flush=True)
-
-        if v_status != "success":
-            err_detail = state.get("verification", {}).get("error") or ", ".join(state.get("errors", [])) or "Verification failed"
-            logger.error("Verification Agent failed: %s", err_detail)
             yield {
-                "type": "error",
-                "message": f"Verification Agent failed: {err_detail}",
+                "type": "progress",
+                "stage": "clinical_decision_support",
+                "stage_index": 3,
+                "percent": 75,
+                "message": "Clinical Decision Support Agent: Decision pathways synthesized." + suffix,
             }
-            return
 
-        yield {
-            "type": "progress",
-            "stage": "verification",
-            "stage_index": 4,
-            "percent": 90,
-            "message": "Verification Agent: Claims verified.",
-        }
+            # Stage 4: Verification Agent
+            yield {
+                "type": "progress",
+                "stage": "verification",
+                "stage_index": 4,
+                "percent": 80,
+                "message": "Verification Agent: Cross-referencing claims against cited abstracts..." + suffix,
+            }
+            print(f"\n--- Running verification{suffix} ---", flush=True)
+            state = run_verification_agent(state)
+            state.get("verification", {})["revision_count"] = attempt
+            v_status = state.get("verification", {}).get("status")
+            print(f"--- Finished verification: {v_status} ---", flush=True)
+
+            if v_status != "success":
+                err_detail = state.get("verification", {}).get("error") or ", ".join(state.get("errors", [])) or "Verification failed"
+                logger.error("Verification Agent failed: %s", err_detail)
+                yield {
+                    "type": "error",
+                    "message": f"Verification Agent failed: {err_detail}",
+                }
+                return
+
+            if not state["verification"].get("revision_required"):
+                yield {
+                    "type": "progress",
+                    "stage": "verification",
+                    "stage_index": 4,
+                    "percent": 90,
+                    "message": "Verification Agent: Claims verified." + suffix,
+                }
+                break
+
+            if attempt == MAX_REVISIONS:
+                err_detail = f"Verification still requires revision after {MAX_REVISIONS} correction rounds; pipeline stopped."
+                logger.error(err_detail)
+                yield {
+                    "type": "error",
+                    "message": f"Verification Agent failed: {err_detail}",
+                }
+                return
+
+            feedback = format_feedback(state)
+            yield {
+                "type": "progress",
+                "stage": "verification",
+                "stage_index": 4,
+                "percent": 82,
+                "message": f"Verification Agent: Issues found; sending feedback to Clinical Decision Support (correction {attempt + 1}/{MAX_REVISIONS})...",
+            }
 
         # Stage 5: Report Generation Agent
         yield {
