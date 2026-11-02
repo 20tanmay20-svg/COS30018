@@ -1,0 +1,83 @@
+{
+  "mode": "offline (stand-in models)",
+  "cases_run": 8,
+  "task_success_rate": 1.0,
+  "failure_rate": 0.0,
+  "average_latency_seconds": 0.004,
+  "total_tokens": 0,
+  "estimated_cost_usd": 0.0,
+  "cases": [
+    {
+      "id": "VA-01",
+      "scenario": "All CDS claims supported",
+      "passed": true,
+      "reason": "",
+      "seconds": 0.006,
+      "tokens": 0,
+      "cost_usd": 0.0
+    },
+    {
+      "id": "VA-02",
+      "scenario": "Valid citation supports the claim",
+      "passed": true,
+      "reason": "",
+      "seconds": 0.007,
+      "tokens": 0,
+      "cost_usd": 0.0
+    },
+    {
+      "id": "VA-03",
+      "scenario": "Citation does not support the claim",
+      "passed": true,
+      "reason": "",
+      "seconds": 0.006,
+      "tokens": 0,
+      "cost_usd": 0.0
+    },
+    {
+      "id": "VA-04",
+      "scenario": "Claim without a citation",
+      "passed": true,
+      "reason": "",
+      "seconds": 0.0,
+      "tokens": 0,
+      "cost_usd": 0.0
+    },
+    {
+      "id": "VA-05",
+      "scenario": "Non-existent PMID",
+      "passed": true,
+      "reason": "",
+      "seconds": 0.0,
+      "tokens": 0,
+      "cost_usd": 0.0
+    },
+    {
+      "id": "VA-06",
+      "scenario": "Contradictory claims",
+      "passed": true,
+      "reason": "",
+      "seconds": 0.007,
+      "tokens": 0,
+      "cost_usd": 0.0
+    },
+    {
+      "id": "VA-07",
+      "scenario": "Evidence retrieval failed",
+      "passed": true,
+      "reason": "",
+      "seconds": 0.0,
+      "tokens": 0,
+      "cost_usd": 0.0
+    },
+    {
+      "id": "VA-08",
+      "scenario": "Unseen mix of supported and unsupported claims",
+      "passed": true,
+      "reason": "",
+      "seconds": 0.007,
+      "tokens": 0,
+      "cost_usd": 0.0
+    }
+  ]
+}
