@@ -4,3 +4,4 @@ python-dotenv
 smolagents
 litellm
 requests
+pytest>=8.0
