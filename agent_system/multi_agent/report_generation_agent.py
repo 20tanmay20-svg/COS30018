@@ -202,7 +202,7 @@ def create_report_generation_agent(session, model=None):
             key, model_id = os.getenv("GEMINI_API_KEY"), os.getenv("GEMINI_MODEL")
             if not key or not model_id:
                 raise ValueError("Set GEMINI_API_KEY and GEMINI_MODEL, or pass model=existing_model.")
-            model = LiteLLMModel(model_id=model_id, api_key=key)
+            model = LiteLLMModel(model_id=model_id, api_key=key, num_retries=5)
         else:
             raise ValueError("MODEL_PROVIDER must be gemini or ollama.")
     return ToolCallingAgent(tools=[create_assemble_report_tool(session)], model=model,

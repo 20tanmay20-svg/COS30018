@@ -1,0 +1,45 @@
+{
+  "mode": "offline (stand-in models)",
+  "cases_run": 6,
+  "task_success_rate": 0.833,
+  "failure_rate": 0.167,
+  "average_latency_seconds": 0.021,
+  "cases": [
+    {
+      "id": "PI-01",
+      "scenario": "Retrieve a valid patient ID",
+      "passed": true,
+      "reason": ""
+    },
+    {
+      "id": "PI-02",
+      "scenario": "Patient with complete information",
+      "passed": true,
+      "reason": ""
+    },
+    {
+      "id": "PI-03",
+      "scenario": "Patient with missing fields",
+      "passed": true,
+      "reason": ""
+    },
+    {
+      "id": "PI-04",
+      "scenario": "Patient that does not exist",
+      "passed": true,
+      "reason": ""
+    },
+    {
+      "id": "PI-05",
+      "scenario": "Conflicting patient history",
+      "passed": false,
+      "reason": "Conflicting history was silently accepted assert 'success' == 'failed' \u001b[0m\u001b[91m- failed\u001b[39;49;00m\u001b[90m\u001b[39;49;00m \u001b[92m+ success\u001b[39;49;00m\u001b[90m\u001b[39;49;00m"
+    },
+    {
+      "id": "PI-06",
+      "scenario": "Irrelevant request",
+      "passed": true,
+      "reason": ""
+    }
+  ]
+}
