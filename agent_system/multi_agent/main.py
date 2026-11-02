@@ -1,5 +1,7 @@
 import json
+import logging
 import re
+import sys
 from copy import deepcopy
 
 import litellm, logging
@@ -13,6 +15,9 @@ from medical_evidence_agent import run_medical_evidence_agent
 from clinical_decision_support_agent import run_clinical_decision_support_agent
 from verification_agent import run_verification_agent, format_feedback
 from report_generation_agent import run_report_generation_agent
+from run_recorder import REPORTS_DIR, RunRecorder, begin_stage, end_stage
+
+log = logging.getLogger("pipeline")
 
 
 MAX_REVISIONS = 2  # automatic verification -> CDS correction rounds
@@ -30,16 +35,22 @@ SAVED_SECTIONS = ["patient_information", "medical_evidence",
 
 
 def _run_stage(state, section, run_agent, **kwargs):
-    print(f"\n--- Running {section} ---")
+    log.info("Running %s", section)
+    began = begin_stage()
     try:
         state = run_agent(state, **kwargs)
     except Exception as exc:  # agents should catch their own errors; this is the safety net
+        log.exception("%s crashed", section)  # includes the traceback
         message = f"{section} crashed ({type(exc).__name__})."
         state.setdefault(section, {})
         state[section]["status"] = "failed"
         state[section]["error"] = message
         state["errors"].append(message)
-    print(f"--- Finished {section}: {state[section]['status']} ---")
+    end_stage(section, began, state[section]["status"])
+    if state[section]["status"] == "success":
+        log.info("Finished %s: success", section)
+    else:
+        log.error("Finished %s: %s (%s)", section, state[section]["status"], state[section].get("error"))
     return state
 
 
@@ -56,6 +67,7 @@ def _cds_verification_loop(state, revision_request, max_revisions):
     """
     feedback = None
     for attempt in range(max_revisions + 1):
+        log.info("Draft %s of %s (CDS then verification)", attempt + 1, max_revisions + 1)
         state = _run_stage(state, "clinical_decision_support",
                            run_clinical_decision_support_agent,
                            verification_feedback=feedback,
@@ -68,15 +80,18 @@ def _cds_verification_loop(state, revision_request, max_revisions):
         if state["verification"]["status"] != "success":
             return state, False
         if not state["verification"]["revision_required"]:
+            log.info("Verification approved the draft")
             return state, True
 
+        issues = state["verification"]["issues"]
+        log.warning("Verification found %s issue(s): %s", len(issues), "; ".join(issues))
         if attempt < max_revisions:
-            print(f"--- Verification requested correction {attempt + 1}/{max_revisions} ---")
+            log.info("Verification requested correction %s/%s", attempt + 1, max_revisions)
             feedback = format_feedback(state)
 
-    state["errors"].append(
-        f"Verification still requires revision after {max_revisions} correction rounds; pipeline stopped."
-    )
+    message = f"Verification still requires revision after {max_revisions} correction rounds; pipeline stopped."
+    log.error(message)
+    state["errors"].append(message)
     return state, False
 
 
@@ -88,6 +103,7 @@ def run_pipeline(user_request, session=None, max_revisions=MAX_REVISIONS):
     """
     session = session if session is not None else Session()
     is_revision = session.has_report and not PATIENT_REF.search(user_request)
+    log.info("Pipeline started: %s request (%s)", "revision" if is_revision else "new report", user_request)
 
     if is_revision:
         # Keep the ORIGINAL request: evidence/CDS agents read state["user_request"] as the question.
@@ -104,10 +120,12 @@ def run_pipeline(user_request, session=None, max_revisions=MAX_REVISIONS):
         for section, run_agent in BEFORE_CDS:
             state = _run_stage(state, section, run_agent)
             if state[section]["status"] != "success":
+                log.error("Pipeline stopped at %s; no report produced", section)
                 return _stop(state)
 
     state, ok = _cds_verification_loop(state, revision_request, max_revisions)
     if not ok:
+        log.error("Pipeline stopped before the report; no report produced")
         return _stop(state)
 
     state = _run_stage(state, "report", run_report_generation_agent)
@@ -119,6 +137,9 @@ def run_pipeline(user_request, session=None, max_revisions=MAX_REVISIONS):
         if is_revision:
             session.revision_requests.append(user_request)
         session.report_versions.append(deepcopy(state["report"]))
+        log.info("Pipeline finished: report version %s saved to the session", len(session.report_versions))
+    else:
+        log.error("Pipeline finished without a report; the session keeps its last good report")
 
     return _stop(state)
 
@@ -130,6 +151,19 @@ if __name__ == "__main__":
         if user_input.lower() == "exit":
             break
         if user_input:
-            result = run_pipeline(user_input, session)
+            # "CMP-05: Prepare a report for ..." runs the request as evaluation case CMP-05
+            tagged = re.match(r"\s*(CMP-\d{2})\s*[:\-]\s*(.*)", user_input, re.DOTALL)
+            case_id, request = (tagged.group(1).upper(), tagged.group(2)) if tagged else (None, user_input)
+            from evaluate_runs import CASES, check_case  # imported here so tests of main.py stay light
+            from fault_injection import fault_for
+
+            run = RunRecorder(request, case_id)
+            with fault_for(case_id, sys.modules[__name__]):
+                result = run_pipeline(request, session)
             print(json.dumps(result, indent=2, default=str))
+            summary = run.finish(result, session)
+            if case_id:
+                expected = next((c[2] for c in CASES if c[0] == case_id), "unknown case")
+                passed, evidence = check_case(summary, REPORTS_DIR)
+                print(f"\n{case_id}: {'PASS' if passed else 'FAIL'}\n  expected: {expected}\n  result: {evidence}")
             print(f"\n[report versions saved: {len(session.report_versions)}]")

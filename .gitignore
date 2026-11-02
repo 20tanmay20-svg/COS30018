@@ -51,3 +51,6 @@ yarn-error.log*
 # OS generated
 .DS_Store
 Thumbs.db
+
+# Saved runs from main.py (contain patient data)
+agent_system/multi_agent/reports/
