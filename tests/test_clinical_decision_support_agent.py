@@ -176,6 +176,8 @@ class ClinicalDecisionSupportAgentTests(unittest.TestCase):
 
         def make_agent(session, model=None):
             class FakeAgent:
+                max_steps = 10
+
                 def run(self, prompt):
                     self_context = json.loads(prompt.split("\n", 1)[1])
                     self_test.assertEqual(self_context["verification_feedback"], "Fix draft")
