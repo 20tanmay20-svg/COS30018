@@ -1,0 +1,29 @@
+{
+  "request": "CMP-09: Prepare a report for PatientID_99999999.",
+  "started": "2026-11-03T05:18:30",
+  "seconds": 0.0,
+  "stages": [
+    {
+      "stage": "patient_information",
+      "status": "failed",
+      "seconds": 0.0,
+      "tokens": 0
+    }
+  ],
+  "revision_rounds": 0,
+  "errors": [],
+  "tokens": {
+    "model_calls": 0,
+    "prompt": 0,
+    "completion": 0,
+    "total": 0,
+    "estimated_cost_usd": 0.0
+  },
+  "tool_calls": {
+    "total": 0,
+    "succeeded": 0,
+    "by_tool": {}
+  },
+  "report_file": null,
+  "log_file": "20261103-051830_PatientID_99999999.log"
+}

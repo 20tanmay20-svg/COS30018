@@ -1,0 +1,9 @@
+2026-11-03 05:49:00,576 | INFO | pipeline | Run started: Prepare a report for PatientID_0003.
+2026-11-03 05:49:00,578 | INFO | pipeline | Pipeline started: new report request (Prepare a report for PatientID_0003.)
+2026-11-03 05:49:00,579 | INFO | pipeline | Running patient_information
+2026-11-03 05:49:00,579 | INFO | patient_info_agent | Specific patient detected: PatientID_0003
+2026-11-03 05:49:00,581 | INFO | pipeline | Finished patient_information: success
+2026-11-03 05:49:00,581 | INFO | pipeline | Running medical_evidence
+2026-11-03 05:49:08,210 | ERROR | pipeline | Finished medical_evidence: failed (Evidence retrieval incomplete or no relevant abstract-backed evidence found. PubMed search attempt 1 failed (RuntimeError). PubMed search attempt 2 failed (RuntimeError). PubMed search attempt 3 failed (RuntimeError).)
+2026-11-03 05:49:08,211 | ERROR | pipeline | Pipeline stopped at medical_evidence; no report produced
+2026-11-03 05:49:08,213 | INFO | pipeline | Run finished in 7.6s, 9453 tokens

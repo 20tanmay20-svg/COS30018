@@ -15,7 +15,7 @@ from medical_evidence_agent import run_medical_evidence_agent
 from clinical_decision_support_agent import run_clinical_decision_support_agent
 from verification_agent import run_verification_agent, format_feedback
 from report_generation_agent import run_report_generation_agent
-from run_recorder import REPORTS_DIR, RunRecorder, begin_stage, end_stage
+from test_pipeline.run_recorder import REPORTS_DIR, RunRecorder, begin_stage, end_stage
 
 log = logging.getLogger("pipeline")
 
@@ -154,8 +154,8 @@ if __name__ == "__main__":
             # "CMP-05: Prepare a report for ..." runs the request as evaluation case CMP-05
             tagged = re.match(r"\s*(CMP-\d{2})\s*[:\-]\s*(.*)", user_input, re.DOTALL)
             case_id, request = (tagged.group(1).upper(), tagged.group(2)) if tagged else (None, user_input)
-            from evaluate_runs import CASES, check_case  # imported here so tests of main.py stay light
-            from fault_injection import fault_for
+            from test_pipeline.evaluate_runs import CASES, check_case  # imported here so tests of main.py stay light
+            from test_pipeline.fault_injection import fault_for
 
             run = RunRecorder(request, case_id)
             with fault_for(case_id, sys.modules[__name__]):

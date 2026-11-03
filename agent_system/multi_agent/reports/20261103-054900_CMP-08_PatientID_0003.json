@@ -1,0 +1,48 @@
+{
+  "case_id": "CMP-08",
+  "request": "Prepare a report for PatientID_0003.",
+  "started": "2026-11-03T05:49:00",
+  "seconds": 7.6,
+  "stages": [
+    {
+      "stage": "patient_information",
+      "status": "success",
+      "seconds": 0.0,
+      "tokens": 0
+    },
+    {
+      "stage": "medical_evidence",
+      "status": "failed",
+      "seconds": 7.63,
+      "tokens": 6778
+    }
+  ],
+  "revision_rounds": 0,
+  "errors": [
+    "Medical Evidence Agent: Evidence retrieval incomplete or no relevant abstract-backed evidence found. PubMed search attempt 1 failed (RuntimeError). PubMed search attempt 2 failed (RuntimeError). PubMed search attempt 3 failed (RuntimeError)."
+  ],
+  "tokens": {
+    "model_calls": 4,
+    "prompt": 9318,
+    "completion": 135,
+    "total": 9453,
+    "estimated_cost_usd": 0.0025
+  },
+  "tool_calls": {
+    "total": 3,
+    "succeeded": 0,
+    "by_tool": {
+      "search_medical_evidence": 3
+    }
+  },
+  "outcome": {
+    "patient_error": null,
+    "evidence_error": "Evidence retrieval incomplete or no relevant abstract-backed evidence found. PubMed search attempt 1 failed (RuntimeError). PubMed search attempt 2 failed (RuntimeError). PubMed search attempt 3 failed (RuntimeError).",
+    "retrieved_pmids": [],
+    "uncertainties": [],
+    "verification_status": "pending",
+    "verification_issues": []
+  },
+  "report_file": null,
+  "log_file": "20261103-054900_CMP-08_PatientID_0003.log"
+}

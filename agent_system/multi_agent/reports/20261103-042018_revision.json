@@ -1,0 +1,48 @@
+{
+  "request": "make me a report for patient 3",
+  "started": "2026-11-03T04:20:18",
+  "seconds": 88.4,
+  "stages": [
+    {
+      "stage": "patient_information",
+      "status": "success",
+      "seconds": 0.0,
+      "tokens": 0
+    },
+    {
+      "stage": "medical_evidence",
+      "status": "success",
+      "seconds": 23.06,
+      "tokens": 8707
+    },
+    {
+      "stage": "clinical_decision_support",
+      "status": "success",
+      "seconds": 38.9,
+      "tokens": 12477
+    },
+    {
+      "stage": "verification",
+      "status": "success",
+      "seconds": 22.79,
+      "tokens": 10411
+    },
+    {
+      "stage": "report",
+      "status": "success",
+      "seconds": 3.6,
+      "tokens": 1329
+    }
+  ],
+  "revision_rounds": 0,
+  "errors": [],
+  "tokens": {
+    "model_calls": 13,
+    "prompt": 50243,
+    "completion": 3074,
+    "total": 53317,
+    "estimated_cost_usd": 0.0163
+  },
+  "report_file": "20261103-042018_revision.md",
+  "log_file": "20261103-042018_revision.log"
+}

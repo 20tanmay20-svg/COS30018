@@ -9,7 +9,7 @@ from pathlib import Path
 
 import litellm
 
-REPORTS_DIR = Path(__file__).parent / "reports"
+REPORTS_DIR = Path(__file__).parent.parent / "reports"
 
 USAGE = {"calls": 0, "prompt_tokens": 0, "completion_tokens": 0, "tokens": 0, "cost": 0.0}  # all model calls so far
 STAGES = []  # one entry per stage run, filled in by main.py

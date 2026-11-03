@@ -1,0 +1,56 @@
+2026-11-03 05:26:47,197 | INFO | pipeline | Run started: Prepare a report for PatientID_0003.
+2026-11-03 05:26:47,199 | INFO | pipeline | Pipeline started: new report request (Prepare a report for PatientID_0003.)
+2026-11-03 05:26:47,200 | INFO | pipeline | Running patient_information
+2026-11-03 05:26:47,200 | INFO | patient_info_agent | Specific patient detected: PatientID_0003
+2026-11-03 05:26:47,205 | INFO | pipeline | Finished patient_information: success
+2026-11-03 05:26:47,206 | INFO | pipeline | Running medical_evidence
+2026-11-03 05:27:01,379 | INFO | pipeline | Finished medical_evidence: success
+2026-11-03 05:27:01,380 | INFO | pipeline | Draft 1 of 3 (CDS then verification)
+2026-11-03 05:27:01,380 | INFO | pipeline | Running clinical_decision_support
+2026-11-03 05:27:10,354 | INFO | pipeline | Finished clinical_decision_support: success
+2026-11-03 05:27:10,356 | INFO | pipeline | Running verification
+2026-11-03 05:27:17,083 | INFO | pipeline | Finished verification: success
+2026-11-03 05:27:17,084 | WARNING | pipeline | Verification found 1 issue(s): Consideration 3: cited evidence does not support this claim. Clinical guidelines do not support this; Bevacizumab is not recommended for this use and it is not a cure.
+2026-11-03 05:27:17,084 | INFO | pipeline | Verification requested correction 1/2
+2026-11-03 05:27:17,084 | INFO | pipeline | Draft 2 of 3 (CDS then verification)
+2026-11-03 05:27:17,084 | INFO | pipeline | Running clinical_decision_support
+2026-11-03 05:27:27,433 | WARNING | clinical_decision_support_agent | Cloud model unavailable (attempt 1/5).
+2026-11-03 05:27:31,601 | INFO | smolagents.models | Finished call to 'completion' after 0.363(s), this was attempt n°1/3.
+2026-11-03 05:27:31,602 | INFO | smolagents.models | Retrying completion in 188.1896208435845 seconds as it raised RateLimitError: litellm.RateLimitError: litellm.RateLimitError: geminiException - {
+  "error": {
+    "code": 429,
+    "message": "You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://ai.google.dev/gemini-api/docs/rate-limits. To monitor your current usage, head to: https://ai.dev/rate-limit. \n* Quota exceeded for metric: generativelanguage.googleapis.com/generate_content_free_tier_requests, limit: 15, model: gemini-3.1-flash-lite, description: Generate content requests per minute limit exceeded on Free Tier. See https://ai.google.dev/gemini-api/docs/rate-limits.\nPlease retry in 28.445228879s.",
+    "status": "RESOURCE_EXHAUSTED",
+    "details": [
+      {
+        "@type": "type.googleapis.com/google.rpc.Help",
+        "links": [
+          {
+            "description": "Learn more about Gemini API quotas",
+            "url": "https://ai.google.dev/gemini-api/docs/rate-limits"
+          }
+        ]
+      },
+      {
+        "@type": "type.googleapis.com/google.rpc.QuotaFailure",
+        "violations": [
+          {
+            "description": "Generate content requests per minute limit exceeded on Free Tier. See https://ai.google.dev/gemini-api/docs/rate-limits.",
+            "quotaMetric": "generativelanguage.googleapis.com/generate_content_free_tier_requests",
+            "quotaId": "GenerateRequestsPerMinutePerProjectPerModel-FreeTier",
+            "quotaDimensions": {
+              "location": "global",
+              "model": "gemini-3.1-flash-lite"
+            },
+            "quotaValue": "15"
+          }
+        ]
+      },
+      {
+        "@type": "type.googleapis.com/google.rpc.RetryInfo",
+        "retryDelay": "28s"
+      }
+    ]
+  }
+}
+.

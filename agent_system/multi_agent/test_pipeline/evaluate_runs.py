@@ -1,8 +1,8 @@
 """Evaluate the runs saved in reports/ by main.py.
 
 main.py prints PASS/FAIL for a case right after the run (type `CMP-03: Prepare a report for ...`).
-Run `python3 evaluate_runs.py` for the full table of all ten cases plus overall metrics.
-Writes reports/evaluation.json and reports/evaluation.md.
+Run `python3 test_pipeline/evaluate_runs.py` for the full table of all ten cases plus overall metrics.
+Writes test_pipeline/results/evaluation.json and evaluation.md.
 """
 
 import json
@@ -10,7 +10,8 @@ import re
 import sys
 from pathlib import Path
 
-REPORTS_DIR = Path(__file__).parent / "reports"
+REPORTS_DIR = Path(__file__).parent.parent / "reports"
+RESULTS_DIR = Path(__file__).parent / "results"
 
 # (id, scenario, expected outcome, difficulty)
 CASES = [
@@ -210,11 +211,12 @@ def main(directory=REPORTS_DIR):
         lines.append(f"| {r['id']} | {r['scenario']} | {r['expected']} | {r['difficulty']} | {r['result']} | "
                      f"{r['evidence']} | {r['seconds'] or '-'} | {r['tokens'] or '-'} | {r['tool_calls'] or '-'} |")
     lines += ["", "## Overall"] + [f"- {key}: {value}" for key, value in overall.items()]
-    (directory / "evaluation.md").write_text("\n".join(lines) + "\n", encoding="utf-8")
-    (directory / "evaluation.json").write_text(json.dumps({"overall": overall, "cases": rows}, indent=2) + "\n", encoding="utf-8")
+    RESULTS_DIR.mkdir(exist_ok=True)
+    (RESULTS_DIR / "evaluation.md").write_text("\n".join(lines) + "\n", encoding="utf-8")
+    (RESULTS_DIR / "evaluation.json").write_text(json.dumps({"overall": overall, "cases": rows}, indent=2) + "\n", encoding="utf-8")
 
     print("\n".join(lines))
-    print(f"\nSaved {directory / 'evaluation.md'} and evaluation.json")
+    print(f"\nSaved {RESULTS_DIR / 'evaluation.md'} and evaluation.json")
 
 
 if __name__ == "__main__":

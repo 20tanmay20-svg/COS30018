@@ -1,0 +1,63 @@
+{
+  "request": "CMP-10: Prepare a report for PatientID_0005. Assess this new combination of atypical findings; state evidence limits.",
+  "started": "2026-11-03T05:19:26",
+  "seconds": 84.9,
+  "stages": [
+    {
+      "stage": "patient_information",
+      "status": "success",
+      "seconds": 0.0,
+      "tokens": 0
+    },
+    {
+      "stage": "medical_evidence",
+      "status": "success",
+      "seconds": 21.37,
+      "tokens": 29235
+    },
+    {
+      "stage": "clinical_decision_support",
+      "status": "success",
+      "seconds": 21.62,
+      "tokens": 11300
+    },
+    {
+      "stage": "verification",
+      "status": "success",
+      "seconds": 28.05,
+      "tokens": 15954
+    },
+    {
+      "stage": "report",
+      "status": "success",
+      "seconds": 13.81,
+      "tokens": 1329
+    }
+  ],
+  "revision_rounds": 0,
+  "errors": [],
+  "tokens": {
+    "model_calls": 18,
+    "prompt": 73887,
+    "completion": 2254,
+    "total": 76141,
+    "estimated_cost_usd": 0.0182
+  },
+  "tool_calls": {
+    "total": 19,
+    "succeeded": 16,
+    "by_tool": {
+      "assemble_report": 1,
+      "assess_evidence": 9,
+      "get_cited_evidence": 2,
+      "record_clinical_consideration": 1,
+      "record_treatment_pathway": 1,
+      "record_uncertainty": 1,
+      "record_verdict": 2,
+      "run_verification_checks": 1,
+      "search_medical_evidence": 1
+    }
+  },
+  "report_file": "20261103-051926_PatientID_0005.md",
+  "log_file": "20261103-051926_PatientID_0005.log"
+}

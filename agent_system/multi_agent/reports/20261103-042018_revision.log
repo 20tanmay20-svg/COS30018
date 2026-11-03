@@ -1,0 +1,16 @@
+2026-11-03 04:20:18,102 | INFO | pipeline | Run started: make me a report for patient 3
+2026-11-03 04:20:18,102 | INFO | pipeline | Running patient_information
+2026-11-03 04:20:18,103 | INFO | patient_info_agent | Specific patient detected: PatientID_0003
+2026-11-03 04:20:18,105 | INFO | pipeline | Finished patient_information: success
+2026-11-03 04:20:18,105 | INFO | pipeline | Running medical_evidence
+2026-11-03 04:20:41,163 | INFO | pipeline | Finished medical_evidence: success
+2026-11-03 04:20:41,164 | INFO | pipeline | Running clinical_decision_support
+2026-11-03 04:21:09,543 | WARNING | clinical_decision_support_agent | Cloud model unavailable (attempt 1/5).
+2026-11-03 04:21:19,927 | INFO | pipeline | Finished clinical_decision_support: success
+2026-11-03 04:21:19,929 | INFO | pipeline | Running verification
+2026-11-03 04:21:22,790 | WARNING | verification_agent | Cloud model unavailable (attempt 1/5).
+2026-11-03 04:21:27,723 | WARNING | verification_agent | Cloud model unavailable (attempt 2/5).
+2026-11-03 04:21:42,716 | INFO | pipeline | Finished verification: success
+2026-11-03 04:21:42,717 | INFO | pipeline | Running report
+2026-11-03 04:21:46,322 | INFO | pipeline | Finished report: success
+2026-11-03 04:21:46,327 | INFO | pipeline | Run finished in 88.4s, 53317 tokens

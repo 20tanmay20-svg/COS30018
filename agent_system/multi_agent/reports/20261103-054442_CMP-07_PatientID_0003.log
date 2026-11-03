@@ -1,0 +1,19 @@
+2026-11-03 05:44:42,886 | INFO | pipeline | Run started: Prepare a report for PatientID_0003.
+2026-11-03 05:44:42,887 | INFO | pipeline | Pipeline started: new report request (Prepare a report for PatientID_0003.)
+2026-11-03 05:44:42,887 | INFO | pipeline | Running patient_information
+2026-11-03 05:44:42,887 | INFO | patient_info_agent | Specific patient detected: PatientID_0003
+2026-11-03 05:44:42,888 | INFO | pipeline | Finished patient_information: success
+2026-11-03 05:44:42,888 | INFO | pipeline | Running medical_evidence
+2026-11-03 05:45:58,161 | INFO | pipeline | Finished medical_evidence: success
+2026-11-03 05:45:58,166 | INFO | pipeline | Draft 1 of 3 (CDS then verification)
+2026-11-03 05:45:58,166 | INFO | pipeline | Running clinical_decision_support
+2026-11-03 05:46:01,709 | WARNING | clinical_decision_support_agent | Cloud model unavailable (attempt 1/5).
+2026-11-03 05:46:22,866 | INFO | pipeline | Finished clinical_decision_support: success
+2026-11-03 05:46:22,867 | INFO | pipeline | Running verification
+2026-11-03 05:46:23,869 | WARNING | verification_agent | Cloud model unavailable (attempt 1/5).
+2026-11-03 05:47:14,628 | INFO | pipeline | Finished verification: success
+2026-11-03 05:47:14,630 | INFO | pipeline | Verification approved the draft
+2026-11-03 05:47:14,630 | INFO | pipeline | Running report
+2026-11-03 05:47:17,599 | INFO | pipeline | Finished report: success
+2026-11-03 05:47:17,601 | INFO | pipeline | Pipeline finished: report version 1 saved to the session
+2026-11-03 05:47:17,610 | INFO | pipeline | Run finished in 154.7s, 42908 tokens

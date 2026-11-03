@@ -1,0 +1,26 @@
+{
+  "request": "make me a report for pation 3",
+  "started": "2026-11-03T04:20:04",
+  "seconds": 0.0,
+  "stages": [
+    {
+      "stage": "patient_information",
+      "status": "failed",
+      "seconds": 0.05,
+      "tokens": 0
+    }
+  ],
+  "revision_rounds": 0,
+  "errors": [
+    "Patient Information stage failed: Error while generating output:\nlitellm.APIConnectionError: Ollama_chatException - [Errno 61] Connection refused"
+  ],
+  "tokens": {
+    "model_calls": 0,
+    "prompt": 0,
+    "completion": 0,
+    "total": 0,
+    "estimated_cost_usd": 0.0
+  },
+  "report_file": null,
+  "log_file": "20261103-042004_revision.log"
+}

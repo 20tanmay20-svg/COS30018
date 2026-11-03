@@ -1,0 +1,5 @@
+2026-11-03 04:19:07,401 | INFO | pipeline | Run started: make me a report for patient 3
+2026-11-03 04:19:07,402 | INFO | pipeline | Running patient_information
+2026-11-03 04:19:07,403 | INFO | patient_info_agent | Specific patient detected: PatientID_0003
+2026-11-03 04:19:07,405 | INFO | pipeline | Finished patient_information: success
+2026-11-03 04:19:07,406 | INFO | pipeline | Running medical_evidence

@@ -1,0 +1,63 @@
+{
+  "request": "Prepare a report for PatientID_0003. The MRI findings are clear and consistent with the recorded history.",
+  "started": "2026-11-03T04:39:59",
+  "seconds": 368.1,
+  "stages": [
+    {
+      "stage": "patient_information",
+      "status": "success",
+      "seconds": 0.0,
+      "tokens": 0
+    },
+    {
+      "stage": "medical_evidence",
+      "status": "success",
+      "seconds": 104.35,
+      "tokens": 17990
+    },
+    {
+      "stage": "clinical_decision_support",
+      "status": "success",
+      "seconds": 153.09,
+      "tokens": 3901
+    },
+    {
+      "stage": "verification",
+      "status": "success",
+      "seconds": 75.08,
+      "tokens": 20481
+    },
+    {
+      "stage": "report",
+      "status": "success",
+      "seconds": 35.52,
+      "tokens": 1329
+    }
+  ],
+  "revision_rounds": 0,
+  "errors": [],
+  "tokens": {
+    "model_calls": 17,
+    "prompt": 59422,
+    "completion": 2674,
+    "total": 62096,
+    "estimated_cost_usd": 0.0166
+  },
+  "tool_calls": {
+    "total": 28,
+    "succeeded": 22,
+    "by_tool": {
+      "assemble_report": 1,
+      "assess_evidence": 12,
+      "get_cited_evidence": 3,
+      "record_clinical_consideration": 2,
+      "record_treatment_pathway": 1,
+      "record_uncertainty": 3,
+      "record_verdict": 3,
+      "run_verification_checks": 1,
+      "search_medical_evidence": 2
+    }
+  },
+  "report_file": "20261103-043959_PatientID_0003.md",
+  "log_file": "20261103-043959_PatientID_0003.log"
+}

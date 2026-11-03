@@ -1,0 +1,81 @@
+{
+  "case_id": "CMP-07",
+  "request": "Prepare a report for PatientID_0003.",
+  "started": "2026-11-03T05:44:42",
+  "seconds": 154.7,
+  "stages": [
+    {
+      "stage": "patient_information",
+      "status": "success",
+      "seconds": 0.0,
+      "tokens": 0
+    },
+    {
+      "stage": "medical_evidence",
+      "status": "success",
+      "seconds": 75.27,
+      "tokens": 7781
+    },
+    {
+      "stage": "clinical_decision_support",
+      "status": "success",
+      "seconds": 24.7,
+      "tokens": 3813
+    },
+    {
+      "stage": "verification",
+      "status": "success",
+      "seconds": 51.76,
+      "tokens": 10869
+    },
+    {
+      "stage": "report",
+      "status": "success",
+      "seconds": 2.97,
+      "tokens": 1329
+    }
+  ],
+  "revision_rounds": 0,
+  "errors": [],
+  "tokens": {
+    "model_calls": 11,
+    "prompt": 40899,
+    "completion": 2009,
+    "total": 42908,
+    "estimated_cost_usd": 0.0119
+  },
+  "tool_calls": {
+    "total": 18,
+    "succeeded": 18,
+    "by_tool": {
+      "assemble_report": 1,
+      "assess_evidence": 5,
+      "get_cited_evidence": 3,
+      "record_clinical_consideration": 1,
+      "record_treatment_pathway": 2,
+      "record_uncertainty": 1,
+      "record_verdict": 3,
+      "run_verification_checks": 1,
+      "search_medical_evidence": 1
+    }
+  },
+  "outcome": {
+    "patient_error": null,
+    "evidence_error": null,
+    "retrieved_pmids": [
+      "34898238",
+      "40578479",
+      "33581502",
+      "30409553",
+      "28271281"
+    ],
+    "uncertainties": [
+      "No MRI classification result was supplied; tumour type/grade is unknown.",
+      "Clinical notes, detailed MRI findings, patient performance status, and molecular pathology (including IDH mutation status and MGMT methylation status) are missing, which are necessary to determine eligibility for standard-of-care and potential clinical trial enrollment."
+    ],
+    "verification_status": "approved",
+    "verification_issues": []
+  },
+  "report_file": "20261103-054442_CMP-07_PatientID_0003.md",
+  "log_file": "20261103-054442_CMP-07_PatientID_0003.log"
+}

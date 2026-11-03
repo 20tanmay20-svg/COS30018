@@ -1,0 +1,18 @@
+2026-11-03 05:03:46,409 | INFO | pipeline | Run started: CMP-06: Prepare a report for PatientID_0003
+2026-11-03 05:03:46,410 | INFO | pipeline | Pipeline started: new report request (CMP-06: Prepare a report for PatientID_0003)
+2026-11-03 05:03:46,411 | INFO | pipeline | Running patient_information
+2026-11-03 05:03:46,412 | INFO | patient_info_agent | Specific patient detected: PatientID_0003
+2026-11-03 05:03:46,414 | INFO | pipeline | Finished patient_information: success
+2026-11-03 05:03:46,415 | INFO | pipeline | Running medical_evidence
+2026-11-03 05:04:06,770 | INFO | pipeline | Finished medical_evidence: success
+2026-11-03 05:04:06,771 | INFO | pipeline | Draft 1 of 3 (CDS then verification)
+2026-11-03 05:04:06,772 | INFO | pipeline | Running clinical_decision_support
+2026-11-03 05:04:12,898 | WARNING | clinical_decision_support_agent | Cloud model unavailable (attempt 1/5).
+2026-11-03 05:04:17,212 | INFO | pipeline | Finished clinical_decision_support: success
+2026-11-03 05:04:17,213 | INFO | pipeline | Running verification
+2026-11-03 05:04:29,682 | INFO | pipeline | Finished verification: success
+2026-11-03 05:04:29,684 | INFO | pipeline | Verification approved the draft
+2026-11-03 05:04:29,684 | INFO | pipeline | Running report
+2026-11-03 05:04:30,585 | ERROR | pipeline | Finished report: failed (Report generation failed (AgentGenerationError); check dependencies and model configuration.)
+2026-11-03 05:04:30,585 | ERROR | pipeline | Pipeline finished without a report; the session keeps its last good report
+2026-11-03 05:04:30,587 | INFO | pipeline | Run finished in 44.2s, 50293 tokens

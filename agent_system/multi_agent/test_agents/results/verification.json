@@ -3,7 +3,7 @@
   "cases_run": 8,
   "task_success_rate": 1.0,
   "failure_rate": 0.0,
-  "average_latency_seconds": 0.004,
+  "average_latency_seconds": 0.127,
   "total_tokens": 0,
   "estimated_cost_usd": 0.0,
   "cases": [
@@ -12,7 +12,7 @@
       "scenario": "All CDS claims supported",
       "passed": true,
       "reason": "",
-      "seconds": 0.006,
+      "seconds": 0.989,
       "tokens": 0,
       "cost_usd": 0.0
     },

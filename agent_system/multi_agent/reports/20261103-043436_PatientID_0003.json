@@ -1,0 +1,64 @@
+{
+  "request": "Prepare a report for PatientID_0003. The MRI findings are clear and consistent with the recorded history.",
+  "started": "2026-11-03T04:34:36",
+  "seconds": 173.5,
+  "stages": [
+    {
+      "stage": "patient_information",
+      "status": "success",
+      "seconds": 0.0,
+      "tokens": 0
+    },
+    {
+      "stage": "medical_evidence",
+      "status": "success",
+      "seconds": 115.5,
+      "tokens": 46699
+    },
+    {
+      "stage": "clinical_decision_support",
+      "status": "success",
+      "seconds": 40.89,
+      "tokens": 3787
+    },
+    {
+      "stage": "verification",
+      "status": "success",
+      "seconds": 14.96,
+      "tokens": 8111
+    },
+    {
+      "stage": "report",
+      "status": "failed",
+      "seconds": 2.09,
+      "tokens": 0
+    }
+  ],
+  "revision_rounds": 0,
+  "errors": [
+    "Report Generation Agent: Report generation failed (AgentGenerationError); check dependencies and model configuration."
+  ],
+  "tokens": {
+    "model_calls": 14,
+    "prompt": 73094,
+    "completion": 2890,
+    "total": 75984,
+    "estimated_cost_usd": 0.0162
+  },
+  "tool_calls": {
+    "total": 24,
+    "succeeded": 21,
+    "by_tool": {
+      "assess_evidence": 11,
+      "get_cited_evidence": 3,
+      "record_clinical_consideration": 2,
+      "record_treatment_pathway": 1,
+      "record_uncertainty": 2,
+      "record_verdict": 3,
+      "run_verification_checks": 1,
+      "search_medical_evidence": 1
+    }
+  },
+  "report_file": null,
+  "log_file": "20261103-043436_PatientID_0003.log"
+}

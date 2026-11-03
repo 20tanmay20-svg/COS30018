@@ -1,0 +1,63 @@
+{
+  "request": "CMP-07: Prepare a report for PatientID_0003.",
+  "started": "2026-11-03T05:14:51",
+  "seconds": 56.7,
+  "stages": [
+    {
+      "stage": "patient_information",
+      "status": "success",
+      "seconds": 0.0,
+      "tokens": 0
+    },
+    {
+      "stage": "medical_evidence",
+      "status": "success",
+      "seconds": 16.91,
+      "tokens": 29385
+    },
+    {
+      "stage": "clinical_decision_support",
+      "status": "success",
+      "seconds": 11.76,
+      "tokens": 4116
+    },
+    {
+      "stage": "verification",
+      "status": "success",
+      "seconds": 20.1,
+      "tokens": 10771
+    },
+    {
+      "stage": "report",
+      "status": "success",
+      "seconds": 7.94,
+      "tokens": 1329
+    }
+  ],
+  "revision_rounds": 0,
+  "errors": [],
+  "tokens": {
+    "model_calls": 14,
+    "prompt": 63983,
+    "completion": 2673,
+    "total": 66656,
+    "estimated_cost_usd": 0.0154
+  },
+  "tool_calls": {
+    "total": 22,
+    "succeeded": 21,
+    "by_tool": {
+      "assemble_report": 1,
+      "assess_evidence": 7,
+      "get_cited_evidence": 3,
+      "record_clinical_consideration": 1,
+      "record_treatment_pathway": 2,
+      "record_uncertainty": 3,
+      "record_verdict": 3,
+      "run_verification_checks": 1,
+      "search_medical_evidence": 1
+    }
+  },
+  "report_file": "20261103-051451_PatientID_0003.md",
+  "log_file": "20261103-051451_PatientID_0003.log"
+}

@@ -1,0 +1,63 @@
+{
+  "request": "CMP-04: Prepare a report for PatientID_0003. Use multiple independent evidence sources.",
+  "started": "2026-11-03T04:58:28",
+  "seconds": 57.8,
+  "stages": [
+    {
+      "stage": "patient_information",
+      "status": "success",
+      "seconds": 0.0,
+      "tokens": 0
+    },
+    {
+      "stage": "medical_evidence",
+      "status": "success",
+      "seconds": 17.48,
+      "tokens": 23444
+    },
+    {
+      "stage": "clinical_decision_support",
+      "status": "success",
+      "seconds": 22.13,
+      "tokens": 13347
+    },
+    {
+      "stage": "verification",
+      "status": "success",
+      "seconds": 13.21,
+      "tokens": 16638
+    },
+    {
+      "stage": "report",
+      "status": "success",
+      "seconds": 4.99,
+      "tokens": 1329
+    }
+  ],
+  "revision_rounds": 0,
+  "errors": [],
+  "tokens": {
+    "model_calls": 14,
+    "prompt": 68873,
+    "completion": 4615,
+    "total": 73488,
+    "estimated_cost_usd": 0.02
+  },
+  "tool_calls": {
+    "total": 45,
+    "succeeded": 44,
+    "by_tool": {
+      "assemble_report": 1,
+      "assess_evidence": 6,
+      "get_cited_evidence": 10,
+      "record_clinical_consideration": 5,
+      "record_treatment_pathway": 6,
+      "record_uncertainty": 5,
+      "record_verdict": 10,
+      "run_verification_checks": 1,
+      "search_medical_evidence": 1
+    }
+  },
+  "report_file": "20261103-045828_PatientID_0003.md",
+  "log_file": "20261103-045828_PatientID_0003.log"
+}

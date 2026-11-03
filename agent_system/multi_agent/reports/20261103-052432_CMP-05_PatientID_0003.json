@@ -1,0 +1,95 @@
+{
+  "case_id": "CMP-05",
+  "request": "Prepare a report for PatientID_0003.",
+  "started": "2026-11-03T05:24:32",
+  "seconds": 116.4,
+  "stages": [
+    {
+      "stage": "patient_information",
+      "status": "success",
+      "seconds": 0.0,
+      "tokens": 0
+    },
+    {
+      "stage": "medical_evidence",
+      "status": "success",
+      "seconds": 29.81,
+      "tokens": 32883
+    },
+    {
+      "stage": "clinical_decision_support",
+      "status": "success",
+      "seconds": 9.85,
+      "tokens": 4184
+    },
+    {
+      "stage": "verification",
+      "status": "success",
+      "seconds": 31.35,
+      "tokens": 31013
+    },
+    {
+      "stage": "clinical_decision_support",
+      "status": "success",
+      "seconds": 14.78,
+      "tokens": 12475
+    },
+    {
+      "stage": "verification",
+      "status": "success",
+      "seconds": 10.54,
+      "tokens": 10169
+    },
+    {
+      "stage": "report",
+      "status": "success",
+      "seconds": 20.05,
+      "tokens": 1329
+    }
+  ],
+  "revision_rounds": 1,
+  "errors": [],
+  "tokens": {
+    "model_calls": 27,
+    "prompt": 121329,
+    "completion": 4120,
+    "total": 125449,
+    "estimated_cost_usd": 0.0301
+  },
+  "tool_calls": {
+    "total": 37,
+    "succeeded": 34,
+    "by_tool": {
+      "assemble_report": 1,
+      "assess_evidence": 9,
+      "get_cited_evidence": 6,
+      "record_clinical_consideration": 3,
+      "record_treatment_pathway": 3,
+      "record_uncertainty": 5,
+      "record_verdict": 6,
+      "run_verification_checks": 2,
+      "search_medical_evidence": 2
+    }
+  },
+  "outcome": {
+    "patient_error": null,
+    "evidence_error": null,
+    "retrieved_pmids": [
+      "36634606",
+      "34898238",
+      "40578479",
+      "30409553",
+      "38992848"
+    ],
+    "uncertainties": [
+      "No MRI classification result was supplied; tumour type/grade is unknown.",
+      "Molecular diagnostic information (including IDH mutation status and MGMT promoter methylation) is unknown; these factors are essential for prognostic stratification and may guide treatment intensity.",
+      "The patient's clinical performance status (e.g., KPS, ECOG) is unknown, which is critical for determining treatment eligibility and intensity.",
+      "The extent of surgical resection (maximal safe resection status) and current postoperative clinical/neurological status are unknown."
+    ],
+    "verification_status": "approved",
+    "verification_issues": []
+  },
+  "report_file": "20261103-052432_CMP-05_PatientID_0003.md",
+  "log_file": "20261103-052432_CMP-05_PatientID_0003.log"
+}

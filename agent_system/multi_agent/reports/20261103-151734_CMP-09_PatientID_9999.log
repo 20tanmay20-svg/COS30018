@@ -1,0 +1,7 @@
+2026-11-03 15:17:34,412 | INFO | pipeline | Run started: Prepare a report for PatientID_9999
+2026-11-03 15:17:34,413 | INFO | pipeline | Pipeline started: new report request (Prepare a report for PatientID_9999)
+2026-11-03 15:17:34,413 | INFO | pipeline | Running patient_information
+2026-11-03 15:17:34,413 | INFO | patient_info_agent | Specific patient detected: PatientID_9999
+2026-11-03 15:17:34,413 | ERROR | pipeline | Finished patient_information: failed (Patient PatientID_9999 was not found.)
+2026-11-03 15:17:34,413 | ERROR | pipeline | Pipeline stopped at patient_information; no report produced
+2026-11-03 15:17:34,414 | INFO | pipeline | Run finished in 0.0s, 0 tokens

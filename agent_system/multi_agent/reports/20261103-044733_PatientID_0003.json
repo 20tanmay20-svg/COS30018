@@ -1,0 +1,63 @@
+{
+  "request": "Prepare a report for PatientID_0003. Use the medical history and retrieve relevant literature.",
+  "started": "2026-11-03T04:47:33",
+  "seconds": 84.1,
+  "stages": [
+    {
+      "stage": "patient_information",
+      "status": "success",
+      "seconds": 0.0,
+      "tokens": 0
+    },
+    {
+      "stage": "medical_evidence",
+      "status": "success",
+      "seconds": 47.05,
+      "tokens": 111321
+    },
+    {
+      "stage": "clinical_decision_support",
+      "status": "success",
+      "seconds": 22.83,
+      "tokens": 16472
+    },
+    {
+      "stage": "verification",
+      "status": "success",
+      "seconds": 10.65,
+      "tokens": 20335
+    },
+    {
+      "stage": "report",
+      "status": "success",
+      "seconds": 3.53,
+      "tokens": 1329
+    }
+  ],
+  "revision_rounds": 0,
+  "errors": [],
+  "tokens": {
+    "model_calls": 18,
+    "prompt": 189171,
+    "completion": 5691,
+    "total": 194862,
+    "estimated_cost_usd": 0.0315
+  },
+  "tool_calls": {
+    "total": 55,
+    "succeeded": 47,
+    "by_tool": {
+      "assemble_report": 1,
+      "assess_evidence": 8,
+      "get_cited_evidence": 10,
+      "record_clinical_consideration": 4,
+      "record_treatment_pathway": 8,
+      "record_uncertainty": 12,
+      "record_verdict": 10,
+      "run_verification_checks": 1,
+      "search_medical_evidence": 1
+    }
+  },
+  "report_file": "20261103-044733_PatientID_0003.md",
+  "log_file": "20261103-044733_PatientID_0003.log"
+}

@@ -1,0 +1,38 @@
+{
+  "case_id": "CMP-09",
+  "request": "Prepare a report for PatientID_9999",
+  "started": "2026-11-03T15:15:48",
+  "seconds": 0.0,
+  "stages": [
+    {
+      "stage": "patient_information",
+      "status": "failed",
+      "seconds": 0.0,
+      "tokens": 0
+    }
+  ],
+  "revision_rounds": 0,
+  "errors": [],
+  "tokens": {
+    "model_calls": 0,
+    "prompt": 0,
+    "completion": 0,
+    "total": 0,
+    "estimated_cost_usd": 0.0
+  },
+  "tool_calls": {
+    "total": 0,
+    "succeeded": 0,
+    "by_tool": {}
+  },
+  "outcome": {
+    "patient_error": "Patient PatientID_9999 was not found.",
+    "evidence_error": null,
+    "retrieved_pmids": [],
+    "uncertainties": [],
+    "verification_status": "pending",
+    "verification_issues": []
+  },
+  "report_file": null,
+  "log_file": "20261103-151548_CMP-09_PatientID_9999.log"
+}

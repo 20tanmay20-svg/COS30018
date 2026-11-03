@@ -1,0 +1,94 @@
+{
+  "case_id": "CMP-06",
+  "request": "Prepare a report for PatientID_0003.",
+  "started": "2026-11-03T05:30:45",
+  "seconds": 281.6,
+  "stages": [
+    {
+      "stage": "patient_information",
+      "status": "success",
+      "seconds": 0.0,
+      "tokens": 0
+    },
+    {
+      "stage": "medical_evidence",
+      "status": "success",
+      "seconds": 230.47,
+      "tokens": 21241
+    },
+    {
+      "stage": "clinical_decision_support",
+      "status": "success",
+      "seconds": 6.04,
+      "tokens": 3736
+    },
+    {
+      "stage": "verification",
+      "status": "success",
+      "seconds": 25.2,
+      "tokens": 8483
+    },
+    {
+      "stage": "clinical_decision_support",
+      "status": "success",
+      "seconds": 7.74,
+      "tokens": 7535
+    },
+    {
+      "stage": "verification",
+      "status": "success",
+      "seconds": 10.01,
+      "tokens": 7756
+    },
+    {
+      "stage": "report",
+      "status": "success",
+      "seconds": 2.14,
+      "tokens": 1329
+    }
+  ],
+  "revision_rounds": 1,
+  "errors": [],
+  "tokens": {
+    "model_calls": 20,
+    "prompt": 74785,
+    "completion": 4031,
+    "total": 78816,
+    "estimated_cost_usd": 0.0225
+  },
+  "tool_calls": {
+    "total": 33,
+    "succeeded": 27,
+    "by_tool": {
+      "assemble_report": 1,
+      "assess_evidence": 12,
+      "get_cited_evidence": 5,
+      "record_clinical_consideration": 2,
+      "record_treatment_pathway": 2,
+      "record_uncertainty": 2,
+      "record_verdict": 5,
+      "run_verification_checks": 2,
+      "search_medical_evidence": 2
+    }
+  },
+  "outcome": {
+    "patient_error": null,
+    "evidence_error": null,
+    "retrieved_pmids": [
+      "41057143",
+      "22877848",
+      "40057744",
+      "31851783",
+      "41365876",
+      "37540408"
+    ],
+    "uncertainties": [
+      "No MRI classification result was supplied; tumour type/grade is unknown.",
+      "Missing key patient clinical details, including performance status (KPS), extent of surgical resection, and molecular profile (e.g., IDH, MGMT status), which are necessary for tailoring standard treatment."
+    ],
+    "verification_status": "approved",
+    "verification_issues": []
+  },
+  "report_file": "20261103-053045_CMP-06_PatientID_0003.md",
+  "log_file": "20261103-053045_CMP-06_PatientID_0003.log"
+}

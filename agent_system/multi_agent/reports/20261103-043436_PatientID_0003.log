@@ -1,0 +1,20 @@
+2026-11-03 04:34:36,373 | INFO | pipeline | Run started: Prepare a report for PatientID_0003. The MRI findings are clear and consistent with the recorded history.
+2026-11-03 04:34:36,374 | INFO | pipeline | Pipeline started: new report request (Prepare a report for PatientID_0003. The MRI findings are clear and consistent with the recorded history.)
+2026-11-03 04:34:36,374 | INFO | pipeline | Running patient_information
+2026-11-03 04:34:36,374 | INFO | patient_info_agent | Specific patient detected: PatientID_0003
+2026-11-03 04:34:36,377 | INFO | pipeline | Finished patient_information: success
+2026-11-03 04:34:36,377 | INFO | pipeline | Running medical_evidence
+2026-11-03 04:36:31,873 | INFO | pipeline | Finished medical_evidence: success
+2026-11-03 04:36:31,875 | INFO | pipeline | Draft 1 of 3 (CDS then verification)
+2026-11-03 04:36:31,875 | INFO | pipeline | Running clinical_decision_support
+2026-11-03 04:36:32,891 | WARNING | clinical_decision_support_agent | Cloud model unavailable (attempt 1/5).
+2026-11-03 04:36:45,279 | WARNING | clinical_decision_support_agent | Cloud model unavailable (attempt 1/5).
+2026-11-03 04:37:12,763 | INFO | pipeline | Finished clinical_decision_support: success
+2026-11-03 04:37:12,766 | INFO | pipeline | Running verification
+2026-11-03 04:37:13,978 | WARNING | verification_agent | Cloud model unavailable (attempt 1/5).
+2026-11-03 04:37:27,721 | INFO | pipeline | Finished verification: success
+2026-11-03 04:37:27,723 | INFO | pipeline | Verification approved the draft
+2026-11-03 04:37:27,723 | INFO | pipeline | Running report
+2026-11-03 04:37:29,813 | ERROR | pipeline | Finished report: failed (Report generation failed (AgentGenerationError); check dependencies and model configuration.)
+2026-11-03 04:37:29,813 | ERROR | pipeline | Pipeline finished without a report; the session keeps its last good report
+2026-11-03 04:37:29,818 | INFO | pipeline | Run finished in 173.5s, 75984 tokens

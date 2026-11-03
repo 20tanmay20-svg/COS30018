@@ -14,7 +14,7 @@ from unittest import mock
 
 import medical_evidence_agent
 import patient_info_agent
-from evaluate_runs import BAD_CLAIMS
+from test_pipeline.evaluate_runs import BAD_CLAIMS
 
 
 class BrokenPubMed:

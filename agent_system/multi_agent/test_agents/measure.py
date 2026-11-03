@@ -5,7 +5,7 @@ import time
 from pathlib import Path
 
 from fake_models import MODE
-from run_recorder import USAGE  # running total of every model call
+from test_pipeline.run_recorder import USAGE  # running total of every model call
 
 RESULTS_DIR = Path(__file__).parent / "results"
 ROWS = []  # one dict per test case, filled in by the `record` fixture in conftest.py
