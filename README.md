@@ -108,8 +108,8 @@ python test_pipeline\evaluate_runs.py
 
 The result is written to `agent_system/multi_agent/test_pipeline/results/`.
 
-**Unit tests** (Patient Info and Verification agents). Run from the project root. They run
-offline in about a second, using a scripted stand-in for the model. Set `LIVE=1` to use the real model.
+**Unit tests**  Run from the project root. They run offline in about a second, 
+using a scripted stand-in for the model. Set `LIVE=1` to use the real model.
 
 macOS / Linux:
 ```bash
@@ -173,9 +173,7 @@ Open http://localhost:5173. The dev server forwards `/api` requests to the backe
 The web app talks to the FastAPI routes in `backend/app/`. Install its packages with
 `pip install -r backend/requirements.txt`.
 
-**Known gap:** `backend/app/main.py` (the FastAPI entry point) and `backend/Dockerfile` are
-not in the repository, so `uvicorn app.main:app` and `docker-compose up` do not work as the
-repository stands. The agent systems and their tests do not need the backend.
+
 
 ---
 
