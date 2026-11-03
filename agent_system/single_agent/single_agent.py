@@ -9,10 +9,12 @@ import sys
 import traceback
 
 
-PROJECT_ROOT = Path(__file__).resolve().parent
-# Make the existing tools package importable when this module is loaded from another directory.
-if str(PROJECT_ROOT) not in sys.path:
-    sys.path.insert(0, str(PROJECT_ROOT))
+PROJECT_ROOT = Path(__file__).resolve().parents[1]
+REPOSITORY_ROOT = PROJECT_ROOT.parent
+# Support package imports and the existing top-level sibling imports used by multi_agent.
+for import_root in (REPOSITORY_ROOT, PROJECT_ROOT):
+    if str(import_root) not in sys.path:
+        sys.path.insert(0, str(import_root))
 
 from dotenv import load_dotenv
 

@@ -1,0 +1,50 @@
+{
+  "case_id": "CMP-02",
+  "request": "Prepare a report for PatientID_0003. Use the medical history and retrieve relevant literature.",
+  "started": "2026-11-03T18:08:14",
+  "seconds": 249.86,
+  "stages": [
+    {
+      "stage": "patient_information",
+      "status": "success"
+    },
+    {
+      "stage": "medical_evidence",
+      "status": "success"
+    },
+    {
+      "stage": "clinical_decision_support",
+      "status": "success"
+    },
+    {
+      "stage": "verification",
+      "status": "success"
+    },
+    {
+      "stage": "report",
+      "status": "success"
+    }
+  ],
+  "revision_rounds": 0,
+  "errors": [],
+  "outcome": {
+    "patient_error": null,
+    "evidence_error": null,
+    "retrieved_pmids": [
+      "30888558",
+      "37059335",
+      "34898238",
+      "29086250",
+      "27310651"
+    ],
+    "uncertainties": [
+      "No MRI classification result was supplied; tumour type/grade is unknown.",
+      "Patient-specific clinical data is entirely unknown, including performance status, neurological symptoms, comorbidities, and tumor molecular characteristics (e.g., MGMT promoter methylation, IDH status).",
+      "No MRI findings or post-operative imaging are available to assess the current tumor status, surgical outcome (extent of resection), or baseline for target volume delineation."
+    ],
+    "verification_status": "approved",
+    "verification_issues": []
+  },
+  "report_file": "20261103-180814-938778_CMP-02.md",
+  "log_file": null
+}

@@ -1,0 +1,40 @@
+{
+  "case_id": "CMP-08",
+  "request": "Prepare a report for PatientID_0003. Retrieve relevant medical evidence.",
+  "started": "2026-11-03T18:21:35",
+  "seconds": 20.5,
+  "stages": [
+    {
+      "stage": "patient_information",
+      "status": "success"
+    },
+    {
+      "stage": "medical_evidence",
+      "status": "failed"
+    },
+    {
+      "stage": "clinical_decision_support",
+      "status": "pending"
+    },
+    {
+      "stage": "verification",
+      "status": "pending"
+    },
+    {
+      "stage": "report",
+      "status": "pending"
+    }
+  ],
+  "revision_rounds": 0,
+  "errors": [],
+  "outcome": {
+    "patient_error": null,
+    "evidence_error": "Evidence retrieval incomplete or no relevant abstract-backed evidence found. PubMed search attempt 1 failed (RuntimeError). PubMed search attempt 2 failed (RuntimeError). PubMed search attempt 3 failed (RuntimeError).",
+    "retrieved_pmids": [],
+    "uncertainties": [],
+    "verification_status": "pending",
+    "verification_issues": []
+  },
+  "report_file": null,
+  "log_file": null
+}
