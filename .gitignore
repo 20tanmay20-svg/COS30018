@@ -55,5 +55,6 @@ Thumbs.db
 # Personal files
 changes.md
 
-# Saved runs from main.py (contain patient data)
-agent_system/multi_agent/reports/
+
+# Test caches
+*pytest_cache/
