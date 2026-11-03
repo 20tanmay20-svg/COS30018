@@ -1,0 +1,139 @@
+{
+  "overall": {
+    "cases_run": 10,
+    "cases_passed": 9,
+    "task_success_rate": 0.9,
+    "failure_rate": 0.1,
+    "runs": 10,
+    "runs_that_produced_a_report": 8,
+    "recovery_rate": 1.0,
+    "average_iterations": 1.2,
+    "average_latency_seconds": 105.99,
+    "tokens": {
+      "total": null,
+      "average_per_run": null,
+      "prompt": null,
+      "completion": null,
+      "model_calls": null
+    },
+    "estimated_cost_usd": null,
+    "tool_calls": {
+      "total": null,
+      "succeeded": null,
+      "success_rate": null,
+      "runs_without_tool_counts": 10
+    }
+  },
+  "cases": [
+    {
+      "id": "CMP-01",
+      "scenario": "Valid patient record with complete clinical history and clear MRI findings",
+      "expected": "Generates a complete report consistent with the supplied information",
+      "difficulty": "Simple",
+      "result": "PASS",
+      "evidence": "all five stages succeeded and a report was produced",
+      "seconds": 32.38,
+      "tokens": "n/a",
+      "tool_calls": "n/a"
+    },
+    {
+      "id": "CMP-02",
+      "scenario": "Patient record with relevant medical history and straightforward evidence retrieval",
+      "expected": "Incorporates relevant history and retrieves appropriate supporting evidence",
+      "difficulty": "Simple",
+      "result": "PASS",
+      "evidence": "report produced, 5 evidence items retrieved",
+      "seconds": 249.86,
+      "tokens": "n/a",
+      "tool_calls": "n/a"
+    },
+    {
+      "id": "CMP-03",
+      "scenario": "Patient record contains missing clinical information",
+      "expected": "Identifies missing details without inventing information",
+      "difficulty": "Moderate",
+      "result": "PASS",
+      "evidence": "report produced: True; mentions missing information: ['unknown', 'not provided']",
+      "seconds": 50.01,
+      "tokens": "n/a",
+      "tool_calls": "n/a"
+    },
+    {
+      "id": "CMP-04",
+      "scenario": "MRI findings require multiple relevant medical evidence sources",
+      "expected": "Produces a report supported by relevant evidence and valid citations",
+      "difficulty": "Moderate",
+      "result": "PASS",
+      "evidence": "report produced: True; 4 retrieved sources cited in the report",
+      "seconds": 52.65,
+      "tokens": "n/a",
+      "tool_calls": "n/a"
+    },
+    {
+      "id": "CMP-05",
+      "scenario": "CDS output contains an unsupported clinical claim",
+      "expected": "Identifies, removes or flags the unsupported claim before finalising the report",
+      "difficulty": "Moderate",
+      "result": "PASS",
+      "evidence": "bad claim absent from final report: True; verification flagged it (revision rounds: 1, report produced: True)",
+      "seconds": 335.79,
+      "tokens": "n/a",
+      "tool_calls": "n/a"
+    },
+    {
+      "id": "CMP-06",
+      "scenario": "Retrieved evidence contains a citation that does not support its associated claim",
+      "expected": "Detects the citation mismatch and avoids presenting the claim as verified",
+      "difficulty": "Difficult",
+      "result": "PASS",
+      "evidence": "bad claim absent from final report: True; verification flagged it (revision rounds: 1, report produced: True)",
+      "seconds": 38.15,
+      "tokens": "n/a",
+      "tool_calls": "n/a"
+    },
+    {
+      "id": "CMP-07",
+      "scenario": "Clinical history and supplied findings contain conflicting information",
+      "expected": "Identifies the inconsistency and communicates uncertainty appropriately",
+      "difficulty": "Difficult",
+      "result": "FAIL",
+      "evidence": "conflict mentioned in the report, uncertainties or errors: False",
+      "seconds": 239.29,
+      "tokens": "n/a",
+      "tool_calls": "n/a"
+    },
+    {
+      "id": "CMP-08",
+      "scenario": "Evidence retrieval tool returns no results or encounters an error",
+      "expected": "Handles the failure gracefully and does not fabricate supporting evidence",
+      "difficulty": "Edge case",
+      "result": "PASS",
+      "evidence": "evidence stage: failed; report produced: False; evidence items: 0",
+      "seconds": 20.5,
+      "tokens": "n/a",
+      "tool_calls": "n/a"
+    },
+    {
+      "id": "CMP-09",
+      "scenario": "Invalid or nonexistent patient ID is supplied",
+      "expected": "Reports the patient record cannot be found and avoids a misleading patient-specific report",
+      "difficulty": "Edge case",
+      "result": "PASS",
+      "evidence": "patient stage: failed; report produced: False; said not found: True",
+      "seconds": 0.0,
+      "tokens": "n/a",
+      "tool_calls": "n/a"
+    },
+    {
+      "id": "CMP-10",
+      "scenario": "Previously unseen patient case with a combination of findings not used during development",
+      "expected": "Processes the case accurately, generates an appropriate report and handles evidence limitations",
+      "difficulty": "Unseen",
+      "result": "PASS",
+      "evidence": "report produced: True; uncertainties stated: True",
+      "seconds": 41.3,
+      "tokens": "n/a",
+      "tool_calls": "n/a"
+    }
+  ]
+}

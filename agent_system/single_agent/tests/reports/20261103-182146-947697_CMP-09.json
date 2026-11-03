@@ -1,0 +1,42 @@
+{
+  "case_id": "CMP-09",
+  "request": "Prepare a report for PatientID_99999999.",
+  "started": "2026-11-03T18:21:46",
+  "seconds": 0.0,
+  "stages": [
+    {
+      "stage": "patient_information",
+      "status": "failed"
+    },
+    {
+      "stage": "medical_evidence",
+      "status": "pending"
+    },
+    {
+      "stage": "clinical_decision_support",
+      "status": "pending"
+    },
+    {
+      "stage": "verification",
+      "status": "pending"
+    },
+    {
+      "stage": "report",
+      "status": "pending"
+    }
+  ],
+  "revision_rounds": 0,
+  "errors": [
+    "Patient information: Patient PatientID_99999999 was not found."
+  ],
+  "outcome": {
+    "patient_error": "Patient PatientID_99999999 was not found.",
+    "evidence_error": null,
+    "retrieved_pmids": [],
+    "uncertainties": [],
+    "verification_status": "pending",
+    "verification_issues": []
+  },
+  "report_file": null,
+  "log_file": null
+}

@@ -1,0 +1,56 @@
+{
+  "case_id": "CMP-07",
+  "request": "Prepare a report for PatientID_0003. Check the clinical history for inconsistencies.",
+  "started": "2026-11-03T18:21:03",
+  "seconds": 239.29,
+  "stages": [
+    {
+      "stage": "patient_information",
+      "status": "success"
+    },
+    {
+      "stage": "medical_evidence",
+      "status": "success"
+    },
+    {
+      "stage": "clinical_decision_support",
+      "status": "success"
+    },
+    {
+      "stage": "verification",
+      "status": "success"
+    },
+    {
+      "stage": "report",
+      "status": "success"
+    }
+  ],
+  "revision_rounds": 0,
+  "errors": [],
+  "outcome": {
+    "patient_error": null,
+    "evidence_error": null,
+    "retrieved_pmids": [
+      "33085022",
+      "31374545",
+      "33283529",
+      "31941461",
+      "38294637",
+      "38053701"
+    ],
+    "uncertainties": [
+      "No MRI classification result was supplied; tumour type/grade is unknown.",
+      "Clinical notes are unknown, preventing assessment of clinical history or identification of inconsistencies.",
+      "Previous reports summary is unknown, preventing assessment of clinical history or identification of inconsistencies.",
+      "MRI findings are unknown, precluding correlation of clinical or pathological findings with imaging.",
+      "Complete clinical history for PatientID_0003 is unknown, including physical exam findings, current neurological status, and imaging studies (MRI), which are critical for accurate management planning.",
+      "Pathological report details for PatientID_0003 are unknown, making it impossible to evaluate if any histological variants (e.g., small cell variant) or specific molecular markers are present that might alter prognosis or management.",
+      "Clinical notes are unknown.",
+      "Previous report summaries are unknown."
+    ],
+    "verification_status": "approved",
+    "verification_issues": []
+  },
+  "report_file": "20261103-182103-816235_CMP-07.md",
+  "log_file": null
+}

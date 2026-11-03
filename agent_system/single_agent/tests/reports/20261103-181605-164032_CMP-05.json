@@ -1,0 +1,51 @@
+{
+  "case_id": "CMP-05",
+  "request": "Prepare a report for PatientID_0003. Assess the evidence and flag unsupported claims.",
+  "started": "2026-11-03T18:16:05",
+  "seconds": 335.79,
+  "stages": [
+    {
+      "stage": "patient_information",
+      "status": "success"
+    },
+    {
+      "stage": "medical_evidence",
+      "status": "success"
+    },
+    {
+      "stage": "clinical_decision_support",
+      "status": "success"
+    },
+    {
+      "stage": "verification",
+      "status": "success"
+    },
+    {
+      "stage": "report",
+      "status": "success"
+    }
+  ],
+  "revision_rounds": 1,
+  "errors": [],
+  "outcome": {
+    "patient_error": null,
+    "evidence_error": null,
+    "retrieved_pmids": [
+      "30888558",
+      "37059335",
+      "36634606",
+      "27310651",
+      "34898238"
+    ],
+    "uncertainties": [
+      "No MRI classification result was supplied; tumour type/grade is unknown.",
+      "Complete clinical history, physical examination findings, performance status, and baseline neurological evaluation are missing.",
+      "MGMT promoter methylation status is unknown, which is a critical factor for predicting response to temozolomide and overall prognosis.",
+      "Current imaging findings, specifically post-operative MRI, are unknown, preventing assessment of the extent of resection or target volumes for radiotherapy."
+    ],
+    "verification_status": "approved",
+    "verification_issues": []
+  },
+  "report_file": "20261103-181605-164032_CMP-05.md",
+  "log_file": null
+}
