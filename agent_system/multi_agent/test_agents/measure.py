@@ -27,7 +27,12 @@ def _average(values):
     return round(sum(values) / len(values), 3) if values else None
 
 
-AREAS = {"PI": "patient_info", "VA": "verification"}
+AREAS = {
+    "PI": "patient_info",
+    "VA": "verification",
+    "ME": "medical_evidence",
+    "RG": "report_generation",
+}
 
 
 def write_report():

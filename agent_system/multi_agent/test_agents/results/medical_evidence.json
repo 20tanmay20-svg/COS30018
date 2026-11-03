@@ -1,0 +1,83 @@
+{
+  "mode": "offline (stand-in models)",
+  "cases_run": 8,
+  "task_success_rate": 1.0,
+  "failure_rate": 0.0,
+  "average_latency_seconds": 0.001,
+  "total_tokens": 0,
+  "estimated_cost_usd": 0.0,
+  "cases": [
+    {
+      "id": "ME-01",
+      "scenario": "Relevant GBM literature",
+      "passed": true,
+      "reason": "",
+      "seconds": 0.0,
+      "tokens": 0,
+      "cost_usd": 0.0
+    },
+    {
+      "id": "ME-02",
+      "scenario": "Preserve source details and associations",
+      "passed": true,
+      "reason": "",
+      "seconds": 0.0,
+      "tokens": 0,
+      "cost_usd": 0.0
+    },
+    {
+      "id": "ME-03",
+      "scenario": "Mixed relevant and unrelated records",
+      "passed": true,
+      "reason": "",
+      "seconds": 0.001,
+      "tokens": 0,
+      "cost_usd": 0.0
+    },
+    {
+      "id": "ME-04",
+      "scenario": "Missing abstract and citation details",
+      "passed": true,
+      "reason": "",
+      "seconds": 0.0,
+      "tokens": 0,
+      "cost_usd": 0.0
+    },
+    {
+      "id": "ME-05",
+      "scenario": "Preserve conflicting evidence and supplied uncertainty",
+      "passed": true,
+      "reason": "",
+      "seconds": 0.002,
+      "tokens": 0,
+      "cost_usd": 0.0
+    },
+    {
+      "id": "ME-06",
+      "scenario": "Retracted record excluded from useful evidence",
+      "passed": true,
+      "reason": "",
+      "seconds": 0.001,
+      "tokens": 0,
+      "cost_usd": 0.0
+    },
+    {
+      "id": "ME-07",
+      "scenario": "Empty retrieval and provider failure",
+      "passed": true,
+      "reason": "",
+      "seconds": 0.001,
+      "tokens": 0,
+      "cost_usd": 0.0
+    },
+    {
+      "id": "ME-08",
+      "scenario": "Novel mixed fixture with explicit limitations",
+      "passed": true,
+      "reason": "",
+      "seconds": 0.001,
+      "tokens": 0,
+      "cost_usd": 0.0
+    }
+  ]
+}

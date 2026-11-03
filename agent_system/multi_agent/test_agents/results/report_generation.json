@@ -1,0 +1,83 @@
+{
+  "mode": "offline (stand-in models)",
+  "cases_run": 8,
+  "task_success_rate": 1.0,
+  "failure_rate": 0.0,
+  "average_latency_seconds": 0.001,
+  "total_tokens": 0,
+  "estimated_cost_usd": 0.0,
+  "cases": [
+    {
+      "id": "RG-01",
+      "scenario": "Complete report",
+      "passed": true,
+      "reason": "",
+      "seconds": 0.001,
+      "tokens": 0,
+      "cost_usd": 0.0
+    },
+    {
+      "id": "RG-02",
+      "scenario": "Preserve prepared content and citations",
+      "passed": true,
+      "reason": "",
+      "seconds": 0.001,
+      "tokens": 0,
+      "cost_usd": 0.0
+    },
+    {
+      "id": "RG-03",
+      "scenario": "Reordered incoming sections",
+      "passed": true,
+      "reason": "",
+      "seconds": 0.0,
+      "tokens": 0,
+      "cost_usd": 0.0
+    },
+    {
+      "id": "RG-04",
+      "scenario": "Missing or empty required inputs",
+      "passed": true,
+      "reason": "",
+      "seconds": 0.001,
+      "tokens": 0,
+      "cost_usd": 0.0
+    },
+    {
+      "id": "RG-05",
+      "scenario": "Unsupported claims blocked; uncertainty retained",
+      "passed": true,
+      "reason": "",
+      "seconds": 0.001,
+      "tokens": 0,
+      "cost_usd": 0.0
+    },
+    {
+      "id": "RG-06",
+      "scenario": "Preserve supplied conflict warning",
+      "passed": true,
+      "reason": "",
+      "seconds": 0.002,
+      "tokens": 0,
+      "cost_usd": 0.0
+    },
+    {
+      "id": "RG-07",
+      "scenario": "Reject invalid section keys",
+      "passed": true,
+      "reason": "",
+      "seconds": 0.0,
+      "tokens": 0,
+      "cost_usd": 0.0
+    },
+    {
+      "id": "RG-08",
+      "scenario": "Novel combination of valid upstream outputs",
+      "passed": true,
+      "reason": "",
+      "seconds": 0.001,
+      "tokens": 0,
+      "cost_usd": 0.0
+    }
+  ]
+}
