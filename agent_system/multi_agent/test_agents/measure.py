@@ -29,6 +29,7 @@ def _average(values):
 
 AREAS = {
     "PI": "patient_info",
+    "CDS": "clinical_decision_support",
     "VA": "verification",
     "ME": "medical_evidence",
     "RG": "report_generation",

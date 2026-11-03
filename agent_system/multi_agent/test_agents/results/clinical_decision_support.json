@@ -1,0 +1,101 @@
+{
+  "mode": "offline (stand-in models)",
+  "cases_run": 10,
+  "task_success_rate": 1.0,
+  "failure_rate": 0.0,
+  "average_latency_seconds": 0.081,
+  "total_tokens": 0,
+  "estimated_cost_usd": 0.0,
+  "cases": [
+    {
+      "id": "CDS-01",
+      "scenario": "Valid patient information and relevant evidence",
+      "passed": true,
+      "reason": "",
+      "seconds": 0.788,
+      "tokens": 0,
+      "cost_usd": 0.0
+    },
+    {
+      "id": "CDS-02",
+      "scenario": "Treatment pathway with valid evidence",
+      "passed": true,
+      "reason": "",
+      "seconds": 0.006,
+      "tokens": 0,
+      "cost_usd": 0.0
+    },
+    {
+      "id": "CDS-03",
+      "scenario": "Relevant and irrelevant evidence",
+      "passed": true,
+      "reason": "",
+      "seconds": 0.0,
+      "tokens": 0,
+      "cost_usd": 0.0
+    },
+    {
+      "id": "CDS-04",
+      "scenario": "Unknown PMID or missing required fields",
+      "passed": true,
+      "reason": "",
+      "seconds": 0.0,
+      "tokens": 0,
+      "cost_usd": 0.0
+    },
+    {
+      "id": "CDS-05",
+      "scenario": "Uncited consideration that requests no review",
+      "passed": true,
+      "reason": "",
+      "seconds": 0.0,
+      "tokens": 0,
+      "cost_usd": 0.0
+    },
+    {
+      "id": "CDS-06",
+      "scenario": "Missing, malformed or low-confidence MRI findings",
+      "passed": true,
+      "reason": "",
+      "seconds": 0.0,
+      "tokens": 0,
+      "cost_usd": 0.0
+    },
+    {
+      "id": "CDS-07",
+      "scenario": "Identifiers, duplicate profiles and outcomes",
+      "passed": true,
+      "reason": "",
+      "seconds": 0.0,
+      "tokens": 0,
+      "cost_usd": 0.0
+    },
+    {
+      "id": "CDS-08",
+      "scenario": "Unsuccessful or malformed upstream information",
+      "passed": true,
+      "reason": "",
+      "seconds": 0.001,
+      "tokens": 0,
+      "cost_usd": 0.0
+    },
+    {
+      "id": "CDS-09",
+      "scenario": "Model fails after recording a consideration",
+      "passed": true,
+      "reason": "",
+      "seconds": 0.007,
+      "tokens": 0,
+      "cost_usd": 0.0
+    },
+    {
+      "id": "CDS-10",
+      "scenario": "Unseen mix of missing details, provisional MRI and limited evidence",
+      "passed": true,
+      "reason": "",
+      "seconds": 0.006,
+      "tokens": 0,
+      "cost_usd": 0.0
+    }
+  ]
+}
