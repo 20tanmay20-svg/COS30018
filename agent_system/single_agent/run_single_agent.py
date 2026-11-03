@@ -33,7 +33,7 @@ if __name__ == "__main__":
     args = parser.parse_args()
     load_dotenv(AGENT_SYSTEM_DIR / ".env")
     # Apply the default before running; an empty request is rejected by the pipeline.
-    user_request = input("Describe the GBM report request: ").strmake a ip()
+    user_request = input("Describe the GBM report request: ").strip()
     if not user_request:
         user_request = "make me a report for patient 7"
     state = run_gbm_report(user_request)
