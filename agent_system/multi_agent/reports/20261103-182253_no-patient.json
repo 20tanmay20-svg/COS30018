@@ -1,0 +1,73 @@
+{
+  "case_id": null,
+  "request": "please remove any medication recommendations from the report",
+  "started": "2026-11-03T18:22:53",
+  "seconds": 63.5,
+  "stages": [
+    {
+      "stage": "clinical_decision_support",
+      "status": "success",
+      "seconds": 18.8,
+      "tokens": 8191
+    },
+    {
+      "stage": "verification",
+      "status": "success",
+      "seconds": 41.83,
+      "tokens": 11368
+    },
+    {
+      "stage": "report",
+      "status": "success",
+      "seconds": 2.89,
+      "tokens": 1440
+    }
+  ],
+  "revision_rounds": 0,
+  "errors": [],
+  "tokens": {
+    "model_calls": 9,
+    "prompt": 32882,
+    "completion": 1574,
+    "total": 34456,
+    "estimated_cost_usd": 0.0097
+  },
+  "tool_calls": {
+    "total": 18,
+    "succeeded": 18,
+    "by_tool": {
+      "assemble_report": 1,
+      "get_cited_evidence": 3,
+      "record_clinical_consideration": 2,
+      "record_treatment_pathway": 2,
+      "record_uncertainty": 6,
+      "record_verdict": 3,
+      "run_verification_checks": 1
+    }
+  },
+  "outcome": {
+    "patient_error": null,
+    "evidence_error": null,
+    "retrieved_pmids": [
+      "40578479",
+      "22877848",
+      "30088191",
+      "29191822",
+      "30409553",
+      "31270955"
+    ],
+    "uncertainties": [
+      "No MRI classification result was supplied; tumour type/grade is unknown.",
+      "Missing patient performance status (KPS) and neurological assessment.",
+      "No imaging findings provided (MRI findings are unknown).",
+      "Absence of clinical notes regarding comorbidities or prior health history.",
+      "Unknown molecular markers including MGMT promoter methylation and IDH mutation status, which are critical for prognostic assessment and treatment planning.",
+      "Missing performance status (KPS) and molecular marker data (MGMT/IDH status) which are essential for informed clinical decision-making and prognosis in this patient.",
+      "Clinical notes and MRI findings are unavailable, limiting the current understanding of the patient's symptomatic burden and tumor characteristics."
+    ],
+    "verification_status": "approved",
+    "verification_issues": []
+  },
+  "report_file": "20261103-182253_no-patient.md",
+  "log_file": "20261103-182253_no-patient.log"
+}

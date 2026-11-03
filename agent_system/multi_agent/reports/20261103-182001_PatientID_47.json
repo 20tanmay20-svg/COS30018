@@ -1,0 +1,84 @@
+{
+  "case_id": null,
+  "request": "Make me a report for patient 47",
+  "started": "2026-11-03T18:20:01",
+  "seconds": 134.2,
+  "stages": [
+    {
+      "stage": "patient_information",
+      "status": "success",
+      "seconds": 0.0,
+      "tokens": 0
+    },
+    {
+      "stage": "medical_evidence",
+      "status": "success",
+      "seconds": 83.83,
+      "tokens": 47212
+    },
+    {
+      "stage": "clinical_decision_support",
+      "status": "success",
+      "seconds": 20.69,
+      "tokens": 4064
+    },
+    {
+      "stage": "verification",
+      "status": "success",
+      "seconds": 21.91,
+      "tokens": 10687
+    },
+    {
+      "stage": "report",
+      "status": "success",
+      "seconds": 7.71,
+      "tokens": 1440
+    }
+  ],
+  "revision_rounds": 0,
+  "errors": [],
+  "tokens": {
+    "model_calls": 16,
+    "prompt": 83102,
+    "completion": 2929,
+    "total": 86031,
+    "estimated_cost_usd": 0.0179
+  },
+  "tool_calls": {
+    "total": 23,
+    "succeeded": 20,
+    "by_tool": {
+      "assemble_report": 1,
+      "assess_evidence": 10,
+      "get_cited_evidence": 2,
+      "record_clinical_consideration": 1,
+      "record_treatment_pathway": 1,
+      "record_uncertainty": 3,
+      "record_verdict": 2,
+      "run_verification_checks": 1,
+      "search_medical_evidence": 2
+    }
+  },
+  "outcome": {
+    "patient_error": null,
+    "evidence_error": null,
+    "retrieved_pmids": [
+      "40578479",
+      "22877848",
+      "30088191",
+      "29191822",
+      "30409553",
+      "31270955"
+    ],
+    "uncertainties": [
+      "No MRI classification result was supplied; tumour type/grade is unknown.",
+      "Patient performance status (KPS) is unknown, which is a major factor in directing treatment for elderly GBM patients.",
+      "Molecular markers (MGMT promoter methylation status, IDH status) are unknown, which significantly impact prognosis and treatment response predictions in elderly GBM.",
+      "Presence of comorbidities is unknown, which is crucial for assessing patient suitability for radical treatment vs. best supportive care."
+    ],
+    "verification_status": "approved",
+    "verification_issues": []
+  },
+  "report_file": "20261103-182001_PatientID_47.md",
+  "log_file": "20261103-182001_PatientID_47.log"
+}
