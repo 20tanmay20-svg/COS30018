@@ -1,0 +1,49 @@
+{
+  "case_id": "CMP-04",
+  "request": "Prepare a report for PatientID_0003. Use multiple independent evidence sources.",
+  "started": "2026-11-03T18:10:19",
+  "seconds": 52.65,
+  "stages": [
+    {
+      "stage": "patient_information",
+      "status": "success"
+    },
+    {
+      "stage": "medical_evidence",
+      "status": "success"
+    },
+    {
+      "stage": "clinical_decision_support",
+      "status": "success"
+    },
+    {
+      "stage": "verification",
+      "status": "success"
+    },
+    {
+      "stage": "report",
+      "status": "success"
+    }
+  ],
+  "revision_rounds": 0,
+  "errors": [],
+  "outcome": {
+    "patient_error": null,
+    "evidence_error": null,
+    "retrieved_pmids": [
+      "34898238",
+      "40578479",
+      "33581502",
+      "30409553",
+      "28271281"
+    ],
+    "uncertainties": [
+      "No MRI classification result was supplied; tumour type/grade is unknown.",
+      "Missing clinical details including performance status, MGMT methylation status, extent of resection, and current MRI findings."
+    ],
+    "verification_status": "approved",
+    "verification_issues": []
+  },
+  "report_file": "20261103-181019-110925_CMP-04.md",
+  "log_file": null
+}

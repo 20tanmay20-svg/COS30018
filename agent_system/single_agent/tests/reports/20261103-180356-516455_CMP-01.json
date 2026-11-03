@@ -1,0 +1,53 @@
+{
+  "case_id": "CMP-01",
+  "request": "Prepare a report for PatientID_0003. The MRI findings are clear and consistent with the recorded history.",
+  "started": "2026-11-03T18:03:56",
+  "seconds": 32.38,
+  "stages": [
+    {
+      "stage": "patient_information",
+      "status": "success"
+    },
+    {
+      "stage": "medical_evidence",
+      "status": "success"
+    },
+    {
+      "stage": "clinical_decision_support",
+      "status": "success"
+    },
+    {
+      "stage": "verification",
+      "status": "success"
+    },
+    {
+      "stage": "report",
+      "status": "success"
+    }
+  ],
+  "revision_rounds": 0,
+  "errors": [],
+  "outcome": {
+    "patient_error": null,
+    "evidence_error": null,
+    "retrieved_pmids": [
+      "41057143",
+      "22877848",
+      "40057744",
+      "31851783",
+      "41365876",
+      "37540408"
+    ],
+    "uncertainties": [
+      "No MRI classification result was supplied; tumour type/grade is unknown.",
+      "Absence of patient-specific clinical notes, including current performance status (e.g., KPS or ECOG), neurological examination findings, and baseline comorbidities.",
+      "Absence of molecular pathology data (e.g., IDH mutation status, MGMT promoter methylation status) which are critical for prognosis and treatment planning in GBM.",
+      "Unknown extent of surgical resection (e.g., gross total resection vs. biopsy only), which significantly impacts the standard of care approach and prognosis.",
+      "Absence of detailed MRI findings or imaging reports; only the general description that MRI findings are consistent with history is provided."
+    ],
+    "verification_status": "approved",
+    "verification_issues": []
+  },
+  "report_file": "20261103-180356-516455_CMP-01.md",
+  "log_file": null
+}
